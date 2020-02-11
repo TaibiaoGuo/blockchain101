@@ -2,7 +2,7 @@
 
 讲师：郭泰彪
 
-开课时间： 2020年下学期 1-12周 周四晚
+开课时间： 2019-2020 下学期 1-12周 周四晚
 
 办公室： 科技楼205办公室
 
@@ -63,3 +63,6 @@
 
 您可能还需要了解以下参考书籍，这些书籍都可以在网上商城购买和本校图书馆借阅：
 熊丽兵 《精通以太坊智能合约开发》 电子工业出版社 ISBN：9787121349515
+
+---
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。

@@ -1,0 +1,102 @@
+############################ Default configuration #########################
+baseURL = "blockchain101.linkroom.club/blockchain101/"
+languageCode = "zh-cn"
+# site title 
+title = "区块链技术及应用发展 | Blockchain 101"
+# theme
+theme = "northendlab"
+# post pagination
+paginate = "5"
+# post excerpt
+summaryLength = "10"
+# disqus short name
+disqusShortname = "" # get your shortname form here : https://disqus.com
+
+[outputs]
+home = ["HTML", "AMP", "RSS", "JSON"]
+
+########################## Plugings ######################################
+
+# css plugins
+[[params.plugins.css]]
+link = "plugins/bootstrap/bootstrap.min.css"
+[[params.plugins.css]]
+link = "plugins/themify-icons/themify-icons.css"
+
+# js plugins
+[[params.plugins.js]]
+link = "plugins/jQuery/jquery.min.js"
+[[params.plugins.js]]
+link = "plugins/bootstrap/bootstrap.min.js"
+[[params.plugins.js]]
+link = "plugins/search/fuse.min.js"
+[[params.plugins.js]]
+link = "plugins/search/mark.js"
+[[params.plugins.js]]
+link = "plugins/search/search.js"
+
+
+########################### Navigation ###################################
+
+# main menu
+#[[menu.main]]
+#URL = "contact"
+#name = "Contact"
+#weight = 1
+#
+#[[menu.main]]
+#URL = "tools"
+#name = "tools"
+#weight = 2
+
+######################### Default Parameters ###########################
+[params]
+# home
+home = "Home"
+# logo
+logo = "images/logo.svg"
+# meta data
+author = "TaibiaoGuo"
+description = "This is meta description"
+# google tag manager
+google_tag_manager = "" # your id
+# google analitycs ID
+google_analitycs_id = "" # your id
+# contact form action
+contact_form_action = "#" # contact form works with : https://formspree.io
+# copyright
+copyright = "&copy; 2020 [TaibiaoGuo](https://github.com/TaibiaoGuo) All Rights Reserved"
+
+# preloader
+[params.preloader]
+enable = true
+preloader = "" # use png, jpg, svg or gif format
+
+# search
+[params.search]
+enable = true
+
+
+####################### banner #######################################
+[params.banner]
+bgImage = "images/banner/banner-bg.svg"
+title = "区块链应用及技术发展 <br> Blockchain 101"
+image = "images/banner/illustration.svg"
+
+
+######################## call to action ###############################
+[params.cta]
+enable = true
+image = "images/hugo-muscot.svg"
+title = "2019-2020春季学期课程安排"
+description = "由于疫情，部分课程内容将使用线上MOOC内容代替；大纲为初稿，后续会根据课堂反馈和学生意见进行调整，欢迎指正。"
+[params.cta.button]
+enable = true
+label = "点击查看详情"
+link = "http://blockchain101.linkroom.club/blockchain101/2019-2020-spring-class-schedule/"
+
+
+############################## Social Site ##########################
+[[params.social]]
+icon = "ti-github" # themify icon pack https://themify.me/themify-icons
+link = "https://gitee.com/taibiaoguo/blockchain101"

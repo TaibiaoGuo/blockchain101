@@ -1,0 +1,37 @@
+name: github Pages
+
+on: 
+  push:
+    branches: 
+      - master
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1  # v2 does not have submodules option now
+        # with:
+        #   submodules: true
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
+          
+      - name: Add Parameters
+        run: echo -e '[[params.social]] \n \ 
+        icon = "ti-github" # themify icon pack https://themify.me/themify-icons \n \
+        link = "https://gitee.com/taibiaoguo/blockchain101"' >> config.toml
+
+      - name: Build
+        run: hugo --minify -b https://blockchain101.linkroom.club/blockchain101/
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.GHPAGES_ACTIONS_DEPLOY_KEY }}
+          publish_branch: gh-pages
+          publish_dir: ./public
+          user_name: ${{ secrets.USERNAME }}
+          user_email: ${{ secrets.EMAILADDRESS }}

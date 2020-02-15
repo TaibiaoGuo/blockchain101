@@ -28,3 +28,5 @@ jobs:
           deploy_key: ${{ secrets.GHPAGES_ACTIONS_DEPLOY_KEY }}
           publish_branch: gh-pages
           publish_dir: ./public
+          user_name: ${{ secrets.USERNAME }}
+          user_email: ${{ secrets.EMAILADDRESS }}

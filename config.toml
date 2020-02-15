@@ -1,5 +1,5 @@
 ############################ Default configuration #########################
-baseURL = "blockchain101.linkroom.club/blockchain101/"
+# baseURL = "https://blockchain101.linkroom.club/blockchain101/"
 languageCode = "zh-cn"
 # site title 
 title = "区块链技术及应用发展 | Blockchain 101"
@@ -97,6 +97,6 @@ link = "http://blockchain101.linkroom.club/blockchain101/2019-2020-spring-class-
 
 
 ############################## Social Site ##########################
-[[params.social]]
-icon = "ti-github" # themify icon pack https://themify.me/themify-icons
-link = "https://gitee.com/taibiaoguo/blockchain101"
+# [[params.social]]
+# icon = "ti-github" # themify icon pack https://themify.me/themify-icons
+# link = "https://gitee.com/taibiaoguo/blockchain101"

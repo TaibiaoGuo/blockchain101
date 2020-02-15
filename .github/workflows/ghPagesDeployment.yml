@@ -18,9 +18,12 @@ jobs:
         with:
           hugo-version: 'latest'
           extended: true
+            
+      - name: Add Parameters
+        run: echo -e '[[params.social]] \n icon = "ti-github" \n link = "https://github.com/taibiaoguo/blockchain101"' >> config.toml 
 
       - name: Build
-        run: hugo --minify
+        run: hugo --minify -b https://blockchain101.linkroom.club/blockchain101/
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

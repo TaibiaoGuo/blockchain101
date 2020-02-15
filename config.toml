@@ -93,7 +93,7 @@ description = "由于疫情，部分课程内容将使用线上MOOC内容代替�
 [params.cta.button]
 enable = true
 label = "点击查看详情"
-link = "http://blockchain101.linkroom.club/blockchain101/2019-2020-spring-class-schedule/"
+link = "https://taibiaoguo.gitee.io/blockchain101/2019-2020-spring-class-schedule/"
 
 
 ############################## Social Site ##########################

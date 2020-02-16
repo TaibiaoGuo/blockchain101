@@ -20,7 +20,7 @@ jobs:
           extended: true
             
       - name: Add Parameters
-        run: echo -e '[[params.social]] \n icon = "ti-github" \n link = "https://github.com/taibiaoguo/blockchain101" \n google_analitycs_id = ${{ secrets.UAGH }}' >> config.toml 
+        run: echo -e '[[params.social]] \n icon = "ti-github" \n link = "https://github.com/taibiaoguo/blockchain101" \n google_analitycs_id = ${{ secrets.UAGH }} \n google_tag_manager = ${{ secrets.UAGH }}' >> config.toml 
 
       - name: Build
         run: hugo --minify -b https://taibiaoguo.github.io/blockchain101/

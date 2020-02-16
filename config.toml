@@ -59,7 +59,7 @@ logo = "images/logo.svg"
 author = "TaibiaoGuo"
 description = "This is meta description"
 # google tag manager
-google_tag_manager = "" # your id
+# google_tag_manager = "" # your id
 # google analitycs ID
 # google_analitycs_id = "" # your id
 # contact form action

@@ -54,7 +54,7 @@ link = "plugins/search/search.js"
 # home
 home = "Home"
 # logo
-logo = "images/logo.svg"
+logo = "images/logo.png"
 # meta data
 author = "TaibiaoGuo"
 description = "This is meta description"

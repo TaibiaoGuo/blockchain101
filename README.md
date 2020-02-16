@@ -10,6 +10,12 @@
 
 课程赞助商：湖南高校区块链实验室；阿里云；中国大学MOOC。
 
+**课程主页**： 
+
+[https://taibiaoguo.gitee.io/blockchain101/](https://taibiaoguo.gitee.io/blockchain101/) *👈国内加速访问*
+
+[https://taibiaoguo.github.io/blockchain101/](https://taibiaoguo.github.io/blockchain101/)
+
 ## 课程内容
 
 区块链是面向未来数字化社会的新一代信息技术。习近平总书记在中央政治局第十八次集体学习时将区块链定义为“我国自主创新的重要突破口”。本课程将系统介绍区块链原理和应用,让学生对区块链有整体的了解。

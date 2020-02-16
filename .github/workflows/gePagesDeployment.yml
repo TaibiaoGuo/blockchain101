@@ -20,7 +20,7 @@ jobs:
           extended: true
           
       - name: Add Parameters
-        run: echo -e '[[params.social]] \n icon = "ti-github" \n link = "https://gitee.com/taibiaoguo/blockchain101" \n google_analitycs_id = ${{ secrets.UAGE }} \n google_tag_manager = ${{ secrets.UAGE }}' >> config.toml
+        run: echo -e '[[params.social]] \n icon = "ti-github" \n link = "https://gitee.com/taibiaoguo/blockchain101" \n google_analitycs_id = ${{ secrets.GOOGLEANALYSIS_ID_GITEE }} \n google_tag_manager = ${{ secrets.GOOGLE_TAGMANAGEMENT_ID }}' >> config.toml
 
       - name: Build
         run: hugo --minify -b https://taibiaoguo.gitee.io/blockchain101/

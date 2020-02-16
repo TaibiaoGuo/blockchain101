@@ -9,6 +9,7 @@ type = "post"
 > 推荐阅读：[Gartner 2019 Hype Cycle Shows Most Blockchain Technologies Are Still Five to 10 Years Away From Transformational Impact](https://www.gartner.com/en/newsroom/press-releases/2019-10-08-gartner-2019-hype-cycle-shows-most-blockchain-technologies-are-still-five-to-10-years-away-from-transformational-impact) 
 >
 > “Blockchain technologies have not yet lived up to the hype and most enterprise blockchain projects are stuck in experimentation mode,” said Avivah Litan, distinguished analyst and research vice president at Gartner... 
+
 ### 课程内容
 
 区块链是面向未来数字化社会的新一代信息技术。习近平总书记在中央政治局第十八次集体学习时将区块链定义为“我国自主创新的重要突破口”。 本课程将系统介绍区块链原理和应用,让学生对区块链有整体的了解。
@@ -40,6 +41,16 @@ type = "post"
 | 11 | 实验|应用开发|《实验：制作一个数字积分打赏插件》 |
 | 11| 实验|应用开发|《实验：将付费阅读博客部署到公有云平台》 |
 | 12 | 其他 | 结课答疑 | 结课答疑 |
+
+### 学分与成绩标准
+本课程学分2分，课程总分为100分，具体如下：
+| 大类|细分 |分数|备注|
+|---|---|---|---|
+|平时成绩|⬇️|54分||
+|↘️|课堂考勤|20分|考勤抽查，一次未到扣5分，最多扣20分。|
+|↘️|课后作业|24分|按作业要求，在每次作业截止时间前提交有效，共12次，一次作业2分|
+|课堂讨论|➡️|26分|在12周课程结束前，通过`课堂讨论区`（[点我进入](https://github.com/TaibiaoGuo/blockchain101/issues)）的`Issues`面板提出问题或回复其他人的问题均可得分，禁止灌水，本环节稍后将提供简易指南。其中，每提出一个有效问题3分，最多9分；每产生一个有效回复3分，最多15分；关注一波不迷路，关注（Star）本课程对应Github项目`blockchain101`2分[点我直达](https://github.com/TaibiaoGuo/blockchain101/)。为方便统计，提问和回答必须在正文末尾新起一行附上**名字最后一位 学号后三位**，如：`婷019`才算有效。课堂讨论溢出得分最多可抵扣5分课堂考勤扣分🚀。|
+|结课成果|➡️|30分|可自由通过成果展示、结课论文、PPT展示等多种方式完成结课成果，老师将根据成果水平进行评分。|
 
 ### 开课时间及讲师
 讲师：郭泰彪

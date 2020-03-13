@@ -3,7 +3,7 @@ title = "Docker使用帮助"
 date = 2020-03-12T01:00:00Z
 description = "Docker使用帮助"
 categories = ["Docker使用帮助"]
-type = "tools"
+type = "post"
 +++
 
 在本课程的实验课程代码和工具都使用docker进行了打包，以方便学习和复现。

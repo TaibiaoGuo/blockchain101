@@ -1,9 +1,9 @@
 +++
 title = "Docker使用帮助"
-date = 2020-02-16T01:00:00Z
-description = "2019-2020春季学期第1周课程安排"
-categories = ["2019-2020春季学期","课程安排"]
-type = "post"
+date = 2020-03-12T01:00:00Z
+description = "Docker使用帮助"
+categories = ["Docker使用帮助"]
+type = "tools"
 +++
 
 在本课程的实验课程代码和工具都使用docker进行了打包，以方便学习和复现。

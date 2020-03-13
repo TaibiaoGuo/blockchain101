@@ -2,15 +2,7 @@
 <button class="navbar-toggler border-0" type=button data-toggle=collapse data-target=#navigation>
 <i class="ti-menu h3"></i></button><div class="collapse navbar-collapse text-center" id=navigation><ul class="navbar-nav ml-auto"><li class=nav-item><a class=nav-link href=https://taibiaoguo.github.io/blockchain101/>Home</a></li></ul><div class=search><button id=searchOpen class=search-btn><i class=ti-search></i></button><div class=search-wrapper><form action=https://taibiaoguo.github.io/blockchain101//search class=h-100><input class="search-box px-4" id=search-query name=s type=search placeholder="Type & Hit Enter..."></form><button id=searchClose class=search-close><i class="ti-close text-dark"></i></button></div></div></div></nav></div></header><div class="py-5 d-none d-lg-block"></div><section class=section><div class=container><div class=row><div class="col-lg-8 mx-auto block shadow mb-5"><h2>Docker使用帮助</h2><div class="mb-3 post-meta"><a href=/blockchain101/author/></a>,
 12/20/2020,
-<a href=/blockchain101/categories/docker%e4%bd%bf%e7%94%a8%e5%b8%ae%e5%8a%a9>Docker使用帮助</a></div><div class="content mb-5"><p>在本课程的实验课程代码和工具都使用docker进行了打包，以方便学习和复现。</p><blockquote><p>为了使用docker，首先需要安装并配置docker，并开通阿里云镜像仓库并设置密码，见第下文<code>docker安装和配置</code>部分。</p></blockquote><h4 id=名词解释>名词解释</h4><p>本文中出现的你可能不理解的名词的简单解释
-|名词 |解释 |
-| &mdash;|&mdash; |
-|docker | 运行和维护容器的一个软件，可以为我们课堂提供可重复实验的统一环境|
-|容器|类似于虚拟机的虚拟化技术|
-|镜像|打包好的容器|
-| 镜像仓库|存放制作好的镜像的服务 |
-|仓库镜像|镜像仓库的镜像，可以加速镜像的下载速度|
-|终端|就是可以登陆你服务器后的黑框框|</p><h3 id=docker命令备忘>docker命令备忘</h3><p>下面列表中的命令囊括了你在课程中所需的所有命令：</p><pre><code>docker pull [容器名]        # 从仓库拉取一个容器
+<a href=/blockchain101/categories/docker%e4%bd%bf%e7%94%a8%e5%b8%ae%e5%8a%a9>Docker使用帮助</a></div><div class="content mb-5"><p>在本课程的实验课程代码和工具都使用docker进行了打包，以方便学习和复现。</p><blockquote><p>为了使用docker，首先需要安装并配置docker，并开通阿里云镜像仓库并设置密码，见第下文<code>docker安装和配置</code>部分。</p></blockquote><h4 id=名词解释>名词解释</h4><p>本文中出现的你可能不理解的名词的简单解释</p><table><thead><tr><th>名词</th><th>解释</th></tr></thead><tbody><tr><td>docker</td><td>运行和维护容器的一个软件，可以为我们课堂提供可重复实验的统一环境</td></tr><tr><td>容器</td><td>类似于虚拟机的虚拟化技术</td></tr><tr><td>镜像</td><td>打包好的容器</td></tr><tr><td>镜像仓库</td><td>存放制作好的镜像的服务</td></tr><tr><td>仓库镜像</td><td>镜像仓库的镜像，可以加速镜像的下载速度</td></tr><tr><td>终端</td><td>就是可以登陆你服务器后的黑框框</td></tr></tbody></table><h3 id=docker命令备忘>docker命令备忘</h3><p>下面列表中的命令囊括了你在课程中所需的所有命令：</p><pre><code>docker pull [容器名]        # 从仓库拉取一个容器
 docker run [镜像名称]       # 启动容器
 docker ps                   # 列出正在运行的容器
 docker ps -a                # 列出所有容器（包含已停止的） 

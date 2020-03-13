@@ -1,5 +1,5 @@
 ##  运行方法
-> 需先登陆阿里云镜像服务
+> 如果拉取失败尝试注册并登陆一下阿里云的容器镜像服务（free）
 
 docker run --rm registry.cn-shenzhen.aliyuncs.com/blockchain101/hello_blockchain
 

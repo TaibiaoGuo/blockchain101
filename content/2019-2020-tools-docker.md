@@ -35,11 +35,11 @@ docker login [账号] [仓库]    # 登陆阿里云镜像仓库
 
 ### docker安装和配置
 #### 1、docker安装和配置
-- 安装docker(约3-10分钟)，复制以下命令到终端并按回车执行：
+- 1.1 安装docker(约3-10分钟)，复制以下命令到终端并按回车执行：
 ```
 curl -sSL https://get.daocloud.io/docker | sh
 ```
-- 检查docker是否正确安装，复制以下命令到终端并按回车执行：
+- 1.2 检查docker是否正确安装，复制以下命令到终端并按回车执行：
 ```
 docker version
 ```
@@ -74,7 +74,7 @@ Server: Docker Engine - Community
   Version:          0.18.0
   GitCommit:        fec3683
 ```
-- 因为众所周知的网络原因，我们需要为docker添加仓库镜像，分别复制以下命令到终端并按回车执行：
+- 1.3 因为众所周知的网络原因，我们需要为docker添加仓库镜像，分别复制以下命令到终端并按回车执行：
 ```
 sudo mkdir -p /etc/docker
 ```
@@ -94,7 +94,7 @@ sudo systemctl daemon-reload
 ```
 sudo systemctl restart docker
 ```
-- 至此，docker的安装和配置完成，为了保险，你还可以尝试拉取一个镜像测试以下速度，复制以下命令到终端并按回车执行：
+- 1.4 至此，docker的安装和配置完成，为了保险，你还可以尝试拉取一个镜像测试以下速度，复制以下命令到终端并按回车执行：
 ```
 docker pull ubuntu
 ```
@@ -103,27 +103,33 @@ docker pull ubuntu
 #### 2、阿里云镜像仓库注册和设置固定密码和登陆
 完成了docker的安装和配置后，我们进行阿里云镜像仓库的注册和设置固定密码步骤。
 
-打包好的实验容器存储在阿里云镜像仓库中，因此你先开通阿里云镜像仓库服务，具体为：
+打包好的实验容器存储在阿里云镜像仓库中，因此你先开通`阿里云镜像仓库服务`，具体为：
 
-- 登陆阿里云官网，在最上方的搜索框输入 `容器镜像服务`进行搜索，选择立即开通进入容器镜像服务
+- 2.1 登陆`阿里云官网`，在最上方的搜索框输入 `容器镜像服务`进行搜索，选择`立即开通`进入容器镜像服务
 {{< figure src="/blockchain101/images/post/2019-2020-tools-docker/tools-docker-search.png"  alt="" width="100%"  >}}
 
-- 进入容器镜像服务页面后，选择菜单中的访问凭证，以获取凭证
+- 2.2 进入`容器镜像服务`页面后，点击菜单栏的`镜像中心`的`镜像搜索`后，页面左上角可以选择`切换地域`，选择`深圳`，这是为了步骤2.5得到`深圳镜像仓库`的登陆命令。
+{{< figure src="/blockchain101/images/post/2019-2020-tools-docker/tools-docker-switch.png"  alt="" width="100%"  >}}
+
+- 2.3 再选择菜单中的`访问凭证`，进入获取凭证页面：
 {{< figure src="/blockchain101/images/post/2019-2020-tools-docker/tools-docker-mainpage.png"  alt="" width="100%"  >}}
 
-- 点击设置固定密码，设置一个docker镜像仓库的登陆密码
+- 2.4 点击`设置固定密码`，设置一个docker镜像仓库的登陆密码
 
-- 设置完成固定密码后，按照访问凭证页面登陆实例中的提示，在终端中复制其提示的命令并回车：
+- 2.5 设置完成固定密码后，按照访问凭证页面登陆实例中的提示，在终端中复制其提示的命令并回车：
 > 注意1:$号无需复制！
 >
 > 注意2: 每个人账号不同，请复制你的访问凭证页面所给出的账号！
+>
+> 注意3: 检查左上角是否已经切换到**深圳**，否则可能拉取不到镜像！
+
 {{< figure src="/blockchain101/images/post/2019-2020-tools-docker/tools-docker-cmdlogin.png"  alt="" width="100%"  >}}
 
-- 设置完成后，为了测试是否设置正确，下载我们课程的`hello_blockchain`镜像以测试,在终端中复制其提示的命令并回车:
+- 2.6 设置完成后，为了测试是否设置正确，下载我们课程的`hello_blockchain`镜像以测试,在终端中复制其提示的命令并回车:
 ```
 docker run --rm registry.cn-shenzhen.aliyuncs.com/blockchain101/hello_blockchain
 ```
-若成功，则在终端会显示`blockchain 101`的字符画并退出。
+若成功，则在终端会显示`blockchain 101`的字符画并退出。至此，完全课程环境初始化工作，后续每次课程实验只需执行对应命令即可进入课程环境。
 
 ---
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。

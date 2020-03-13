@@ -10,25 +10,34 @@ docker stop [容器ID]        # 停止一个容器
 docker rm [容器ID]          # 删除一个容器（需要先停止容器）
 docker images               # 列出所有镜像
 docker login [账号] [仓库]    # 登陆阿里云镜像仓库
-</code></pre><h3 id=docker安装和配置>docker安装和配置</h3><h4 id=1docker安装和配置>1、docker安装和配置</h4><ul><li>1.1 安装docker(约3-10分钟)，复制以下命令到终端并按回车执行：</li></ul><pre><code>curl -sSL https://get.daocloud.io/docker | sh
-</code></pre><ul><li>1.2 检查docker是否正确安装，复制以下命令到终端并按回车执行：</li></ul><pre><code>docker version
-</code></pre><p>若正确安装，则屏幕上会显示类似画面（若未正确安装，请直接联系老师）：</p><pre><code>root@iZ2zej14gd1joysruzdtk8Z:~# docker version
+</code></pre><h3 id=docker安装和配置>docker安装和配置</h3><ul><li>安装docker(约3-10分钟)，复制以下命令到终端并按回车执行：</li></ul><pre><code>curl -sSL https://get.daocloud.io/docker | sh
+</code></pre><p>若正确安装，则屏幕上会显示类似画面（若未正确安装，请直接联系老师）：</p><pre><code>root@iZwz9h1p22ljpx2xd6b2byZ:~# curl -sSL https://get.daocloud.io/docker | sh
+# Executing docker install script, commit: 442e66405c304fa92af8aadaa1d9b31bf4b0ad94
++ sh -c apt-get update -qq &gt;/dev/null
++ sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq apt-transport-https ca-certificates curl &gt;/dev/null
++ sh -c curl -fsSL &quot;https://download.docker.com/linux/ubuntu/gpg&quot; | apt-key add -qq - &gt;/dev/null
+Warning: apt-key output should not be parsed (stdout is not a terminal)
++ sh -c echo &quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable&quot; &gt; /etc/apt/sources.list.d/docker.list
++ sh -c apt-get update -qq &gt;/dev/null
++ [ -n  ]
++ sh -c apt-get install -y -qq --no-install-recommends docker-ce &gt;/dev/null
++ sh -c docker version
 Client: Docker Engine - Community
- Version:           19.03.7
+ Version:           19.03.8
  API version:       1.40
  Go version:        go1.12.17
- Git commit:        7141c199a2
- Built:             Wed Mar  4 01:22:36 2020
+ Git commit:        afacb8b7f0
+ Built:             Wed Mar 11 01:25:46 2020
  OS/Arch:           linux/amd64
  Experimental:      false
 
 Server: Docker Engine - Community
  Engine:
-  Version:          19.03.7
+  Version:          19.03.8
   API version:      1.40 (minimum version 1.12)
   Go version:       go1.12.17
-  Git commit:       7141c199a2
-  Built:            Wed Mar  4 01:21:08 2020
+  Git commit:       afacb8b7f0
+  Built:            Wed Mar 11 01:24:19 2020
   OS/Arch:          linux/amd64
   Experimental:     false
  containerd:
@@ -40,7 +49,20 @@ Server: Docker Engine - Community
  docker-init:
   Version:          0.18.0
   GitCommit:        fec3683
-</code></pre><ul><li>1.3 因为众所周知的网络原因，我们需要为docker添加仓库镜像，分别复制以下命令到终端并按回车执行：</li></ul><pre><code>sudo mkdir -p /etc/docker
+If you would like to use Docker as a non-root user, you should now consider
+adding your user to the &quot;docker&quot; group with something like:
+
+  sudo usermod -aG docker your-user
+
+Remember that you will have to log out and back in for this to take effect!
+
+WARNING: Adding a user to the &quot;docker&quot; group will grant the ability to run
+         containers which can be used to obtain root privileges on the
+         docker host.
+         Refer to https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface
+         for more information.
+</code></pre><ul><li>1.2 设置完成后，为了测试是否设置正确，下载我们课程的<code>hello_blockchain</code>镜像以测试,在终端中复制其提示的命令并回车:</li></ul><pre><code>docker run --rm registry.cn-shenzhen.aliyuncs.com/blockchain101/hello_blockchain
+</code></pre><p>若成功，则在终端会显示<code>blockchain 101</code>的字符画并退出。至此，完全课程环境初始化工作，后续每次课程实验只需执行对应命令即可进入课程环境。</p><h3 id=可选不执行不影响本课程学习>可选（不执行不影响本课程学习）</h3><p>因为众所周知的网络原因，我在从 hub.docker.com 中拉取镜像时常会因为网络故障出现失败，这时我们需要为docker添加仓库镜像，分别复制以下命令到终端并按回车执行：</p><pre><code>sudo mkdir -p /etc/docker
 </code></pre><pre><code>sudo tee /etc/docker/daemon.json &lt;&lt;-'EOF'
 {
   &quot;registry-mirrors&quot;: [
@@ -51,6 +73,4 @@ Server: Docker Engine - Community
 EOF
 </code></pre><pre><code>sudo systemctl daemon-reload
 </code></pre><pre><code>sudo systemctl restart docker
-</code></pre><ul><li>1.4 至此，docker的安装和配置完成，为了保险，你还可以尝试拉取一个镜像测试以下速度，复制以下命令到终端并按回车执行：</li></ul><pre><code>docker pull ubuntu
-</code></pre><p>如果很快（5s-20s)下载完成（～60MB），则说明镜像配置成功，docker的安装和配置过程完成。</p><h4 id=2阿里云镜像仓库注册和设置固定密码和登陆>2、阿里云镜像仓库注册和设置固定密码和登陆</h4><p>完成了docker的安装和配置后，我们进行阿里云镜像仓库的注册和设置固定密码步骤。</p><p>打包好的实验容器存储在阿里云镜像仓库中，因此你先开通<code>阿里云镜像仓库服务</code>，具体为：</p><ul><li><p>2.1 登陆<code>阿里云官网</code>，在最上方的搜索框输入 <code>容器镜像服务</code>进行搜索，选择<code>立即开通</code>进入容器镜像服务<figure><img src=/blockchain101/images/post/2019-2020-tools-docker/tools-docker-search.png width=100%></figure></p></li><li><p>2.2 进入<code>容器镜像服务</code>页面后，点击菜单栏的<code>镜像中心</code>的<code>镜像搜索</code>后，页面左上角可以选择<code>切换地域</code>，选择<code>深圳</code>，这是为了步骤2.5得到<code>深圳镜像仓库</code>的登陆命令。<figure><img src=/blockchain101/images/post/2019-2020-tools-docker/tools-docker-switch.png width=100%></figure></p></li><li><p>2.3 再选择菜单中的<code>访问凭证</code>，进入获取凭证页面：<figure><img src=/blockchain101/images/post/2019-2020-tools-docker/tools-docker-mainpage.png width=100%></figure></p></li><li><p>2.4 点击<code>设置固定密码</code>，设置一个docker镜像仓库的登陆密码</p></li><li><p>2.5 设置完成固定密码后，按照访问凭证页面登陆实例中的提示，在终端中复制其提示的命令并回车：</p></li></ul><blockquote><p>注意1:$号无需复制！</p><p>注意2: 每个人账号不同，请复制你的访问凭证页面所给出的账号！</p><p>注意3: 检查左上角是否已经切换到<strong>深圳</strong>，否则可能拉取不到镜像！</p></blockquote><figure><img src=/blockchain101/images/post/2019-2020-tools-docker/tools-docker-cmdlogin.png width=100%></figure><ul><li>2.6 设置完成后，为了测试是否设置正确，下载我们课程的<code>hello_blockchain</code>镜像以测试,在终端中复制其提示的命令并回车:</li></ul><pre><code>docker run --rm registry.cn-shenzhen.aliyuncs.com/blockchain101/hello_blockchain
-</code></pre><p>若成功，则在终端会显示<code>blockchain 101</code>的字符画并退出。至此，完全课程环境初始化工作，后续每次课程实验只需执行对应命令即可进入课程环境。</p><hr><p>本作品采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可。</p></div></div></div></div></section><footer class="py-4 bg-light border-top"><div class=container><div class="row justify-content-between align-items-center"><div class="col-lg-4 text-center text-lg-left mb-4 mb-lg-0"><a href=https://taibiaoguo.github.io/blockchain101/ class="d-block pb-3"><img src=/blockchain101/images/logo.svg class=img-fluid alt="区块链技术及应用发展 | Blockchain 101"></a></div><div class="col-lg-4 text-center mb-4 mb-lg-0"><ul class="list-inline mb-0"></ul></div><div class="col-lg-4 text-lg-right text-center mb-4 mb-lg-0"><ul class="list-inline social-icon mb-0"><li class=list-inline-item><a href=https://github.com/taibiaoguo/blockchain101><i class=ti-github></i></a></li></ul></div></div><div class="text-center mt-4"><span>© 2020 <a href=https://github.com/TaibiaoGuo>TaibiaoGuo</a> All Rights Reserved</span></div></div></footer><script>var indexURL="https://taibiaoguo.github.io/blockchain101/index.json"</script><script src=https://taibiaoguo.github.io/blockchain101/plugins/jQuery/jquery.min.js></script><script src=https://taibiaoguo.github.io/blockchain101/plugins/bootstrap/bootstrap.min.js></script><script src=https://taibiaoguo.github.io/blockchain101/plugins/search/fuse.min.js></script><script src=https://taibiaoguo.github.io/blockchain101/plugins/search/mark.js></script><script src=https://taibiaoguo.github.io/blockchain101/plugins/search/search.js></script><script src=https://taibiaoguo.github.io/blockchain101/js/script.min.js></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-158584793-2','auto');ga('send','pageview');</script></body></html>
+</code></pre><hr><p>本作品采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可。</p></div></div></div></div></section><footer class="py-4 bg-light border-top"><div class=container><div class="row justify-content-between align-items-center"><div class="col-lg-4 text-center text-lg-left mb-4 mb-lg-0"><a href=https://taibiaoguo.github.io/blockchain101/ class="d-block pb-3"><img src=/blockchain101/images/logo.svg class=img-fluid alt="区块链技术及应用发展 | Blockchain 101"></a></div><div class="col-lg-4 text-center mb-4 mb-lg-0"><ul class="list-inline mb-0"></ul></div><div class="col-lg-4 text-lg-right text-center mb-4 mb-lg-0"><ul class="list-inline social-icon mb-0"><li class=list-inline-item><a href=https://github.com/taibiaoguo/blockchain101><i class=ti-github></i></a></li></ul></div></div><div class="text-center mt-4"><span>© 2020 <a href=https://github.com/TaibiaoGuo>TaibiaoGuo</a> All Rights Reserved</span></div></div></footer><script>var indexURL="https://taibiaoguo.github.io/blockchain101/index.json"</script><script src=https://taibiaoguo.github.io/blockchain101/plugins/jQuery/jquery.min.js></script><script src=https://taibiaoguo.github.io/blockchain101/plugins/bootstrap/bootstrap.min.js></script><script src=https://taibiaoguo.github.io/blockchain101/plugins/search/fuse.min.js></script><script src=https://taibiaoguo.github.io/blockchain101/plugins/search/mark.js></script><script src=https://taibiaoguo.github.io/blockchain101/plugins/search/search.js></script><script src=https://taibiaoguo.github.io/blockchain101/js/script.min.js></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-158584793-2','auto');ga('send','pageview');</script></body></html>

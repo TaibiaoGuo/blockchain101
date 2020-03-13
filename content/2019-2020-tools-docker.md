@@ -34,34 +34,40 @@ docker login [账号] [仓库]    # 登陆阿里云镜像仓库
 ```
 
 ### docker安装和配置
-#### 1、docker安装和配置
-- 1.1 安装docker(约3-10分钟)，复制以下命令到终端并按回车执行：
+-  安装docker(约3-10分钟)，复制以下命令到终端并按回车执行：
 ```
 curl -sSL https://get.daocloud.io/docker | sh
 ```
-- 1.2 检查docker是否正确安装，复制以下命令到终端并按回车执行：
-```
-docker version
-```
+
 若正确安装，则屏幕上会显示类似画面（若未正确安装，请直接联系老师）：
 ```
-root@iZ2zej14gd1joysruzdtk8Z:~# docker version
+root@iZwz9h1p22ljpx2xd6b2byZ:~# curl -sSL https://get.daocloud.io/docker | sh
+# Executing docker install script, commit: 442e66405c304fa92af8aadaa1d9b31bf4b0ad94
++ sh -c apt-get update -qq >/dev/null
++ sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq apt-transport-https ca-certificates curl >/dev/null
++ sh -c curl -fsSL "https://download.docker.com/linux/ubuntu/gpg" | apt-key add -qq - >/dev/null
+Warning: apt-key output should not be parsed (stdout is not a terminal)
++ sh -c echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" > /etc/apt/sources.list.d/docker.list
++ sh -c apt-get update -qq >/dev/null
++ [ -n  ]
++ sh -c apt-get install -y -qq --no-install-recommends docker-ce >/dev/null
++ sh -c docker version
 Client: Docker Engine - Community
- Version:           19.03.7
+ Version:           19.03.8
  API version:       1.40
  Go version:        go1.12.17
- Git commit:        7141c199a2
- Built:             Wed Mar  4 01:22:36 2020
+ Git commit:        afacb8b7f0
+ Built:             Wed Mar 11 01:25:46 2020
  OS/Arch:           linux/amd64
  Experimental:      false
 
 Server: Docker Engine - Community
  Engine:
-  Version:          19.03.7
+  Version:          19.03.8
   API version:      1.40 (minimum version 1.12)
   Go version:       go1.12.17
-  Git commit:       7141c199a2
-  Built:            Wed Mar  4 01:21:08 2020
+  Git commit:       afacb8b7f0
+  Built:            Wed Mar 11 01:24:19 2020
   OS/Arch:          linux/amd64
   Experimental:     false
  containerd:
@@ -73,8 +79,28 @@ Server: Docker Engine - Community
  docker-init:
   Version:          0.18.0
   GitCommit:        fec3683
+If you would like to use Docker as a non-root user, you should now consider
+adding your user to the "docker" group with something like:
+
+  sudo usermod -aG docker your-user
+
+Remember that you will have to log out and back in for this to take effect!
+
+WARNING: Adding a user to the "docker" group will grant the ability to run
+         containers which can be used to obtain root privileges on the
+         docker host.
+         Refer to https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface
+         for more information.
 ```
-- 1.3 因为众所周知的网络原因，我们需要为docker添加仓库镜像，分别复制以下命令到终端并按回车执行：
+
+- 1.2 设置完成后，为了测试是否设置正确，下载我们课程的`hello_blockchain`镜像以测试,在终端中复制其提示的命令并回车:
+```
+docker run --rm registry.cn-shenzhen.aliyuncs.com/blockchain101/hello_blockchain
+```
+若成功，则在终端会显示`blockchain 101`的字符画并退出。至此，完全课程环境初始化工作，后续每次课程实验只需执行对应命令即可进入课程环境。
+
+### 可选（不执行不影响本课程学习）
+因为众所周知的网络原因，我在从 hub.docker.com 中拉取镜像时常会因为网络故障出现失败，这时我们需要为docker添加仓库镜像，分别复制以下命令到终端并按回车执行：
 ```
 sudo mkdir -p /etc/docker
 ```
@@ -94,42 +120,6 @@ sudo systemctl daemon-reload
 ```
 sudo systemctl restart docker
 ```
-- 1.4 至此，docker的安装和配置完成，为了保险，你还可以尝试拉取一个镜像测试以下速度，复制以下命令到终端并按回车执行：
-```
-docker pull ubuntu
-```
-如果很快（5s-20s)下载完成（～60MB），则说明镜像配置成功，docker的安装和配置过程完成。
-
-#### 2、阿里云镜像仓库注册和设置固定密码和登陆
-完成了docker的安装和配置后，我们进行阿里云镜像仓库的注册和设置固定密码步骤。
-
-打包好的实验容器存储在阿里云镜像仓库中，因此你先开通`阿里云镜像仓库服务`，具体为：
-
-- 2.1 登陆`阿里云官网`，在最上方的搜索框输入 `容器镜像服务`进行搜索，选择`立即开通`进入容器镜像服务
-{{< figure src="/blockchain101/images/post/2019-2020-tools-docker/tools-docker-search.png"  alt="" width="100%"  >}}
-
-- 2.2 进入`容器镜像服务`页面后，点击菜单栏的`镜像中心`的`镜像搜索`后，页面左上角可以选择`切换地域`，选择`深圳`，这是为了步骤2.5得到`深圳镜像仓库`的登陆命令。
-{{< figure src="/blockchain101/images/post/2019-2020-tools-docker/tools-docker-switch.png"  alt="" width="100%"  >}}
-
-- 2.3 再选择菜单中的`访问凭证`，进入获取凭证页面：
-{{< figure src="/blockchain101/images/post/2019-2020-tools-docker/tools-docker-mainpage.png"  alt="" width="100%"  >}}
-
-- 2.4 点击`设置固定密码`，设置一个docker镜像仓库的登陆密码
-
-- 2.5 设置完成固定密码后，按照访问凭证页面登陆实例中的提示，在终端中复制其提示的命令并回车：
-> 注意1:$号无需复制！
->
-> 注意2: 每个人账号不同，请复制你的访问凭证页面所给出的账号！
->
-> 注意3: 检查左上角是否已经切换到**深圳**，否则可能拉取不到镜像！
-
-{{< figure src="/blockchain101/images/post/2019-2020-tools-docker/tools-docker-cmdlogin.png"  alt="" width="100%"  >}}
-
-- 2.6 设置完成后，为了测试是否设置正确，下载我们课程的`hello_blockchain`镜像以测试,在终端中复制其提示的命令并回车:
-```
-docker run --rm registry.cn-shenzhen.aliyuncs.com/blockchain101/hello_blockchain
-```
-若成功，则在终端会显示`blockchain 101`的字符画并退出。至此，完全课程环境初始化工作，后续每次课程实验只需执行对应命令即可进入课程环境。
 
 ---
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。

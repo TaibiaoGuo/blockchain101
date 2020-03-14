@@ -15,15 +15,14 @@ import (
 /*
 存储了userclient，如果redemptioncode正确则会提供下载，包含windows、安卓、Mac版本。
  */
-const BASEFILEPATH = "/usr/local/blockchain101/bin"
+const BASEFILEPATH = "/usr/local/blockchain101/"
 const USERCLIENT = "client.zip"
 
-type ApiDownload struct {
-}
+
 /*
-GET /download?redemptioncode=xxxxxxxxxxxxxxx
+GET v1/download?redemptioncode=xxxxxxxxxxxxxxx
  */
-func (d ApiDownload) Downloadhandle(w http.ResponseWriter, request *http.Request) {
+func  Downloadhandle(w http.ResponseWriter, request *http.Request) {
     //文件上传只允许GET方法
     if request.Method != http.MethodGet {
         w.WriteHeader(http.StatusMethodNotAllowed)

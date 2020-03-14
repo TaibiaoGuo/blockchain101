@@ -32,7 +32,7 @@ COPY --from=buildproxyclient /root/copy/proxyclient  /usr/local/blockchain101/
 COPY --from=buildproxyclient /root/copy/client.zip  /usr/local/blockchain101/
 COPY --from=buildfrps /root/copy/frps /usr/local/blockchain101/
 COPY --from=buildfrps /root/copy/frps.ini /usr/local/blockchain101/
-COPY entrypoint.sh /usr/local/blockchain101
+COPY entrypoint.sh /usr/local/blockchain101/
 EXPOSE 7000 7001 7002
 RUN apk add --no-cache bash
 

@@ -29,7 +29,7 @@ WORKDIR /usr/local/blockchain101
 COPY --from=buildproxyclient /root/copy  /usr/local/blockchain101
 COPY --from=buildfrps /root/copy /usr/local/blockchain101
 COPY entrypoint.sh /usr/local/blockchain101
-EXPOSE 7000 7001 7002     # 7002为备用
+EXPOSE 7000 7001 7002
 
 HEALTHCHECK --interval=10s --timeout=3s --retries=5 \
   CMD curl -fs http://127.0.0.1:7001 || exit 1

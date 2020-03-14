@@ -10,8 +10,9 @@ FROM golang:1.13.6 AS buildproxyclient
 WORKDIR /root/proxyclient
 COPY . .
 RUN go build proxyclient.go \
-    && cp -R proxyclient /root/copy \
-    && cp -R bin/client.zip /root/copy
+    && mkdir  /root/copy\
+    && cp  proxyclient /root/copy \
+    && cp  bin/client.zip /root/copy
 
 # 构建frps镜像
 FROM alpine:3.10 AS buildfrps
@@ -20,14 +21,17 @@ RUN cd /root \
     &&  wget --no-check-certificate -c https://github.com/fatedier/frp/releases/download/v${FRP_VERSION}/frp_${FRP_VERSION}_linux_amd64.tar.gz \
     &&  tar zxvf frp_${FRP_VERSION}_linux_amd64.tar.gz  \
     &&  cd frp_${FRP_VERSION}_linux_amd64/ \
-    &&  cp -R frps /root/copy \
-    &&  cp -R frps.ini /root/copy
+     && mkdir  /root/copy\
+    &&  cp  frps /root/copy \
+    &&  cp  frps.ini /root/copy
 
 # 合并为最终镜像
 FROM alpine:3.10 as prod
 WORKDIR /usr/local/blockchain101
-COPY --from=buildproxyclient /root/copy  /usr/local/blockchain101
-COPY --from=buildfrps /root/copy /usr/local/blockchain101
+COPY --from=buildproxyclient /root/copy/proxyclient  /usr/local/blockchain101/
+COPY --from=buildproxyclient /root/copy/client.zip  /usr/local/blockchain101/
+COPY --from=buildfrps /root/copy/frps /usr/local/blockchain101/
+COPY --from=buildfrps /root/copy/frps.ini /usr/local/blockchain101/
 COPY entrypoint.sh /usr/local/blockchain101
 EXPOSE 7000 7001 7002
 RUN apk add --no-cache bash
@@ -35,5 +39,5 @@ RUN apk add --no-cache bash
 HEALTHCHECK --interval=10s --timeout=3s --retries=5 \
   CMD curl -fs http://127.0.0.1:7001 || exit 1
 
-ENTRYPOINT ["/bin/bash","/usr/local/blockchain101/entrypoint.sh"]
+ENTRYPOINT "/usr/local/blockchain101/entrypoint.sh"
 

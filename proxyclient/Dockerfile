@@ -34,5 +34,5 @@ EXPOSE 7000 7001 7002
 HEALTHCHECK --interval=10s --timeout=3s --retries=5 \
   CMD curl -fs http://127.0.0.1:7001 || exit 1
 
-ENTRYPOINT ["/bin/bash","/usr/local/blockchain101/entrypoint.sh"]
+ENTRYPOINT ["/bin/sh","/usr/local/blockchain101/entrypoint.sh"]
 

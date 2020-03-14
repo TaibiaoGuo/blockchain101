@@ -30,9 +30,10 @@ COPY --from=buildproxyclient /root/copy  /usr/local/blockchain101
 COPY --from=buildfrps /root/copy /usr/local/blockchain101
 COPY entrypoint.sh /usr/local/blockchain101
 EXPOSE 7000 7001 7002
+RUN apk add --no-cache bash
 
 HEALTHCHECK --interval=10s --timeout=3s --retries=5 \
   CMD curl -fs http://127.0.0.1:7001 || exit 1
 
-ENTRYPOINT ["/bin/sh","/usr/local/blockchain101/entrypoint.sh"]
+ENTRYPOINT ["/bin/bash","/usr/local/blockchain101/entrypoint.sh"]
 

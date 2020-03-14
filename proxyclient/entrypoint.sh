@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ###########################################
 # @program: blockchain101
 # @auther: TaibiaoGuo

@@ -7,13 +7,13 @@
 package api
 
 import (
+    "../core/boot"
+    "../tools"
     "encoding/json"
-    "fmt"
+    "errors"
     "io/ioutil"
     "net/http"
     "net/url"
-    "../tools"
-    "../core/boot"
 )
 
 type serverStatus struct {
@@ -42,8 +42,7 @@ func ServerStatusCheck() (string,error)  {
     //这里必须要判断错误，否则请求失败时会造成内存泄漏
     resp,errGet:= http.Get(urlPath)
     if errGet != nil{
-        fmt.Println("服务端不在线，稍后重试")
-        return "",nil
+        return "",errors.New("服务端不在线")
     }
     defer resp.Body.Close()
     body, errioutil := ioutil.ReadAll(resp.Body)

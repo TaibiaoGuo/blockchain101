@@ -19,6 +19,13 @@ func  Healthhandle(w http.ResponseWriter,req *http.Request){
 if healthCheck()=="ok"{
     result.Code = 200
     result.Message =  "ok"
+    statusServer ,errServerStatus := ServerStatusCheck()
+    if errServerStatus != nil{
+        result.Data= errServerStatus.Error() + "，客户端健康"
+    } else {
+        result.Data= "服务器"+ statusServer + "客户端健康"
+    }
+
 } else {
     return
 }

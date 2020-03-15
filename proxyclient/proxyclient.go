@@ -34,24 +34,25 @@ func main() {
     go func() {
         http.HandleFunc("/v1/download", api.Downloadhandle)
         http.HandleFunc("/v1/health", api.Healthhandle)
-        http.ListenAndServe(":7001", nil)
+        http.ListenAndServe("0.0.0.0:7001", nil)
     }()
 
     // TODO 判断服务端状态
- /*   go func(){
+    go func(){
         for {
             time.Sleep(2 * time.Second)
             func() {
                 //请求服务端判断服务端状态
-                s,e :=api.ServerStatusCheck()
+                _,e :=api.ServerStatusCheck()
                 if e != nil {
-                    fmt.Println(e)
+                    return
                 }
-                fmt.Println(s)
+                time.Sleep(58 * time.Second)
+                return
             }()
 
         }
-    }()*/
+    }()
 
     // TOOD 版本升级功能实现
 

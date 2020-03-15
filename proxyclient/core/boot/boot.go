@@ -11,7 +11,7 @@ type Config struct {
     RedemptionCode string
 }
 func NewConfig(r string) *Config {
-    if singleRedemptionCode.RedemptionCode == "" {
+    if singleRedemptionCode == nil {
         singleRedemptionCode = &Config{RedemptionCode:r}
     }
     return singleRedemptionCode

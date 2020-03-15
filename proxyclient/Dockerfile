@@ -9,6 +9,7 @@
 FROM golang:1.13.6 AS buildproxyclient
 WORKDIR /root/proxyclient
 COPY . .
+# 此处需要添加 -tags netgo 标志，否则代码在alpine中会遇到动态库的错误
 RUN go build -tags netgo proxyclient.go \
     && mkdir  /root/copy\
     && cp  proxyclient /root/copy \
@@ -37,7 +38,7 @@ EXPOSE 7000 7001 7002
 RUN apk add --no-cache bash
 
 HEALTHCHECK --interval=10s --timeout=3s --retries=5 \
-  CMD curl -fs http://127.0.0.1:7001 || exit 1
+  CMD curl -fs http://127.0.0.1:7001/v1/health || exit 1
 
 ENTRYPOINT "/usr/local/blockchain101/entrypoint.sh"
 

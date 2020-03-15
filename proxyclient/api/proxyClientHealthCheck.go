@@ -25,10 +25,12 @@ if healthCheck()=="ok"{
 HTTPResponse(w,result)
 }
 
-//TODO
-// 接收服务端的主动升级指令并启动软件的升级
-// 服务端发起私钥签名的信息，客户端验证数字签名，执行升级指令
-// 升级成功后启动新的服务
+
+/*
+ 服务端发起私钥签名的信息，客户端验证数字签名，执行升级指令
+ 升级成功后启动新的服务
+ TODO：接收服务端的主动升级指令并启动软件的升级
+*/
 func VersionUpdate(w http.ResponseWriter,req *http.Request){
 
 }

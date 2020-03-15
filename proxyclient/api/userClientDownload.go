@@ -22,6 +22,7 @@ const USERCLIENT = "client.zip"
 /*
 GET v1/download?redemptioncode=xxxxxxxxxxxxxxx
  */
+//todo 删除调试的代码
 func  Downloadhandle(w http.ResponseWriter, request *http.Request) {
     //文件上传只允许GET方法
     if request.Method != http.MethodGet {
@@ -33,7 +34,7 @@ func  Downloadhandle(w http.ResponseWriter, request *http.Request) {
     redemptionCode := request.FormValue("redemptioncode")
     //Config 使用单例模式，这里会直接读取到初始化所生成的配置
     c := boot.NewConfig("")
-    if c.IsSameRedemptionCode(redemptionCode) {
+    if !c.IsSameRedemptionCode(redemptionCode) {
         w.WriteHeader(http.StatusBadRequest)
         _, _ = io.WriteString(w, "Bad request")
         return

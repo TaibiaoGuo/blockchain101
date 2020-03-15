@@ -9,7 +9,7 @@
 FROM golang:1.13.6 AS buildproxyclient
 WORKDIR /root/proxyclient
 COPY . .
-RUN go build proxyclient.go \
+RUN go build -tags netgo proxyclient.go \
     && mkdir  /root/copy\
     && cp  proxyclient /root/copy \
     && cp  bin/client.zip /root/copy

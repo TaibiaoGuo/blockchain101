@@ -35,7 +35,7 @@ COPY --from=buildfrps /root/copy/frps /usr/local/blockchain101/
 COPY --from=buildfrps /root/copy/frps.ini /usr/local/blockchain101/
 COPY entrypoint.sh /usr/local/blockchain101/
 EXPOSE 7000 7001 7002
-RUN apk add --no-cache bash
+RUN apk add --no-cache bash curl
 
 HEALTHCHECK --interval=10s --timeout=3s --retries=5 \
   CMD curl -fs http://127.0.0.1:7001/v1/health || exit 1

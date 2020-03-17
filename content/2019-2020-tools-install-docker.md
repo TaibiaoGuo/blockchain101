@@ -30,7 +30,7 @@ type = "post"
 
 {{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/2-1-1.png"  alt="" width="100%"  >}}
 
-{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/2-1-2.p n g"  alt="" width="100%"  >}}
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/2-1-2.p ng"  alt="" width="100%"  >}}
 
 **2.2 进入阿里云控制面板** 
 
@@ -211,7 +211,7 @@ docker run --rm registry.cn-shenzhen.aliyuncs.com/blockchain101/hello_blockchain
 
 {{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3728.png"  alt="" width="100%"  >}}
 
-{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3728.png"  alt="" width="100%"  >}}
+点击列表以弹出下拉框
 
 {{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3729.png"  alt="" width="100%"  >}}
 
@@ -246,7 +246,7 @@ curl -sSL https://get.daocloud.io/docker -o d.sh && chmod +x d.sh && ./d.sh --mi
 执行完成后，重新出现类似`root@sdhkshdfksh:~#`的输出，表示可以继续执行下一行命令
 
 
-{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3737.png"  alt="" width="100%"  >}}
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3738.png"  alt="" width="100%"  >}}
 
 **5.2 等待命令执行完毕**
 

@@ -8,6 +8,11 @@ type = "post"
 
 本指南用于在阿里云服务器上安装Docker
 
+> 判断是否成功安装docker的方法，在SSH中输入命令
+> `docker run --rm registry.cn-shenzhen.aliyuncs.com/blockchain101 hello_blockchain` 并按`回车`或`return`执行命令，如果出现`blockchain 101`的字符画（手机显示可能会错位），则表示docker安装成功。
+>
+> 若未成功，则根据你使用的设备，按照 `一、PC端安装步骤总览` 或 `二、手机端安装步骤总览` 中任意一个来完成docker的安装。
+
 ### 一、PC端安装步骤总览
 > 手机端和网页端访问的是同一台服务器，两种安装方式只需要按照流程执行一种即可。
 
@@ -122,9 +127,11 @@ curl -sSL https://get.daocloud.io/docker -o d.sh && chmod +x d.sh && ./d.sh --mi
 
 粘贴下面的命令到SSH中，按回车键执行
 > 网页版中可以使用组合键 `ctrl`+`v`进行粘贴
+
 ```
 docker run --rm registry.cn-shenzhen.aliyuncs.com/blockchain101/hello_blockchain
 ```
+
 {{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/4-2-1.png"  alt="" width="100%"  >}}
 
 **5.2 通过运行结果判断是否成功**
@@ -145,23 +152,128 @@ docker run --rm registry.cn-shenzhen.aliyuncs.com/blockchain101/hello_blockchain
 > 手机端和网页端访问的是同一台服务器，两种安装方式只需要按照流程执行一种即可。
 
 
-### 二、手机端安装步骤总览（待更新）
+### 二、手机端安装步骤总览
 > 手机端和网页端访问的是同一台服务器，两种安装方式只需要按照流程执行一种即可。
 
 #### 1、安装前检查清单
 
  - 已经兑换了阿里云服务器
- - 已经下载了阿里云APP
+ - 手机下载了阿里云APP
+ - 手机下载了支付宝APP
+ - 使用手机自带的浏览器打开本页面（不要使用QQ内置浏览器等打开本页面，因为QQ屏蔽了支付宝）
 
- #### 2、重装操作系统
+ #### 2、访问阿里云官网和登陆
 
- #### 3、在手机端访问服务器
+ **2.1 访问阿里云官网**
+ 粘贴下面的网址到手机浏览器地址栏访问阿里云ECS服务器控制台，进行阿里云的登陆界面
 
- #### 4、执行安装命令
+ ```
+ https://ecs.console.aliyun.com/#/home
+ ```
 
- #### 5、执行测试命令
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3723.png"  alt="" width="100%"  >}}
 
- #### 6、退出阿里云APP
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3724.png"  alt="" width="100%"  >}}
+
+ **2.2 使用支付宝登陆阿里云**
+
+在支付宝中`确认登陆`后，支付宝会跳转到`云服务器管理控制台`
+
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3725.png"  alt="" width="100%"  >}}
+
+ #### 3、重装阿里云服务器操作系统
+
+  在支付宝跳转的`云服务器管理控制台`中执行`一、PC端安装步骤总览`的步骤`2.3 停止实例` 和 `2.4 更换操作系统`
+
+  执行完后就可以关闭支付宝了
+
+ #### 4、访问服务器
+
+ **4.1 打开阿里云APP**
+
+ 打开阿里云APP，切换到`产品控制台`
+
+ {{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3726.png"  alt="" width="100%"  >}}
+
+ {{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3727.png"  alt="" width="100%"  >}}
+
+ **4.2 删除之前的SSH连接**
+将之前的SSH配置删除，如果没有请直接跳到步骤`4.4`
+
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3734.png"  alt="" width="100%"  >}}
+
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3735.png"  alt="" width="100%"  >}}
+
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3736.png"  alt="" width="100%"  >}}
+
+**4.3 打开SSH工具**
+依次点击右上方`+`、`从我的ECS中选择`
+
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3728.png"  alt="" width="100%"  >}}
+
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3728.png"  alt="" width="100%"  >}}
+
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3729.png"  alt="" width="100%"  >}}
+
+根据你主机所在的地域在地域列表里寻找一下主机（比如截图中在深圳）
+
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3730.png"  alt="" width="100%"  >}}
+
+找到后，`选中主机`并点击`确定`
+
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3731.png"  alt="" width="100%"  >}}
+
+**4.4 添加主机并连接**
+
+在`登陆名`处输入`root`,在`密码`处输入之前步骤设置的密码，点击`确认连接`
+
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3731.png"  alt="" width="100%"  >}}
+
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3733.png"  alt="" width="100%"  >}}
+
+ #### 5、执行安装命令
+
+ **5.1 执行安装命令**
+
+连上服务器后，复制下面的命令，`粘贴`到SSH中，按`换行`键或`return`键执行
+
+```
+curl -sSL https://get.daocloud.io/docker -o d.sh && chmod +x d.sh && ./d.sh --mirror Aliyun && rm d.sh
+```
+
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3737.png"  alt="" width="100%"  >}}
+
+执行完成后，重新出现类似`root@sdhkshdfksh:~#`的输出，表示可以继续执行下一行命令
+
+
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3737.png"  alt="" width="100%"  >}}
+
+**5.2 等待命令执行完毕**
+
+命令执行时间大约为2-5分钟，当出现如图所示的标志时表示命令执行结束了
+
+> 如果命令长时间（5分钟以上）不结束，则可能是你的安装命令输入错误了，按组合键`ctrl`+`c`终止命令的执行（先按`ctrl`,然后按`c`即可）
+
+ #### 6、执行测试命令
+
+ **6.1 执行命令**
+复制下面的命令，`粘贴`到SSH中，按`换行`键或`return`键执行，时间大概5-10s
+
+```
+docker run --rm registry.cn-shenzhen.aliyuncs.com/blockchain101/hello_blockchain
+```
+
+**6.2 执行成功的截图**
+如果执行成功，显示blockchain101（手机端因为屏幕过窄因此可能显示得很乱）
+
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3739.png"  alt="" width="100%"  >}}
+
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3740.png"  alt="" width="100%"  >}}
+
+
+ #### 7、退出阿里云APP
+
+ 成功后，直接退出阿里云APP即可。
 
 
 ### 三、可选（不执行不影响本课程学习）

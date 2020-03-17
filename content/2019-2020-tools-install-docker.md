@@ -32,7 +32,7 @@ docker run --rm registry.cn-shenzhen.aliyuncs.com/blockchain101 hello_blockchain
 
 {{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/2-1-1.png"  alt="" width="100%"  >}}
 
-{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/2-1-2.p ng"  alt="" width="100%"  >}}
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/2-1-2.png"  alt="" width="100%"  >}}
 
 **2.2 进入阿里云控制面板** 
 

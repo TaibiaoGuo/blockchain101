@@ -200,7 +200,7 @@ docker run --rm registry.cn-shenzhen.aliyuncs.com/blockchain101/hello_blockchain
  {{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3727.png"  alt="" width="100%"  >}}
 
  **4.2 删除之前的SSH连接**
-将之前的SSH配置删除，如果没有请直接跳到步骤`4.4`
+将之前的SSH配置删除，如果没有请直接跳到步骤`4.3`
 
 {{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3734.png"  alt="" width="100%"  >}}
 
@@ -229,7 +229,7 @@ docker run --rm registry.cn-shenzhen.aliyuncs.com/blockchain101/hello_blockchain
 
 在`登陆名`处输入`root`,在`密码`处输入之前步骤设置的密码，点击`确认连接`
 
-{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3731.png"  alt="" width="100%"  >}}
+{{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3732.png"  alt="" width="100%"  >}}
 
 {{< figure src="/blockchain101/images/post/2019-2020-tools-install-docker/IMG_3733.png"  alt="" width="100%"  >}}
 

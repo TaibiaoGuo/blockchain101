@@ -12,7 +12,7 @@ type = "post"
 > 并按`回车`或`return`执行命令，如果出现`blockchain 101`的字符画（手机显示可能会错位），则表示docker安装成功。若未成功，则根据你使用的设备，按照 `一、PC端安装步骤总览` 或 `二、手机端安装步骤总览` 中任意一个来完成docker的安装。
 
 ```
-docker run --rm registry.cn-shenzhen.aliyuncs.com/blockchain101 hello_blockchain`
+docker run --rm registry.cn-shenzhen.aliyuncs.com/blockchain101 hello_blockchain
 ```
 
 ### 一、PC端安装步骤总览

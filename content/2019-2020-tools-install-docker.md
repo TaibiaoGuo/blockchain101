@@ -8,10 +8,12 @@ type = "post"
 
 本指南用于在阿里云服务器上安装Docker
 
-> 判断是否成功安装docker的方法，在SSH中输入命令
-> `docker run --rm registry.cn-shenzhen.aliyuncs.com/blockchain101 hello_blockchain` 并按`回车`或`return`执行命令，如果出现`blockchain 101`的字符画（手机显示可能会错位），则表示docker安装成功。
->
-> 若未成功，则根据你使用的设备，按照 `一、PC端安装步骤总览` 或 `二、手机端安装步骤总览` 中任意一个来完成docker的安装
+> 判断是否成功安装docker的方法，在SSH中输入下面的命令
+> 并按`回车`或`return`执行命令，如果出现`blockchain 101`的字符画（手机显示可能会错位），则表示docker安装成功。若未成功，则根据你使用的设备，按照 `一、PC端安装步骤总览` 或 `二、手机端安装步骤总览` 中任意一个来完成docker的安装。
+
+```
+docker run --rm registry.cn-shenzhen.aliyuncs.com/blockchain101 hello_blockchain`
+```
 
 ### 一、PC端安装步骤总览
 > 手机端和网页端访问的是同一台服务器，两种安装方式只需要按照流程执行一种即可。

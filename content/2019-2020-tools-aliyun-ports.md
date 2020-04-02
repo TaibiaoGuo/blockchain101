@@ -1,7 +1,7 @@
 +++
-title = "IPFS实验说明"
+title = "阿里云开放端口教程"
 date = 2020-04-01T01:00:00Z
-description = "IPFS实验说明"
+description = "阿里云开放端口教程"
 categories = ["Aliyun","IPFS"]
 type = "post"
 +++
@@ -11,16 +11,16 @@ type = "post"
 因为安全策略，大部分端口默认是无法通过服务器的公网IP进行访问的，本实验课需要使用外网端口，因此需要同学们按照下面的设置打开你的外网端口。
 
 访问地址 https://ecs.console.aliyun.com/ 进入阿里云ECS的控制台。在菜单找到`本实例安全组`
-{{< figure src="/blockchain101/images/post/2019-2020-tools-aliyun-posts/01.png"  alt="" width="100%"  >}}
+{{< figure src="/blockchain101/images/post/2019-2020-tools-aliyun-ports/01.png"  alt="" width="100%"  >}}
 
 点击`本实例安全组`，点击右侧的`配置规则`
-{{< figure src="/blockchain101/images/post/2019-2020-tools-aliyun-posts/02.png"  alt="" width="100%"  >}}
+{{< figure src="/blockchain101/images/post/2019-2020-tools-aliyun-ports/02.png"  alt="" width="100%"  >}}
 
 点击`本实例安全组`，点击右侧的`配置规则`
-{{< figure src="/blockchain101/images/post/2019-2020-tools-aliyun-posts/03.png"  alt="" width="100%"  >}}
+{{< figure src="/blockchain101/images/post/2019-2020-tools-aliyun-ports/03.png"  alt="" width="100%"  >}}
 
 在跳转的新页面点击`添加安全组规则`，在弹框内输入以下配置：
-{{< figure src="/blockchain101/images/post/2019-2020-tools-aliyun-posts/04.png"  alt="" width="100%"  >}}
+{{< figure src="/blockchain101/images/post/2019-2020-tools-aliyun-ports/04.png"  alt="" width="100%"  >}}
 
 文字版本参考：
 ```

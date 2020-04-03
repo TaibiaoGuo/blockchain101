@@ -1,10 +1,13 @@
 ##  运行方法
 > 如果拉取失败尝试注册并登陆一下阿里云的容器镜像服务（free）
 
-docker run --rm registry.cn-shenzhen.aliyuncs.com/blockchain101/ipfs
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/TaibiaoGuo/blockchain101/experiment/ipfs/start.sh)"
+```
 
-## 本地构建
+## 教程
+https://taibiaoguo.gitee.io/blockchain101/2019-2020-07-ipfs/
 
-docker build -t ipfs:latest .
+或
 
-docker run --rm ipfs:latest
+https://taibiaoguo.github.io/blockchain101/2019-2020-07-ipfs/

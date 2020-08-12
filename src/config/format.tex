@@ -1,0 +1,545 @@
+% 设置字体主题(参考曾祥东的latex-talk.tex进行设置)
+%the font themes that currently come with beamer (i.e. files in $TEXMF/latex/beamer/themes/font) are:
+% default
+% serif
+% professionalfonts
+% structurebold
+% structureitalicserif
+% structuresmallcapsserif
+%\usefonttheme{serif,professionalfonts}
+%\usefonttheme{structurebold}
+% 加载字体(注意需要安装相应字体，在此使用的都是免费字体)
+% 附字体下载链接
+% - [iosevka](https://github.com/be5invis/Iosevka/releases)
+% - [Libertinus](https://github.com/alif-type/libertinus/releases)
+% - [sarasa-gothic/mono](https://github.com/be5invis/Sarasa-Gothic/releases)
+% - [SourceHanSerif](https://github.com/adobe-fonts/source-han-serif/releases)
+% - [SourceHanSans](https://github.com/adobe-fonts/source-han-sans/releases)
+% 设置字体(参考曾祥东的latex-talk.tex进行设置)
+%\usefonttheme{serif,professionalfonts}
+\usefonttheme{professionalfonts}
+% 加载字体
+% 加载字体
+\setmainfont{LibertinusSerif}[% 英文字体
+  Extension      = .otf,
+  UprightFont    = *-Regular,
+  BoldFont       = *-Bold,
+  ItalicFont     = *-Italic,
+  BoldItalicFont = *-BoldItalic,
+  Scale          = 1.0]
+\setmonofont{Iosevka Term}[% 英文等宽字体，主要用于代码排版
+  Scale=1.00,
+  BoldFont        = * Heavy,
+  UprightFont     = * Semibold,
+  BoldFont        = * Extrabold,
+  ItalicFont      = * Light,
+  BoldItalicFont  = * Medium,
+  RawFeature      = +fwid]
+\setCJKmainfont{Source Han Serif SC}[ % 中文衬线字体，思源宋体
+  UprightFont     = * SemiBold,
+  BoldFont        = * Heavy,
+  ItalicFont      = * Light,
+  BoldItalicFont  = * Medium,
+  RawFeature      = +fwid]
+\setCJKsansfont{Source Han Sans SC}[ % 中文无衬线字体，思源宋体
+  UprightFont     = * Medium,
+  BoldFont        = * Heavy,
+  ItalicFont      = * Light,
+  BoldItalicFont  = * Normal,
+  RawFeature      = +fwid]  
+\setCJKmonofont{Sarasa Mono SC}[% 中文等宽字体，Sarasa Mono SC
+  UprightFont     = * Medium,
+  BoldFont        = * Medium,
+  ItalicFont      = * Extralight,
+  BoldItalicFont  = * Light,
+  RawFeature      = +fwid]
+% 字体命令
+\newCJKfontfamily\fangsong{FangSong}
+\newCJKfontfamily\songti{Source Han Serif SC}
+\newCJKfontfamily\heiti{Source Han Sans SC}
+\newCJKfontfamily\kaishu{Adobe Kaiti Std} 
+
+% 各类标题字体设置
+\setbeamerfont{title}{size=\huge, series=\bfseries}
+\setbeamerfont*{subtitle}{size=\large}%shape=\itshape
+\setbeamerfont{section title}{size=\Large}%, series=\bfseries
+\setbeamerfont{frametitle}{size=\large, series=\bfseries}%
+\setbeamerfont{caption}{size=\footnotesize, series=\bfseries}
+\setbeamerfont{footnote}{size=\tiny}
+%\setbeamerfont{alerted text}{series=\bfseries}
+\setbeamertemplate{itemize/enumerate subbody begin}{\footnotesize}
+\setbeamertemplate{caption}{\parbox{\textwidth}{\centering\insertcaption}\par}
+\setbeamertemplate{bibliography item}[text]
+
+% 如果需要更改主题中不同元素的颜色，请取消相应注释并编辑为喜欢的颜色
+% 分割条和边栏颜色:
+%\setbeamercolor{NWSUAFsidebar}{fg=red!20,bg=red}
+%\setbeamercolor{sidebar}{bg=red!20}
+% 结构元素颜色:
+\setbeamercolor{structure}{fg=red}
+% 帧标题颜色:
+%\setbeamercolor{frametitle}{fg=blue!25}
+% 正文文本背景色:
+%\setbeamercolor{normal text}{bg=gray!10}
+% ... 如果需要更改更多的参数，请参考 beamer 用户手册.
+% \setbeamertemplate{blocks}[default]
+
+\definecolor{Descitem}{RGB}{0, 0, 139}
+
+\definecolor{StdTitle}{RGB}{26, 33, 141}
+\definecolor{StdBody}{RGB}{213,24,0}
+
+\definecolor{AlTitle}{RGB}{255, 190, 190}
+\definecolor{AlBody}{RGB}{213,24,0}
+
+\definecolor{ExTitle}{RGB}{201, 217, 217}
+\definecolor{ExBody}{RGB}{213,24,0}  
+  
+% Standard block
+\setbeamercolor{block title}{fg = Descitem, bg = StdTitle!15!white}
+\setbeamercolor{block body}{bg = StdBody!5!white}
+% Alert block
+\setbeamercolor{block title alerted}{bg = AlTitle}
+\setbeamercolor{block body alerted}{bg = AlBody!5!white}
+% Example block
+\setbeamercolor{block title example}{bg = ExTitle}
+\setbeamercolor{block body example}{bg = ExBody!5!white}
+
+\setbeamerfont{block title}{size=\scriptsize}  
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+% 设置脚注字号
+\setbeamerfont{footnote}{size=\zihao{7}}
+
+%%%%%%%% User Specified Commands %%%%%%%%
+ \setbeamercolor{alerted text}{fg=red}
+ %\setbeamercolor{alerted text}{fg=red!2!green!35!blue}
+\newenvironment{boxalertenv}{\begin{altenv}%
+  {\usebeamertemplate{alerted text begin}\usebeamercolor[fg]
+    {alerted text}\usebeamerfont{alerted text}\colorbox{bg}}
+  {\usebeamertemplate{alerted text end}}{\color{.}}{}}{\end{altenv}}
+\newcommand<>{\boxalert}[1]{{%
+  \begin{boxalertenv}#2{#1}\end{boxalertenv}%
+}}
+
+\def\hilite<#1>{%
+  \temporal<#1>{\color{gray}}{\color{red!2!green!35!blue}}%
+    {\color{blue!25}}}
+
+% colored hyperlinks
+\newcommand{\chref}[2]{%
+  \href{#1}{{\usebeamercolor[bg]{Aalborg}#2}}
+}
+
+% 定义绘制内存的命令（基于bytefield宏包）
+%facilitates the creation of memory maps. Start
+% address at the bottom, end address at the top.  syntax:
+% \memsection{end address}{start address}{height in lines}{text in box}
+\newcommand{\memsection}[5][]{
+  \bytefieldsetup{bitheight=#4\baselineskip} % define the height of the memsection
+  \bitbox[]{10}{\raggedleft \texttt{#1}\hspace{1em} \texttt{#2}% print end address
+    \\ \vspace{#4\baselineskip} \vspace{-2\baselineskip}
+    \vspace{-#4pt} % do some spacing
+    \texttt{#3}% print start address
+  }~ \bitbox{6}{#5} % print box with caption
+}
+
+% \newcommand{\memsection}[4]{
+%   \bytefieldsetup{bitheight=#3\baselineskip} % define the height of the memsection
+%   \bitbox[]{6}{ \texttt{#1} % print end address
+%     \\ \vspace{#3\baselineskip} \vspace{-2\baselineskip}
+%     \vspace{-#3pt} % do some spacing
+%     \texttt{#2} % print start address
+%   } \bitbox{6}{#4} % print box with caption
+% }
+
+% 原始版本
+% % facilitates the creation of memory maps. Start address at the bottom, end address at the top.
+% % Addresses will be print with a leading '0x' and in upper case.
+% % syntax: \memsection{end address}{start address}{height in lines}{text in box}
+% \newcommand{\memsection}[4]{
+%       \bytefieldsetup{bitheight=#3\baselineskip}      % define the height of the memsection
+%       \bitbox[]{8}{
+%               \texttt{0x\uppercase{#1}}        % print end address
+%               \\ \vspace{#3\baselineskip} \vspace{-2\baselineskip} \vspace{-#3pt} % do some spacing
+%               \texttt{0x\uppercase{#2}} % print start address
+%       }
+%       \bitbox{16}{#4} % print box with caption
+% }
+
+% 定义颜色
+% ==================================================
+\definecolor{mypink}{rgb}{.99,.91,.95}
+\definecolor{mycyan}{cmyk}{.3,0,0,0}
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
+\definecolor{Blue}{rgb}{1.,0.75,0.8}
+\newcommand{\cppfillcolor}{yellow!20}
+
+% 参考文献格式
+% \bibliographystyle{plain}
+
+% ==================================================
+
+% 代码显示模式设置
+% ==================================================
+\usemintedstyle{default}  %codeblocks模式
+% 通用设置
+\setminted{fontsize=\tiny, breaklines=true, breakautoindent=false}
+% 行间代码自定义环境
+\newminted{cpp}{bgcolor=\cppfillcolor,autogobble,frame=lines}
+\newminted[cpptt]{cpp}{autogobble,mathescape,frame=lines,escapeinside=||}
+%\newminted[asmtt]{nasm}{bgcolor=\cppfillcolor,autogobble,mathescape,fontsize=\tiny,frame=lines,escapeinside=||}
+\newminted[cppttnobg]{cpp}{autogobble,mathescape,frame=lines,escapeinside=||}
+
+% % 不同字体大小的行内代码自定义命令
+\newmintinline{cpp}{fontsize=\normalsize}
+\newmintinline[cppinlinett]{cpp}{fontsize=\normalsize, escapeinside=||}
+\newmintinline[cppintt]{cpp}{fontsize=\normalsize, escapeinside=||}
+\newmintinline[cppintttny]{cpp}{fontsize=\tiny, escapeinside=||}
+\newmintinline[cppinttscr]{cpp}{fontsize=\scriptsize, escapeinside=||}
+\newmintinline[cppinttfts]{cpp}{fontsize=\footnotesize, escapeinside=||}
+\newmintinline[cppinttlrg]{cpp}{fontsize=\large, escapeinside=||}
+
+% 文件载入代码自定义环境
+% 注意，此处不可以使用autogobble命令，否则无法正常载入代码文件
+\newmintedfile{cpp}{frame=lines}%linenos=true,
+\newmintedfile[cppfilett]{cpp}{frame=lines,escapeinside=||}%linenos=true,
+\newmintedfile[cppfiletikz]{cpp}{frame=lines,escapeinside=||}%linenos=true,
+\newmintedfile[cppfilenobg]{cpp}{mathescape,frame=lines}
+\newmintedfile[cppfilettnobg]{cpp}{mathescape,frame=lines,escapeinside=||}
+
+\newenvironment{mytabbing}[1][]
+  {\par#1\tabbing}
+  {\endtabbing\par}
+
+% 为需要的章节定义该命令  
+\ifcase\chno
+% 第0章  
+\or
+% 第1章
+\or
+% 第2章
+\or
+% 第3章
+%====================用tcolorbox定义一个代码盒子==============================
+\tcbuselibrary{skins, xparse, minted}
+\usetikzlibrary{shapes.geometric}
+%------------------------------------------------------------------------------------
+% tcolorbox lang代码样式定义
+%------------------------------------------------------------------------------------
+\tcbset{%
+  lang/.style={%
+    drop shadow,%    
+    arc=0mm,%
+    right=0pt,%
+    top=0pt,%
+    bottom=0pt,%
+    left=0pt,%
+    enhanced jigsaw,
+    %colframe=tcbcolback!60!black,%
+    colframe=blue!50!black,%
+    colback=yellow!20,%tcbcolback!30!white,%
+    colbacktitle=tcbcolback!5!yellow!10!white,%
+    fonttitle=\scriptsize\bfseries,%
+    coltitle=black,%
+    attach boxed title to top left={%
+      xshift=0.6cm,%
+      yshift*=0.5mm-\tcboxedtitleheight%
+    },%
+    %varwidth boxed title*=-3cm,%
+    boxed title style={%
+      frame code={%
+        \path[fill=blue!55!black]([yshift=-1mm,xshift=-1mm]frame.north west)%
+        arc[start angle=0,end angle=180,radius=1mm]([yshift=-1mm,xshift=1mm]frame.north east)%
+        arc[start angle=180,end angle=0,radius=1mm];%
+        \path[left color=tcbcolback!60!black,right color=tcbcolback!60!black,
+        middle color=tcbcolback!80!black]([xshift=-2mm]frame.north west)%
+        --([xshift=2mm]frame.north east)[rounded corners=1.0mm]%
+        --([xshift=1mm,yshift=-1mm]frame.north east)%
+        --(frame.south east)%
+        --(frame.south west)%
+        --([xshift=-1mm,yshift=-1mm]frame.north west)[sharp corners]%
+        --cycle;%
+      },%
+      interior engine=empty,% 
+      size=small,
+      top=-1mm,
+      bottom=-1mm,
+    },%
+  }% 
+}% end tcolorbox lang style
+
+\DeclareTCBListing{cpptcb}{ O{} m }{%
+  listing engine=minted,%
+  minted style=default,%
+  minted options={%
+    breaklines,%
+    fontsize=\tiny,%
+    escapeinside=#1,
+  },%
+  listing only,%
+  lang,%
+  title={#2},%
+  minted language=cpp%
+}% end codebox
+
+\or
+% 第4章
+\or
+% 第5章
+\or
+% 第6章
+\or
+% 第7章
+\or
+% 第8章
+\or
+% 第9章
+\or
+% 第10章
+\fi
+%   ===========================================================
+
+% 为了在\scalebox中使用minted，先定义盒子
+% \newsavebox{\cppbox}
+
+% TikZ宏包扩展
+%\usetikzlibrary{graphdrawing}
+\usetikzlibrary{graphs}
+\usetikzlibrary{mindmap,trees}
+% Here we change the style for all concepts: (Stefan K.)
+\tikzset{every concept/.style={minimum size=1cm, text width=1.5cm}}
+\usetikzlibrary{shapes,shapes.geometric,chains}
+\usetikzlibrary{positioning}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{tikzmark}
+%\usetikzlibrary{graphs}
+%\usegdlibrary{trees}
+%% Two commands for representing content.
+
+\newcommand\memcontent[2][2cm]{%%' 
+  \begin{minipage}{#1}
+    \centering
+    #2
+  \end{minipage}}
+
+% Set up a few colours
+\colorlet{lcfree}{green}
+\colorlet{lcnorm}{blue}
+\colorlet{lccong}{red}
+
+% styles for flowcharts
+\tikzstyle{block} = [rectangle, draw, text width=10em, text centered,rounded corners, minimum height=1.0em]
+
+% 定义节点标注命令
+% \newcommand\tikzmark[1]{%
+%   \tikz[overlay,remember picture] \node[coordinate] (#1) {};%
+% }
+
+% 插图中的坐标单位
+\setlength\unitlength{1mm}
+
+% \setlength{\parindent}{2em}
+
+%% 定义自动扩展垂直间距的命令\stretchon和\stretchoff
+%% ==================================================
+\def\itemsymbol{$\blacktriangleright$}
+\let\svpar\par
+\let\svitemize\itemize
+\let\svenditemize\enditemize
+\let\svitem\item
+\let\svcenter\center
+\let\svendcenter\endcenter
+\let\svcolumn\column
+\let\svendcolumn\endcolumn
+\def\newitem{\renewcommand\item[1][\itemsymbol]{\vfill\svitem[##1]}}%
+\def\newpar{\def\par{\svpar\vfill}}%
+\newcommand\stretchon{%
+  \newpar%
+  \renewcommand\item[1][\itemsymbol]{\svitem[##1]\newitem}%
+  \renewenvironment{itemize}%
+    {\svitemize}{\svenditemize\newpar\par}%
+  \renewenvironment{center}%
+    {\svcenter\newpar}{\svendcenter\newpar}%
+  \renewenvironment{column}[2]%
+    {\svcolumn{##1}\setlength{\parskip}{\columnskip}##2}%
+    {\svendcolumn\vspace{\columnskip}}%
+}
+\newcommand\stretchoff{%
+  \let\par\svpar%
+  \let\item\svitem%
+  \let\itemize\svitemize%
+  \let\enditemize\svenditemize%
+  \let\center\svcenter%
+  \let\endcenter\svendcenter%
+  \let\column\svcolumn%
+  \let\endcolumn\svendcolumn%
+}
+
+% 解决默认强调字体是italic，此时中文会用楷体代替，
+% 在此设置为加粗，注意需要使用etoolbox宏包
+\makeatletter
+\let\origemph\emph
+\newcommand*\emphfont{\normalfont\bfseries}
+\DeclareTextFontCommand\@textemph{\emphfont}
+\newcommand\textem[1]{%
+  \ifdefstrequal{\f@series}{\bfdefault}
+    {\@textemph{\CTEXunderline{#1}}}
+    {\@textemph{#1}}%
+}
+\RenewDocumentCommand\emph{s o m}{%
+  \IfBooleanTF{#1}
+    {\textem{#3}}
+    {\IfNoValueTF{#2}
+      {\textem{#3}\index{#3}}
+      {\textem{#3}\index{#2}}%
+     }%
+}
+\makeatother
+% ================================================
+
+%% 签署春秋学期日期命令
+\newcommand{\tomonth}{
+  \the\year 年\the\month 月
+}
+
+
+\newcommand{\tomonthen}{
+  \ifcase\the\month
+  \or January%
+  \or February%
+  \or March%
+  \or April%
+  \or May%
+  \or June%
+  \or July%
+  \or August%
+  \or September%
+  \or October%
+  \or November%
+  \or December%
+  \fi, \the\year
+}
+
+\newcommand{\tosemester}{
+  \the\year 年\ 
+  \ifcase\the\month
+  \or 秋%
+  \or 春%
+  \or 春%
+  \or 春%
+  \or 春%
+  \or 春%
+  \or 春%
+  \or 夏%
+  \or 秋%
+  \or 秋%
+  \or 秋%
+  \or 秋%
+  \fi 
+}
+
+\newcommand{\tosemesteren}{  
+  \ifcase\the\month
+  \or Autumn%
+  \or Spring%
+  \or Spring%
+  \or Spring%
+  \or Spring%
+  \or Spring%
+  \or Summer%
+  \or Autumn%
+  \or Autumn%
+  \or Autumn%
+  \or Autumn%
+  \or Autumn%
+  \fi, \the\year
+}
+
+\newlength\columnskip
+\columnskip 0pt
+%% ==================================================
+
+%% 自定义相关的名称宏命令
+%% ==================================================
+%% \newcommand{\yourcommand}[参数个数]{内容}
+% 西北农林科技大学各单位名称
+\newcommand{\nwsuaf}{西北农林科技大学}
+\newcommand{\cie}{信息工程学院}
+\newcommand{\ca}{农学院}
+\newcommand{\cpp}{植物保护学院}
+\newcommand{\ch}{园艺学院}
+\newcommand{\cast}{动物科技学院}
+\newcommand{\cvm}{动物医学院}
+\newcommand{\cf}{林学院}
+\newcommand{\claa}{风景园林艺术学院}
+\newcommand{\cnre}{资源环境学院}
+\newcommand{\cwrae}{水利与建筑工程学院}
+\newcommand{\cmee}{机械与电子工程学院}
+\newcommand{\cfse}{食品科学与工程学院}
+\newcommand{\ce}{葡萄酒学院}
+\newcommand{\cls}{生命科学学院}
+\newcommand{\cst}{理学院}
+\newcommand{\ccp}{化学与药学院}
+\newcommand{\cem}{经济管理学院}
+\newcommand{\cm}{马克思主义学院}
+\newcommand{\dfl}{外语系}
+\newcommand{\iec}{创新实验学院}
+\newcommand{\ci}{国际学院}
+\newcommand{\dpe}{体育部}
+\newcommand{\cvae}{成人教育}
+\newcommand{\iswc}{水土保持研究所}
+
+\newcommand{\cs}{计算机科学系}
+% 定义引号命令
+\newcommand{\qtmark}[1]{``#1''}
+
+%叉号与对号，需要用到pifont宏包
+\newcommand{\goodmark}{\textcolor{green!50!black}{\Pisymbol{pzd}{52}}}
+\newcommand{\badmark}{\textcolor{red}{\Pisymbol{pzd}{56}}}
+
+% 路径设置
+% ==================================================
+\graphicspath{{figure/}}%图片所在的目录
+% ==================================================
+
+% 为标题页指定一个 logo
+\pgfdeclareimage[height=0.8cm]{titlepagelogo}{nwafulogo/h_bar}% 标题页
+\titlegraphic{% 标题页底部
+  \pgfuseimage{titlepagelogo}
+%  \hspace{1cm}\pgfuseimage{titlepagelogo2}
+}
+
+% 每一个frame中要开始添加的命令，需要etoolbox宏包支持
+% ==================================================
+%\AtBeginEnvironment{frame}{\stretchon}
+%\preto\frame{\stretchon}
+%\BeforeBeginEnvironment{frame}{\stretchon}
+% ==================================================
+
+% 每一个frame中要结束添加的命令，需要etoolbox宏包支持
+% ==================================================
+%\AtEndEnvironment{frame}{\stretchoff}
+%\appto\frame{\stretchoff}
+%\AfterEndEnvironment{frame}{\stretchoff}
+% ==================================================
+
+
+% % 每一讲前面添加的帧
+% % ==================================================
+% \AtBeginLecture{
+%   \begin{frame}{目录}{本讲主要内容}
+%     %\Large
+%     %\centering
+%     %\insertlecture
+%     \tableofcontents
+%   \end{frame}
+% }
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../main.tex"
+%%% End: 

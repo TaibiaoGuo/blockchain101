@@ -1,0 +1,137 @@
+% 加载宏包
+%===================注意======================%
+% 在调用beamer.cls宏包后，以下宏包将自动调用，
+% 不应单独调用这些宏包，以免发生冲突
+% amsfonts, amsmath, amssymb, amsthm, 
+% enumerate, geometry, graphics, graphicx, 
+% hyperref, url, 
+% ifpdf, keyval, xcolor, xxcolor
+% =============================================%
+
+% 由于setspace宏包会改变\@footnotetext，从面造成footcite不能引用的问题，
+% 以下代码用于修正这一问题
+\usepackage{etoolbox}
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++
+% 为一部分代码用于解决引用setspace调整间距宏包后造成的参考文献引用脚注
+% 丢失问题
+\makeatletter
+% save the meaning of \@footnotetext
+\let\BEAMER@footnotetext\@footnotetext
+\makeatother
+\usepackage{setspace} % 调整间距
+
+%% 代码排版工具宏包
+%% 需要预先安装 python 和 pygments。
+%% 此宏包要加  -shell-escape 编译参数
+%% 版本2.0,支持行内代码排版
+\usepackage{minted}
+
+% 绘制UML图
+% 结pgf-umlcd宏包的关联关系命令进行了调整
+\usepackage{pgf-umlcd-gn}
+
+% 添加附加文件
+\usepackage[author=耿楠,
+ scale=0.6,
+ color=blue,
+ mimetype=text/plain,
+ subject=源代码,
+ description=打开或下载该源代码,
+ icon=Paperclip]{attachfile2}
+
+%% 根据章节需要加载其它不同的宏包
+\ifcase\chno
+% 第0章
+% 图标字体
+\usepackage{fontawesome5}
+
+\or% 第1章
+% 绘制UML图
+%\usepackage{pgf-umlcd}
+
+% 绘制开发流程需要的宏包，应该必为TikZ绘制(2020.02.08)
+% 绘制阴影
+\usepackage{pst-blur}%
+% pstricks用于绘制流程图，但与menus宏冲突
+\usepackage{pstricks}%
+% pstricks扩展包
+\usepackage{pstricks-add}%
+
+\or% 第2章
+% 绘制UML图
+%\usepackage{pgf-umlcd}
+% 多行合并表格包
+\usepackage{multirow}
+% 绘制内存图
+\usepackage{bytefield}
+% 三线表格
+\usepackage{booktabs}
+
+\or% 第3章
+% 彩色文本框
+\usepackage{tcolorbox}
+% % =========解决minted包排版代码的跨页问题=========
+% \usepackage[linecolor=black, topline=true, bottomline=true,
+% leftline=false, rightline=false,
+% backgroundcolor=yellow!20!white]{mdframed}
+% ========排版键盘组合和菜单的宏包=========
+\usepackage[os=win]{menukeys}
+% 插图重叠
+\usepackage[abs]{overpic}
+% 一些图标等特殊符号
+\usepackage{pifont}
+% 绘制内存图
+\usepackage{bytefield}
+% 流程图绘制宏包
+\usepackage{tikz-flowchart}
+
+\or% 第4章
+% 绘制UML图
+%\usepackage{pgf-umlcd}
+% 带边框的小页环境
+\usepackage{boxedminipage}
+\usepackage{graphbox}%
+
+\or% 第5章
+% 绘制UML图
+%\usepackage{pgf-umlcd}
+% 一些图标等特殊符号
+\usepackage{pifont}
+% 斜线表头包
+\usepackage{diagbox}
+% 表格tabular背景色包
+\usepackage{colortbl}
+
+\or% 第6章
+% 绘制UML图
+%\usepackage{pgf-umlcd}
+
+% 一些图标等特殊符号
+\usepackage{pifont}
+
+\or% 第7章
+% 绘制UML图
+% \usepackage{pgf-umlcd}
+
+\or% 第8章
+% 绘制UML图
+% \usepackage{pgf-umlcd}
+
+\or% 第9章
+% 绘制UML图
+% \usepackage{pgf-umlcd}
+
+\or% 第10章
+% 绘制UML图
+% \usepackage{pgf-umlcd}
+
+\fi
+
+%\usepackage{tcolorbox}
+ 
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../main.tex"
+%%% End:
+

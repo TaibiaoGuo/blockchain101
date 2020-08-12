@@ -1,0 +1,127 @@
+% 这是nwafu(西北农林科技大学)边栏主题的内部主题.
+% 版权(c) 2015-2019, 信息工程学院 耿楠<nangeng@nwafu.edu.cn>
+%
+% 本主题基于丹麦奥尔堡大学（Aalborg University）的AAU Beamer主题
+% 有关这一主题的详情请参考：http://kom.aau.dk/~jkn/latex/latex.php
+%
+% 这是一个免费代码：发布和修改该代码，请遵守最新版的自由软件联盟发布
+% 的GNU通用公共协议
+%
+% 期望这一代码对你有用，但值得注意的是，我不对任何后续问题进行维护，
+% 请参考<http://www.gnu.org/licenses/>查看最新的协议内容。
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerinnerthemenwafusidebar}[2019/06/14 v2.0.00 The nwafu Sidebar Beamer Theme]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 主题选项和定义
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{tikz}
+\usetikzlibrary{external}
+%%% 主题选项
+\DeclareOptionBeamer{left}{\def\beamer@sidebarside{left}}
+\DeclareOptionBeamer{right}{\def\beamer@sidebarside{right}}
+\ExecuteOptionsBeamer{left}%默认为left边栏
+\ProcessOptionsBeamer
+
+\def\beamer@lefttext{left} %用于后面的比较
+\newlength{\beamer@plainpagewidth}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 主题特殊选项
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode<presentation>%参考前四个模式(beamer,handout,second and trans).也就是说，除article外的所有模式
+{
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  % 模板
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %\hfuzz=\maxdimen % 消除hbox overfull警告(TODO) 
+  % 标题页
+  \setbeamertemplate{title page}{%
+    \ifx\beamer@sidebarside\beamer@lefttext% 边栏在左边
+      \setlength{\beamer@plainpagewidth}{\textwidth+\beamer@leftsidebar}%
+      \hskip-\beamer@leftsidebar%
+    \else% 边栏在右边
+      \setlength{\beamer@plainpagewidth}{\textwidth+\beamer@rightsidebar}%
+    \fi%
+    \begin{minipage}[c][0.99\textheight][c]{\beamer@plainpagewidth}%
+      \vfill%
+      \centering%
+      {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}\vspace*{0.5\baselineskip}
+
+      {\usebeamerfont{subtitle}\textcolor{blue}{\insertsubtitle}}\vspace*{\baselineskip}
+
+      \begin{beamercolorbox}[wd=\beamer@plainpagewidth, center, rounded=true, sep=\baselineskip]{frametitle}%
+        {\usebeamerfont{date}\insertdate}\vspace*{\baselineskip}
+        
+        {\usebeamerfont{author}\insertauthor}\vspace*{\baselineskip}
+        
+        {\usebeamerfont{institute}\insertinstitute}
+      \end{beamercolorbox}\vspace*{\baselineskip}
+      
+      {\inserttitlegraphic \\ 中国$\boldsymbol{\cdot}$杨凌}\vspace*{\baselineskip}        
+    \end{minipage}%
+  }
+ 
+  % 封底页
+  \defbeamertemplate{final page}{text}[1]{%
+    \ifx\beamer@sidebarside\beamer@lefttext% 边栏在左边
+      \setlength{\beamer@plainpagewidth}{\textwidth+\beamer@leftsidebar}%
+      \hskip-\beamer@leftsidebar%
+    \else% 边栏在右边
+      \setlength{\beamer@plainpagewidth}{\textwidth+\beamer@rightsidebar}%
+    \fi%
+    \begin{minipage}[c][0.99\textheight][c]{\beamer@plainpagewidth}%
+      \centering%
+      \vfill%
+      \begin{beamercolorbox}[wd=\textwidth, center, rounded=true, sep=2\baselineskip]{frametitle}
+        #1
+      \end{beamercolorbox}
+      \vfill
+      %{\usebeamerfont{institute}\insertinstitute}%\vspace*{0.5\baselineskip}
+      {\inserttitlegraphic \\ 中国$\boldsymbol{\cdot}$杨凌}\vspace*{0.5\baselineskip}%
+    \end{minipage}%
+  }%
+  \newcommand{\finalpage}[1]{%
+    \setbeamertemplate{final page}[text]{#1}%
+    \usebeamertemplate{final page}%
+  }%
+  
+  % 设置背影图案
+  \newcommand{\nwafuwavesbg}{%
+    \setbeamertemplate{background}{%
+      \includegraphics[width=\paperwidth,height=\paperheight]{nwafulogo/nwafu_waves}%
+      \tikzexternaldisable%
+      \tikz[overlay] \fill[fill opacity=0.75,fill=white] (0,0) rectangle (-\paperwidth,\paperheight);%
+      \tikzexternalenable%
+    }%
+  }%
+  
+  % 参考文献用数字标记
+  \setbeamertemplate{bibliography item}[text]%
+  
+  % part页
+  \AtBeginPart{\frame[plain]{\partpage}} % 添加一个平面如下定义的part页
+  \defbeamertemplate*{part page}{sidebar theme}{%
+    \ifx\beamer@sidebarside\beamer@lefttext% 边栏在左边
+      \setlength{\beamer@plainpagewidth}{\textwidth+\beamer@leftsidebar}%
+      \hskip-\beamer@leftsidebar%
+    \else% 边栏在右边
+      \setlength{\beamer@plainpagewidth}{\textwidth+\beamer@rightsidebar}%
+    \fi%
+    \begin{minipage}[c][\textheight][c]{\beamer@plainpagewidth}%
+      \centering%
+      {\usebeamerfont{title}\usebeamercolor[fg]{author}{Part \Roman{part}}}\vspace*{\baselineskip}%
+      %
+      {\usebeamerfont{title}\usebeamercolor[fg]{title}{\insertpart}}%
+    \end{minipage}%
+  }%
+
+}%end of beamer specific options
+
+\mode<all>
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "main.tex"
+%%% End: 

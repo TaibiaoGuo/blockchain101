@@ -8,6 +8,8 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
  \usetheme{CambridgeUS}
+ 
+\usepackage{pdfpages}
 
 
 %%%%%
@@ -149,6 +151,12 @@
 \end{enumerate}
 \end{frame}
 
+\begin{frame}{没人知道谁是中本聪}
+		\centering
+		没人知道谁是中本聪\\
+		中本聪非常注重隐私
+\end{frame}
+
 \section{密码朋克时代}
 \subsection{从赛博朋克到密码朋克}
 \begin{frame}{赛博朋克的含义}
@@ -158,7 +166,8 @@
 \end{frame}
 
 \begin{frame}{赛博朋克的相关影视作品}
-	
+	\centering
+	\includegraphics[width=0.8\linewidth,page=4]{figures/bc101.pdf}
 \end{frame}
 
 \begin{frame}{加密朋克宣言对隐私的解释}
@@ -360,11 +369,11 @@
 	\newpage
 	特朗普
 	
-	\begin{figure}[htbp]
+	\begin{figure}
 		\centering
 		
 		\subfigure{
-			\begin{minipage}[t]{0.33\linewidth}
+			\begin{minipage}[t]{0.3\linewidth}
 				\centering
 				\includegraphics[width=0.6\linewidth,height=0.2\textheight]{figures/privacy/trump/1}\\
 				\vspace{0.02cm}
@@ -376,7 +385,7 @@
 			\end{minipage}%
 		}%
 		\subfigure{
-			\begin{minipage}[t]{0.33\linewidth}
+			\begin{minipage}[t]{0.3\linewidth}
 				\centering
 				\includegraphics[width=0.6\linewidth,height=0.2\textheight]{figures/privacy/trump/4}\\
 				\vspace{0.02cm}
@@ -388,7 +397,7 @@
 			\end{minipage}%
 		}%
 		\subfigure{
-		\begin{minipage}[t]{0.33\linewidth}
+		\begin{minipage}[t]{0.3\linewidth}
 			\centering
 			\includegraphics[width=0.6\linewidth,height=0.2\textheight]{figures/privacy/trump/7}\\
 			\vspace{0.02cm}
@@ -398,12 +407,20 @@
 			\vspace{0.02cm}
 			%\caption{fig1}
 		\end{minipage}%
-	}%
+	}
 	\end{figure}
+
 	\newpage
-    原因？ 
-    \newpage
+	
+	理由是什么？
+	
+	\newpage
+    
     剑桥分析2.0
+    \begin{figure}
+    \includegraphics[width=0.6\linewidth]{figures/privacy/ca2}
+    \caption{剑桥分析前员工为特朗普2020连任竞选卖力}
+    \end{figure}
 
 \end{frame}
 
@@ -412,47 +429,38 @@
 \begin{frame}{隐私泄露案例分析：脸书数据门促使隐私保护法规出台}
 	
 	\begin{minipage}[t]{0.5\linewidth}
-		\tiny
-		\begin{enumerate}
-			\item 2018/03/17 
-			
-			媒体曝光Facebook上超5000万用户信息在用户不知情的情况下,被政治数据公司“剑桥分析”获取并利用
-			\item 2018/03/26 
-			
-			扎克伯格登报道歉
-			\item 2018/03/30 
-			
-			Facebook终止与大数据企业合作
-			\item 2018/04/05 
-			
-			脸书隐私泄露人数升至8700万
-			\item 2018/04/10 
-			
-			扎克伯格国会听证证词
-			\item 2018/04/11 
-			
-			扎克伯格二度接受国会质询
-		\end{enumerate}
-%		\begin{figure}
-%			\includegraphics[width=0.8 \linewidth]{figures/privacy/zake.png}
-%		\end{figure}
+		\begin{itemize}
+			\item 通用数据保护条例(GDRP)的保护范围
+			\begin{itemize}
+				\item 个人身份 - {\tiny 电话号码、地址、车牌等}
+				\item 生物特征 - {\tiny  指纹、脸部辨识、视网膜扫描、相片等}
+				\item 电子纪录 - {\tiny Cookie、IP 位置、移动设备 ID、社群网站活动纪录}
+			\end{itemize}
+			\item 通用数据保护条例(GDRP)的法规基础
+			\begin{itemize}
+				\item 被遗忘权
+				\item 取用权
+				\item 数据可携权 
+				\item 隐私始于设计
+			\end{itemize}
+		\end{itemize}
 	\end{minipage}%
 	\begin{minipage}[t]{0.4\linewidth}
 		\begin{figure}
 			\centering
-			\subfigure[脸书隐私泄露听证会]{
+			\subfigure[GDRP]{
 				\begin{minipage}[b]{0.8\linewidth}
-					\includegraphics[width=\linewidth]{figures/privacy/zake.png}
+					\includegraphics[width=\linewidth]{figures/privacy/gdrp}
 				\end{minipage}%
 			}
-			\subfigure[脸书开始强调隐私]{
+			\subfigure[手机的隐私条款]{
 				\begin{minipage}[b]{0.8\linewidth}
-					\includegraphics[width=\linewidth]{figures/privacy/zakePrivacy.jpeg}
+					\includegraphics[width=\linewidth]{figures/privacy/Privacyagreement}
 				\end{minipage}%
 			}
 		\end{figure}
 	\end{minipage}%
-\end{frame}
+ \end{frame}
 
 \begin{frame}{全球情报收集部门}
 	
@@ -499,15 +507,63 @@
 
 
 \subsection{保护隐私的技巧}
-
-\section{比特币所用技术的发展简介}
+	
+	\begin{frame}{保护隐私的技巧}
+		\centering
+		https://cybermagicsec.github.io/privacytools-zh/
+	\end{frame}
 
 \section{比特币白皮书原文解析}
 
-
-\begin{frame}{解读比特币白皮书}
-	1123
+\subsection{比特币白皮书概览}
+\begin{frame}{比特币白皮书截图}
+	\centering
+	\includegraphics[page=1,width=0.8\textwidth]{figures/BC101.pdf}
 \end{frame}
+
+\begin{frame}{比特币白皮书引注概况}
+	\centering
+	\includegraphics[page=2,width=0.8\textwidth]{figures/BC101.pdf}
+\end{frame}
+
+\subsection{比特币所用技术族谱}
+
+\begin{frame}[allowframebreaks]{比特币所用技术族谱}
+	\centering
+	\includegraphics[page=7,width=0.8\textwidth]{figures/BC101.pdf}
+	
+	\includegraphics[page=8,width=0.8\textwidth]{figures/BC101.pdf}
+	
+	\includegraphics[page=9,width=0.8\textwidth]{figures/BC101.pdf}
+	
+	\includegraphics[page=10,width=0.8\textwidth]{figures/BC101.pdf}
+	
+	\includegraphics[page=11,width=0.8\textwidth]{figures/BC101.pdf}
+	
+	\includegraphics[page=12,width=0.8\textwidth]{figures/BC101.pdf}
+	
+	\includegraphics[page=13,width=0.8\textwidth]{figures/BC101.pdf}
+	
+	\includegraphics[page=14,width=0.8\textwidth]{figures/BC101.pdf}
+	
+	\includegraphics[page=15,width=0.8\textwidth]{figures/BC101.pdf}
+	
+	\includegraphics[page=16,width=0.8\textwidth]{figures/BC101.pdf}
+\end{frame}
+
+\begin{frame}{密码朋克：从未远去}
+	\centering
+	\includegraphics[page=17,width=0.8\textwidth]{figures/BC101.pdf}
+\end{frame}
+
+%{
+%	\setbeamercolor{background canvas}{bg=}
+%	\includepdf[pages=7-]{figures/BC101.pdf}
+%}
+
+
+
+
 
 \begin{frame}{想了解更多关于比特币的信息？}
 	\centering

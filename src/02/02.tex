@@ -7,6 +7,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{chronology}
 \usetheme{CambridgeUS}
 
 \usepackage{pdfpages}
@@ -34,7 +35,7 @@
 	\tableofcontents[sectionstyle=show,subsectionstyle=show/shaded]
 \end{frame}
 
-\section{比特币的燃情岁月}
+\section{比特币的燃情岁月：区块链1.0}
 
 \subsection{比特币趣事两则}
 \begin{frame}{如果大三学生的你有6000元，该投资什么}
@@ -81,7 +82,7 @@
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.7\linewidth]{figures/pizza01}
-		\caption{世界上最贵的两块披萨}
+		\caption{世界上最"贵"的两块披萨}
 	\end{figure}
 
 	\begin{figure}
@@ -160,12 +161,12 @@
 \begin{frame}{单机挖矿到矿池挖矿}
 	比特币挖矿规则：大约7分钟出一个区块，某个矿工得到所有的奖励，算力越高的矿工得到奖励的几率越大。两种挖矿的模式：
 	\begin{enumerate}
-		\item 个人挖矿（Solo）：
+		\item 个人挖矿（Solo）{\color{red} 欧皇适用}：
 			\begin{itemize}
 				\item 比特币初期流行的挖矿方式；
 				\item 但随着比特币挖矿人数变多，算力增加，收益变得不稳定；
 			\end{itemize}
-		\item 矿池挖矿（Stake Pool）：
+		\item 矿池挖矿（Stake Pool）{\color{red} 非酋适用}：
 			\begin{itemize}
 				\item 现在比特币主流的挖矿方式；
 				\item 将大家算力集中起来，将挖到的比特币进行平分，收益稳定；
@@ -181,13 +182,13 @@
 	\begin{enumerate}
 		\item  PPS(Pay Per Share)：
 		\begin{enumerate}
-			\item 根据你share的任务量进行计算，收益恒定；
+			\item 根据你share的任务量进行计算，{\color{red}收益恒定}；
 			\item $gain_{worker}=C\times Power,gain_{pool}=X-n\times gain_{worker}$
 			\item 类似打工，你把劳动力卖给矿池获得固定收益，矿池自负盈亏；
 		\end{enumerate}
 		\item PPLNS(Pay Per Last N Shares):
 		\begin{enumerate}
-			\item 根据你的股份比重来分配收益，收益短期内有波动；
+			\item 根据你的股份比重来分配收益，{\color{red}收益短期内有波动}；
 			\item 每个时间片内矿池获得的比特币数量不同，根据在每个时间片内你股份比例分配收益；
 			\item 幸运值公式 $Lucky = \frac{RealGain}{TheoryGain}\times 100 \%$ 
 		\end{enumerate}
@@ -235,20 +236,38 @@
 	\end{figure}
 	
 \end{frame}
-\subsection{从面对面到交易所到数字货币信用卡}
+\subsection{比特币交易方式演变}
 % 面对面交易至交易所
+
 \begin{frame}{面对面交易}
-	内容...
+	最原始的比特币的交易方式，对于黑产等因为KYC和反洗钱无法通过正规交易所的交易来说仍然非常有效。
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/btcFaceToFace}
+		\caption{加密货币，一块钱四个，嘿嘿}
+		\label{fig:btcfacetoface}
+	\end{figure}
+	
 \end{frame}
 
 \begin{frame}{交易所}
-	提供了数字货币价格展示、加密货币间交易、加密货币衍生品交易
+	提供了加密货币价格展示、加密货币间交易、加密货币衍生品交易。
+	
+	大部分都不支持中国地区，部分国家承认其合法性。
 	\begin{itemize}
 		\item 币币交易；
-		\item OTC交易；
-		\item 去中心化交易所；
+		\item 法币加密货币交易；
+		\item 合约交易（DiFi等金融衍生品）；
 		\item 平台币；
 	\end{itemize}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\linewidth,height=0.4\textheight]{figures/exchange}
+	\caption{加密货币交易所}
+	\label{fig:exchange}
+\end{figure}
+
 \end{frame}
 
 \begin{frame}{加密货币信用卡、ATM}
@@ -307,28 +326,300 @@
 	\end{minipage}%
 \end{frame}
 
-\section{智能合约和ICO狂潮}
+\section{智能合约和ICO狂潮:区块链2.0}
 \subsection{智能合约对区块链的意义}
 \begin{frame}{智能合约定义}
-	智能合约是一种特殊协议，在区块链内制定合约时使用，当中内含了程式码函式，亦能与其他合约进行互动、做决策、储存资料及传送加密货币等功能。
 	
-	提出者：尼克·萨博（Nick Szabo）1995年
+	\begin{enumerate}
+		\item 智能合约(Smart contract)是一种旨在以信息化方式传播、验证或执行合同的计算机协议。智能合约允许在没有第三方的情况下进行可信交易，这些交易可追踪且不可逆转;
+		\item 提出者： 尼克·萨博(密码朋克成员，法学博士，中本聪候选人) 1995年;
+		\item 定义：智能合约是一种计算机化的交易协议，可以执行合同的条款。
+		{\footnotesize 一般的目的是满足常见的契约条件(例如支付条款、扣押权、机密性、甚至是强制执行)，将恶意攻击和意外情况降低至最小，并最小化对受信中介的需求。相关的经济目标包括降低欺诈损失、仲裁和执行成本，以及其他交易成本。}
+	\end{enumerate}
+
 \end{frame}
 
-\begin{frame}{智能合约对区块链的意义}
+\begin{frame}{智能合约的性质}
+	
 	\begin{enumerate}
-		\item 
+		\item \textbf{智能合约是计算机程序}
+		
+		{\tiny 智能合约是一种安全的、处于运行状态的计算机程序。智能合约实际上是采用某种语言编写的，计算机可以理解的代码。智能合约的内容是包含了业务逻辑和各方间约定好的协议。}
+		
+		\item \textbf{智能合约能自动执行}
+		
+			{\tiny  智能合约和运行在单机上的计算机程序的不同点在于当满足约定的条件时，智能合约将会自动执行履行契约(以以太坊为例，智能合约实际实现时不是自动运行的，而是由用户主动驱动的)。自动执行意味着智能合约将按照规定的路线完成合约内容，并返回合约的执行结果。合约的去中介化，合约条款的自动执行成为可能，合约的自动执行减少了合约参与者的成本。}
+		
+		\item \textbf{智能合约的执行不可阻挡}
+		
+			{\tiny  智能合约的执行具有不可阻挡性，只要满足约定的条件，合约将自动执行且不能被打断。这体现了“代码即法律”的理念，现实社会中的合约信度由法律和国家做背书，但在智能合约中由智能合约的不可阻挡性做背书，点对点的交易双方不再需要一个中介机构来做担保。除非关闭所有区块链节点，否则智能合约就可以被正确执行。}
+		
+		\item \textbf{智能合约的执行结果具有确定性}
+		
+			{\tiny  智能合约一般通过状态机模型维护内部数据，网络上的所有节点都将运行同一个智能合约得到相同的结果，如果节点间对合约的运行结果存在异议，那么智能合约的结果将无法形成统一的“世界状态”，也就是说无法全网达成共识。因为区块链共识机制的存在，所以智能合约最终的结果只存在一种情况，这让智能合约的结果具有确定性。}
 	\end{enumerate}
 \end{frame}
-\subsection{区块链的ICO狂潮和百家争鸣}
-\subsection{DAPP爆发和ICO狂潮}
 
-\section{区块链脱虚向实}
+\begin{frame}{智能合约对区块链的意义}	
+		\begin{figure}
+			\centering
+			\huge
+			代码即法律
+		\end{figure}
+	\begin{enumerate}
+		\item 让区块链有能够承载现实规则，在区块链上实现一个类似互联网的虚拟世界；
+		\item 让区块链扮演法院和法警的角色，实现合同的强制执行；
+		\item 催生出了分布式应用的概念，极大丰富了区块链的应用场景；
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{以太坊的创始人：维塔利克·布特林（V神）}
+	
+	{\footnotesize 无人知晓中本聪，90后V神成为区块链世界的一号人物。}
+	\begin{minipage}[t]{0.7\linewidth}
+\begin{table}[]
+	\footnotesize
+	\begin{tabular}{@{}p{0.1\linewidth}p{0.8\linewidth}@{}}
+		\toprule
+		时间     & 事件                              \\ \midrule
+		1994   & 出生在俄罗斯                          \\
+		2010 & 魔兽世界随意删除技能让其意识到中心化弊端 \\
+		2011   & 接触比特币                           \\
+		2011.5 & 滑铁卢大学上学，8个月后退学                  \\
+		2011.9 & 创办《比特币杂志》                       \\
+		2013   & 小范围发表《以太坊白皮书》，招募开发人员            \\
+		2014.1 & 公开发表《以太坊：一个下一代加密货币和去中心化应用平台》    \\
+		2014.7 & 以太坊ICO                          \\
+		2016～2018 & 《福布斯》30岁以下30大影响力人物、《财富》40岁以下40大影响力人物  \\
+		现在  & 以太坊是最流行的DAPP平台，其目前身价千亿                          \\ \bottomrule
+	\end{tabular}
+	\caption{维塔利克·布特林 大事件}
+\end{table}
+	\end{minipage}%
+	\begin{minipage}[t]{0.3\linewidth}
+		\begin{figure}
+			\centering
+			\subfigure[维塔利克画像]{
+				\begin{minipage}[b]{0.8\linewidth}
+					\includegraphics[width=\linewidth]{figures/vgod}
+				\end{minipage}%
+			}
+			\subfigure[ETH与维塔利克]{
+				\begin{minipage}[b]{0.8\linewidth}
+					\includegraphics[width=\linewidth]{figures/ethvgod}
+				\end{minipage}%
+			}
+		\end{figure}
+	\end{minipage}%
+\end{frame}
+
+\begin{frame}{以太坊的理念}
+	以太坊是互联网新时代的基础：
+	\begin{enumerate}
+		\item 内建货币与支付。
+		\item 用户拥有个人数据主权，且不会被各类应用监听或窃取数据。
+		\item 人人都有权使用开放金融系统。
+		\item 基于中立且开源的基础架构，不受任何组织或个人控制。
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{比特币和以太坊的关键区别}
+	
+	编程语言是否图灵完备\footnote{图灵完备意味着该编程语言可以实现任何逻辑}，具备通用计算的能力。
+	
+	\begin{table}[htb]
+		\label{table:blockchainGeneration}
+		\centering
+		\begin{tabular}{c|ccc}
+			\hline
+			& 区块链1.0& 区块链2.0 & 区块链3.0  \\
+			\hline
+			图灵完备& 否& 是 & 是\\
+			冯诺伊曼体系 & 否 & 是 & 是\\
+			\hline
+		\end{tabular}
+		\caption{区块链1.0-3.0的演变}
+	\end{table}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{区块链1.0:比特币}
+	区块链采用纯数学方法而不是中心机构建立信任关系，使得互不信任或弱信任的参与者之间能够维系不可篡改的账本记录。
+
+	具体而言，区块链1.0具有如下功能：
+	\begin{itemize}
+		\item \textsl{分布式账本(Distributed Ledger)} 
+		
+		{\footnotesize 分布式账本是在网络成员之间共享、复制和同步的数据库，记录网络参与者之间的交易。}
+		
+		\item \textsl{块链式数据(Linked Data Storage)} 
+		
+		 {\footnotesize 区块链采用带有时间戳的链式区块结构存储数据，从而为数据增加了时间维度，具有极强的可验证性和可追溯性。}
+		 
+		\item \textsl{默克尔树(Merkle Trees)}  
+		
+		{\footnotesize 梅克尔树是区块链的重要数据结构，能够快速归纳和校验区块数据的存在性和完整性。}
+		
+		\item \textsl{工作量证明(Proof of Work, PoW)}  
+		
+		{\footnotesize 通过引入分布式节点的算力竞争保证数据一致性和共识的安全性。}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{区块链2.0:以太坊}
+	区块链2.0进入可编程金融阶段。在这一阶段，区块链系统渗入经济、金融与资本市场，形成股票、债券、期货、贷款、抵押、产权、智能财产的智能合约。
+	
+	除了构建货币体系外，区块链在泛金融领域也有众多应用案例。例如，智能合约的核心是利用程序算法替代人执行合同，这些合同包含三个基本要素：要约、承诺、价值交换，可以实现资产、过程、系统的自动组合和项目协调。
+	
+	\newpage
+	
+		目前，全世界有成千上万名开发者正在以太坊上构建应用程序、发明新的应用程序，其中有许多现在已经可以使用：
+		\begin{enumerate}
+			\item 	加密货币钱包
+			
+			{\tiny 让你可以使用 ETH 或其他数字资产进行低成本的即时支付；}
+			\item 	金融应用程序
+			
+			让你可以借贷、投资数字资产；
+			\item 	去中心化市场
+			
+			{\tiny 让你可以交易数字资产，甚至就现实世界事件的“预测”进行交易；}
+			\item 	游戏
+			
+			{\tiny 你可以拥有游戏内的资产，甚至可以由此获得现实收益以及更多，更多。}
+		\end{enumerate}
+		{\footnotesize 以太坊社区是世界上最大最活跃的区块链社区。它包括核心协议开发者、加密经济研究员、密码朋克、挖矿组织、ETH 持有者、应用开发者、普通用户、无政府主义者、财富 500 强公司。}
+	
+	\newpage
+	
+	区块链2.0具有如下功能：
+	\begin{itemize}
+		\item \textsl{智能合约(Smart Contract)} 
+		
+		{\tiny 1994 年，Nick Szabo首次提出智能合约概念，即一种旨在以信息化方式传播、验证或执行合同的计算机协议，能够在没有第三方的情况下进行可信交易。智能合约是已编码的、可自动运行的业务逻辑，通常有自己的代币和专用开发语言。}
+		\item \textsl{虚拟机(Virtual Machine)}
+		
+		 	{\tiny 指通过软件模拟的运行在一个完全隔离环境中的完整计算机系统，在区块链技术中，虚拟机用于执行智能合约编译后的代码。}
+		\item \textsl{去中心化应用(Decentralized Application, DApp)} 
+		
+			{\tiny 去中心化应用是运行在分布式网络上、参与者的信息被安全保护(也可能是匿名的)、通过网络节点进行去中心化操作的应用。包含用户界面的应用，包括但不限于各种加密货币，如以太坊(Ethereum)的去中心化区块链及其原生数字货币以太币(Ether)。}
+	\end{itemize}
+\end{frame}
+
+\subsection{ICO狂潮和百家争鸣}
+\begin{frame}{ICO的含义}
+	ICO，全称Initial Coin Offering，意思是“数字货币首次公开募资”。
+	
+	概念拷贝自股票市场的IPO,是指企业或非企业组织在区块链技术的支持下发行代币，向投资人募集虚拟货币（一般为比特币、以太坊）的融资活动。
+	
+	其流程为：
+	\begin{enumerate}
+		\item 一家公司或团体表示自己计划或正在研究区块链技术，同时在公有链上内置可转让流通的代币（加密数字货币，与比特币类似）；
+		\item 投资者以比特币、以太币等虚拟货币换取代币，以此作为其权益凭证；
+		\item 项目发行的代币登上交易平台，投资人进行买卖。
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{ICO和IPO对比}
+	\begin{enumerate}
+	\item 共同点：
+	\begin{enumerate}
+		\item 都有通过出售股份来筹措资金；
+		
+		\item 都有潜在投资者为了潜在的巨大收益而冒险参与。
+		
+	\end{enumerate}
+		
+	\item 不同点：
+		\begin{enumerate}
+\item 	ICO的大部分支持者是项目爱好者或不专业的投资者；
+	
+	\item ICO不需要注册经营牌照；
+	
+\item 	ICO平台是第三方中立平台，投资者自担风险。
+		\end{enumerate}
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{ICO狂潮}
+\begin{minipage}[t]{0.4\linewidth}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.7\linewidth,height=0.7\textheight]{figures/94btcprice}
+		\caption{虚拟货币价格达历史峰值}
+	\end{figure}
+\end{minipage}%
+\begin{minipage}[t]{0.6\linewidth}
+	\begin{table}[]
+		\footnotesize
+		\begin{tabular}{@{}p{0.1\linewidth}p{0.8\linewidth}@{}}
+			\toprule
+			时间     & 事件                              \\ \midrule
+			2009 & 比特币上线，区块链慢慢发展；\\
+			2013.7 & Mastercoin（现更名万事达币OMNI）发明ICO； \\
+			2015   &     以太坊上线 ，DAPP概念爆发 ；                   \\
+			2016.3 & ICO史上最大的众筹项目The DAO，融资额高达1.6亿美元； \\ 
+			2016 & ICO狂潮 ，只要随便写个白皮书都募集到钱；\\
+			2017.9.4  &  比特币价格达到历史峰值，央行联合七部委全面叫停区块链中的ICO事件，同时把ICO定义为非法集资；                        \\ 
+			2018～ & ICO日渐式微，市场重点转移到区块链与实体经济结合。 \\
+			\bottomrule
+		\end{tabular}
+		\caption{ICO大事件}
+	\end{table}
+\end{minipage}%
+\end{frame}
+
+\subsection{DAPP爆发和应用落地探索}
+
+\section{区块链脱虚向实:区块链3.0}\label{sec:}
 \subsection{各国出台区块链政策密集出台}
 \subsection{中国各省区块链政策密集出台}
 \subsection{区块链应用领域一览}
 
-\section{区块链历史经验总结}
+\section{区块链发展总结}
+
+\begin{frame}{区块链发展类似互联网，且仍然处于早期}
+	区块链正在爆发式发展，其市场是互联网的10倍。
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth,height=0.6\textheight]{figures/blockchainrevelution}
+	\caption{互联网和区块链历程与对比}
+	\label{fig:blockchainrevelution}
+\end{figure}
+\end{frame}
+
+\begin{frame}{区块链用户数预测}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.7\linewidth, height=0.7\textheight]{figures/compareinternetandblockchain}
+		\caption{互联网和区块链用户数预测}
+		\label{fig:compareinternetandblockchain}
+	\end{figure}
+	
+\end{frame}
+
+
+% 我们目前正在过渡到区块链演进的第五个阶段，在这个阶段中，区块链在不同行业的应用以及区块链可扩展性解决方案正在被探索。在第一阶段，2009-2012年，比特币作为一种新型的数字货币和概念验证发布，第一批用户由核心技术人员、加密专家和密码朋克组成，他们在各种邮件列表和论坛(bitcointalk.org、Reddit等)上推广加密货币。2013-2014年第二阶段，随着媒体报道的增加(虽然很多是负面报道)，交易所、钱包、托管、支付解决方案等基础设施开始增加。2015-2017年第三阶段更侧重于围绕金融用例的实际应用，如汇款、小额支付、跨境支付。随着以太坊的智能合约的出现，我们已经进入了第四个阶段，在这个阶段中，我们正在探索金融之外的用例，而新的融资工具ICO在这个阶段成为了一个杀手应用程序。在第五阶段，我们期待着成功的DAPP和用例的出现，重新树立对技术的信心，改善区块链的可伸缩性、隐私性、数据存储、互操作性、托管和用户体验。在第六阶段的后期，我们希望看到DAPP打破并与Dropbox、Facebook、Youtube、Airbnb等集中式垄断企业竞争，让消费者参与到数字经济中，并获得更多的权利。
+
+\begin{frame}{目前主要工作是突破区块链基础技术}
+	目前主要工作是改善区块链的可伸缩性、隐私性、数据存储、互操作性、托管和用户体验
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/blockchainsteps}
+	\caption{区块链发展阶段}
+	\label{fig:blockchainsteps}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{区块链细分技术成熟度}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\linewidth]{figures/2019区块链成熟度曲线}
+		\caption{2019区块链成熟度曲线}
+		\label{fig:2019blockchainpostion}
+	\end{figure}
+	
+\end{frame}
 
 \begin{frame}{勿当韭菜！！！别碰加密货币！！！}
 	
@@ -346,6 +637,22 @@
 		\label{fig:allingrandpa}
 	\end{figure}
 	
+\end{frame}
+
+\begin{frame}
+\begin{minipage}[t]{0.5\linewidth}
+	\begin{center}
+		\begin{figure}
+			\Huge 谢谢聆听！
+		\end{figure}
+	\end{center}
+\end{minipage}%
+\begin{minipage}[t]{0.4\linewidth}
+		\begin{figure}
+		\centering
+		\includegraphics[width=0.7\linewidth]{figures/blockchain101qrcode}
+	\end{figure}
+\end{minipage}%
 \end{frame}
 
 \end{document}

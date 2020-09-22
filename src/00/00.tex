@@ -15,14 +15,21 @@
 \usepackage{subfigure}
 \usepackage{color}
 %%%%%
+%% LOGO放右上
+\setbeamertemplate{frametitle}
+{\begin{beamercolorbox}[wd=\paperwidth]{frametitle}
+		\strut\hspace{0.5em}\insertframetitle\strut
+		\hfill
+		\raisebox{-2mm}{\includegraphics[width=1cm]{figures/HNUC.jpeg}}
+	\end{beamercolorbox}
+}
+
 \begin{document}
 \author{郭泰彪}
 \title{区块链原理及应用}
 \subtitle{第0课：课程简介}
-\logo{\includegraphics[scale=0.2]{figures/HNUC.jpeg}}
-\institute{湖南工商大学大数据研究院}
-
-%\date{}
+\institute{湖南工商大学大数据与互联网创新研究院}
+\date{2020年9月10日}
 %\subject{}
 %\setbeamercovered{transparent}
 %\setbeamertemplate{navigation symbols}{}
@@ -265,5 +272,38 @@
 		\item 授课老师进行初审，对潜在发明给予修改意见，并指导学生申请发明专利，支付发明专利代理费用；
 		\item 专利在下学期开始前拿到发明专利申请号,并在成功获得专利授权后，学生可一次性获得本课程的科研奖励1万元人民币整。
 	\end{enumerate}
+\end{frame}
+
+\section*{谢谢聆听}
+
+\begin{frame}
+	\begin{minipage}[t]{0.5\linewidth}
+		\begin{center}
+			\begin{figure}
+				\vspace{10pt}
+				
+				{\Huge 谢谢聆听}
+				
+				\vspace{30pt}
+				郭泰彪
+				
+				\vspace{10pt}
+				{\tiny 湖南工商大学大数据与互联网创新研究院}
+			\end{figure}
+			\begin{figure}
+				
+			\end{figure}
+		\end{center}
+	\end{minipage}%
+	\begin{minipage}[t]{0.4\linewidth}
+		\begin{figure}
+			\centering
+			\texttt{blockchain101}
+			
+			\includegraphics[width=0.6\linewidth]{figures/blockchain101qrcode}
+			
+			{\footnotesize \texttt{Star| Fork| Issue}}
+		\end{figure}
+	\end{minipage}%
 \end{frame}
 \end{document}

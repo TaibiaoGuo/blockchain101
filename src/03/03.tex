@@ -104,10 +104,183 @@
 \begin{frame}{拜占庭将军问题背景}
 	处理这类失败的问题被抽象地表述为拜占庭将军问题\cite{lamport_byzantine_1982}。
 	\begin{enumerate}
-		\item 角色定义：COMMANDER（）、LIEUTENANT
-		\item 
+\item Important to have reliable computer systems
+\item  Two solutions to ensuring a reliable system
+\begin{enumerate}
+\item Having components that never fail
+\item Ensure proper handling of cases where components fail
+\end{enumerate}
+\item Byzantine Generals Problem
 	\end{enumerate}
 \end{frame}
+
+\begin{frame}{Problem}
+\begin{enumerate}
+	\item Divisions of the Byzantine army camped outside the walls of an enemy city.
+\item  Each division is led by a general.
+\item Generals decide on a common plan of action.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Types of Generals}
+		There are two types of generals
+	\begin{enumerate}
+		\item Loyal Generals
+		\item Traitor Generals
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Problem – Conditions}
+两个条件必须被满足:
+\begin{enumerate}
+	\item A.所有的忠将都将达成一致的作战计划；
+	\item B.少数叛将将无法导致忠将采纳不良计划； 
+\end{enumerate}
+	\end{frame}
+
+\begin{frame}{Problem - Not a Bad Plan}
+作战计划的制定方式:
+\begin{enumerate}
+	\item 每个将军都将自己侦查的敌方情况发送给其他将军；其中:
+	
+	\item $v(i)$是第$i$位将军传达的消息，将军总数为$n$;
+	
+	\item 每位将军通过某种方法将$v(1),...,v(n)$的值结合起来形成一个作战计划；
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Problem – Example Not a Bad Plan
+}
+	\begin{enumerate}
+		\item 内容...
+	\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Problem – Example Not a Bad Plan
+}
+	\begin{enumerate}
+		\item General 2 receives ATTACK, ATTACK.
+		\item General 3 receives ATTACK, ATTACK.
+	\end{enumerate}
+So Not a Bad Plan is to ATTACK
+\end{frame}
+
+\begin{frame}{Problem – Not a Bad Plan Flaw
+}
+	\begin{enumerate}
+		\item Assumed that every general communicates the same v(i) to every other general.
+		\item A traitor general can send different v(i) messages to different generals.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Problem – Example Flaw}
+	\begin{enumerate}
+		\item General 2 receives ATTACK, ATTACK.
+		\item General 3 receives RETREAT, ATTACK.
+	\end{enumerate}
+Is Not a Bad Plan to ATTACK or RETREAT?
+
+\end{frame}
+
+\begin{frame}{Problem – New Conditions}
+	The new conditions are:
+	\begin{enumerate}
+		\item Any two loyal generals use the same value of v(i). 
+		\item If the $i^{th}$ general is loyal, then the value that he sends must be used by every loyal general as the value of v(i). 
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Byzantine Generals Problem}
+	A commander general giving orders to his lieutenant generals.
+
+\textbf{Byzantine Generals Problem} – A commanding general must send an order to his n-1 lieutenant generals such that:
+	\begin{enumerate}
+		\item {\color{red} IC1}. All loyal lieutenants obey the same order.
+		\item {\color{red}IC2}. If the commanding general is loyal, then every loyal lieutenant obeys the order he sends.
+	\end{enumerate}
+These are called \textbf{the interactive consistency} conditions.
+\end{frame}
+
+\begin{frame}{Impossibility Results}
+	\begin{enumerate}
+		\item When will the Byzantine Generals Problem fail?
+		\item The problem will fail if 1/3 or more of the generals are traitors.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Impossibility Results – Example}
+	\begin{enumerate}
+		\item L1 received the commands ATTACK, RETREAT
+		\item L1 doesn’t know which general is a traitor.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Impossibility Results – Example 2}
+	\begin{enumerate}
+		\item L1 again received the commands ATTACK, RETREAT
+		\item L1 doesn’t know which general is a traitor.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Impossibility Results Generalization}
+	No solution when:
+	\begin{enumerate}
+		\item Fewer than {\color{red}3m + 1} generals;
+	\end{enumerate}
+{\color{red}m} = number of traitor generals
+\end{frame}
+
+\begin{frame}{Impossibility Results - Application}
+	\begin{enumerate}
+		\item Utilized in clock synchronization as described in Dolev et al. [1986] 
+		\item N > 3f
+		\begin{enumerate}
+			\item N = number of clocks
+			\item f = number of clocks that are faulty
+		\end{enumerate}
+		\item Same as the Byzantine Problem!
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Impossibility Results}
+	\begin{enumerate}
+		\item When will the Byzantine Generals Problem fail?
+		\item The problem will fail if 1/3 or more of the generals are traitors.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Impossibility Results – Example}
+	\begin{enumerate}
+		\item L1 received the commands ATTACK, RETREAT
+		\item L1 doesn’t know which general is a traitor.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Impossibility Results – Example 2}
+	\begin{enumerate}
+		\item L1 again received the commands ATTACK, RETREAT
+		\item L1 doesn’t know which general is a traitor.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Impossibility Results Generalization}
+	No solution when:
+	\begin{enumerate}
+		\item Fewer than 3m + 1 generals;
+	\end{enumerate}
+m = number of traitor generals
+\end{frame}
+
+\begin{frame}{Impossibility Results - Application}
+	
+\end{frame}
+
+
+
+
+
 
 \section{区块链：“虚拟”可信第三方}
 

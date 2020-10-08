@@ -1,0 +1,598 @@
+\documentclass[11pt]{beamer}
+\usepackage[UTF8]{ctex}
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage{lmodern}
+%\usepackage{amsmath}
+%\usepackage{amsfonts}
+%\usepackage{amssymb}
+\usepackage{graphicx}
+\usetheme{CambridgeUS}
+
+%%% 超链接
+\usepackage[]{hyperref}
+
+\usepackage{pdfpages}
+
+%%%%%  代码
+\usepackage{listings}\usepackage{color}  
+\definecolor{dkgreen}{rgb}{0,0.6,0}  
+\definecolor{gray}{rgb}{0.5,0.5,0.5}  
+\definecolor{mauve}{rgb}{0.58,0,0.82}  
+
+\lstset{ %  
+	basicstyle=\ttfamily,
+	%basicstyle=\footnotesize,           % the size of the fonts that are used for the code  
+	numbers=left,                   % where to put the line-numbers  
+	numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers  
+	stepnumber=1,                   % the step between two line-numbers. If it's 1, each line   
+	% will be numbered  
+	numbersep=5pt,                  % how far the line-numbers are from the code  
+	backgroundcolor=\color{white},      % choose the background color. You must add \usepackage{color}  
+	showspaces=false,               % show spaces adding particular underscores  
+	showstringspaces=false,         % underline spaces within strings  
+	showtabs=false,                 % show tabs within strings adding particular underscores  
+	frame=single,                   % adds a frame around the code  
+	rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))  
+	tabsize=2,                      % sets default tabsize to 2 spaces  
+	captionpos=b,                   % sets the caption-position to bottom  
+	breaklines=true,                % sets automatic line breaking  
+	breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace  
+	% title=\lstname,                   % show the filename of files included with \lstinputlisting;  
+	% also try caption instead of title  
+	keywordstyle=\color{blue},          % keyword style  
+	commentstyle=\color{dkgreen},       % comment style  
+	stringstyle=\color{mauve},         % string literal style  
+	escapeinside={\%*}{*)},            % if you want to add LaTeX within your code  
+	morekeywords={*,...}               % if you want to add more keywords to the set  
+}  
+
+% 分栏-用于目录
+\usepackage{multicol}
+
+
+%%%%%表格
+\usepackage{longtable}
+\usepackage{subfigure}
+\usepackage{booktabs}
+
+%%%%%
+%\usepackage[backend=bibtex,sorting=none]{biblatex}
+%\addbibresource{reference.bib} %BibTeX数据文件及位置
+%\setbeamerfont{footnote}{size=\tiny} 
+%\setbeamertemplate{bibliography item}[text]
+
+%%% 参考文献
+\usepackage{natbib}
+
+%% LOGO放右上
+\setbeamertemplate{frametitle}
+{\begin{beamercolorbox}[wd=\paperwidth]{frametitle}
+		\strut\hspace{0.5em}\insertframetitle\strut
+		\hfill
+		\raisebox{-2mm}{\includegraphics[width=1cm]{figures/HNUC.jpeg}}
+	\end{beamercolorbox}
+}
+
+%%% 课件属性定义
+\author{郭泰彪}
+\title{区块链原理及应用}
+\subtitle{第5课：区块链密码学基础(实验)}
+\institute[湖工商大数据研究院]{湖南工商大学大数据与互联网创新研究院}
+\date{2020年10月10日}
+\titlegraphic{\includegraphics[width=2cm]{figures/HNUC.jpeg}}
+
+
+\begin{document}
+\begin{frame}[plain]
+	\maketitle
+\end{frame}
+
+\begin{frame}
+	\frametitle{目录}
+	\begin{multicols}{2}
+	\tableofcontents[sectionstyle=show,subsectionstyle=show/shaded]
+	\end{multicols}
+\end{frame}
+
+\section{区块链密码学基础回顾}
+
+\begin{frame}{哈希( hash)函数}
+	内容... % TODO
+\end{frame}
+
+\section{实验任务介绍}
+% 实现一个简单区块链，其中每个区块都指向上一个区块。
+%这是一个区块链的基本的实现，不包含工作证明或点对点等高级功能。区块链功能的基本实现，可以通过动作集对区块链进行操作。
+%运行成功后按照提示进行操作即可。
+
+\begin{frame}{实验任务}
+	实现简单区块链的任务说明：
+	\begin{itemize}
+		\item 包括：
+		\begin{itemize}
+			\item 将消息按照顺序打包成区块；
+			\item 将区块按照顺序链接成区块链；
+				\item 能够验证区块链是否被破坏:
+			\begin{itemize}
+				\item 能够验证消息是否被破坏；
+			\item 能够验证区块是否被破坏；
+			\end{itemize}	
+		\item 命令行的操作界面；
+		\end{itemize}
+	\item 不包括：
+	\begin{itemize}
+		\item 不包含数字签名等认证功能等实现；
+		\item 工作量证明等共识算法的实现；
+		\item 点对点通信等分布式系统的实现；
+	\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{任务分析-消息Message}
+	消息(Message)是用户存储到区块链的信息，
+	\begin{itemize}
+		\item 功能：
+		\begin{itemize}
+			\item ：
+		\end{itemize}
+		\item 属性：
+		\item 方法：
+		\begin{itemize}
+			\item  链接(link)
+			\item 生成消息哈希(seal)：			
+				$hash_{message}=sha256(hash_{prev} + hash_{payload})$
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\section{实验环境的准备}
+
+% 20分钟
+\section{Python语言速览}
+\subsection{人生苦短，我用Python}
+\begin{frame}{人生苦短，我用Python}
+	Python简洁却强大、简单却专业，它是当今世界最受欢迎的编程语言，学好它终身受用。\footnote{http://www.icourse163.org/course/BIT-268001，国家精品课程：Python语言程序设计}
+	\begin{multicols}{2}
+			\begin{itemize}
+			\item	Python 是流行语言
+			\item	Python 是入门语言
+			\item	Python 是玩具语言
+			\item	Python 是胶水语言
+			\item	Python 是黑客语言
+			\item	Python 是通用语言
+		\end{itemize}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}{Python应用领域}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\linewidth]{figures/python-field}
+		\label{fig:python-field}
+	\end{figure}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{\#潘石屹用Python解决100个问题\#}
+	微博话题：\textbf{\#潘石屹用Python解决100个问题\#}\cite{panshiyi100}
+	
+	2019年，当地产大佬潘石屹要把学习Python作为生日礼物送给自己的时候，微博上还多是一阵调侃之声，2020年潘同学已经在Python考试中得到99分的好成绩。时年56岁的小潘同学要再一次抓住“青春”的尾巴。
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.7\linewidth]{figures/pythonPanshiyi01}
+		\label{fig:pythonpanshiyi01}
+	\end{figure}
+
+	\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{figures/pythonPanshiyi03}
+	\label{fig:pythonpanshiyi03}
+\end{figure}
+\end{frame}
+
+\begin{frame}{潘石屹谈为什么学Python}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/pythonPanshiyi02}
+		\label{fig:pythonpanshiyi02}
+	\end{figure}
+\end{frame}
+
+\subsection{代码格式}
+
+% lstlisting报错问题解决思路：http://blog.sina.com.cn/s/blog_5e16f1770102dxps.html
+\begin{frame}[fragile]
+	\frametitle{代码格式}
+
+		\begin{minipage}[t]{0.5\linewidth}
+				\begin{itemize}
+					\item Python是一门脚本语言，可以一行行输入并立即执行；
+					\item Python也可以将代码保存到文件中，以\textbf{类}、\textbf{函数}等方式对代码进行组织。
+				\end{itemize}
+	\end{minipage}%
+% 此行用于空格
+	\begin{minipage}[t]{0.05\linewidth}
+		\quad
+\end{minipage}%
+	\begin{minipage}[t]{0.4\linewidth}
+		\begin{figure}
+				\lstinputlisting[language=Python,basicstyle=\scriptsize ,title=python代码基本结构\cite{rossum1995python}]{./figures/basicpython.py}	
+		\end{figure}
+	\end{minipage}%
+\end{frame}
+
+\subsection{Python的基本语法}
+\begin{frame}[fragile]
+\frametitle{类}
+\begin{minipage}[t]{0.5\linewidth}
+	\begin{itemize}
+	\item 类可以用来对代码进行组织和管理；
+	\item 类可以对现实世界的对象进行抽象和建模；
+	\item 类的基本组成包含属性和方法；
+	\item 类支持继承等面向对象编程的功能；
+\end{itemize}
+
+例子
+\begin{itemize}
+	\item 类名： 人类(human)
+	\item 属性：体重 (weight)，年龄 (age)，性别(sex)；
+	\item 方法：吃(eat)， 睡(sleep)， 玩(play);
+\end{itemize}
+\end{minipage}%
+% 此行用于空格
+\begin{minipage}[t]{0.05\linewidth}
+	\quad
+\end{minipage}%
+	\begin{minipage}[t]{0.4\linewidth}
+	\begin{figure}
+		\lstinputlisting[language=Python,basicstyle=\scriptsize ,title=python定义人类]{./figures/classhuman.py}	
+	\end{figure}
+\end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{函数}
+	\begin{minipage}[t]{0.4\linewidth}
+	\begin{itemize}
+	\item 不属于任何类的"方法"，没有self参数
+	\item 函数内包含具体逻辑
+\end{itemize}
+	\end{minipage}%
+	\begin{minipage}[t]{0.05\linewidth}
+		\quad 	% 此行用于空格
+	\end{minipage}%
+	\begin{minipage}[t]{0.5\linewidth}
+	\lstinputlisting[language=Python,basicstyle=\scriptsize,linerange={1-4}]{./figures/func.py}	
+	
+	\lstinputlisting[language=Python,basicstyle=\scriptsize,linerange={6-17}]{./figures/func.py}	
+	\end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{具体逻辑-(Python内置类+用户定义)}
+	% 此行用于空格
+	\begin{minipage}[t]{0.25\linewidth}
+		判断语句：
+		\begin{itemize}
+			\item 条件语句
+			\item 循环语句
+		\end{itemize}
+	\end{minipage}%
+	\begin{minipage}[t]{0.25\linewidth}
+		运算符：
+		\begin{itemize}
+			\item 算术运算符
+			\item  比较运算符
+			\item 赋值运算符
+			\item 逻辑运算符
+			\item ...
+		\end{itemize}
+	\end{minipage}%
+	\begin{minipage}[t]{0.25\linewidth}
+复杂数据结构：
+\begin{itemize}
+	\item 字符串
+	\item 列表
+	\item 元组
+	\item 字典
+\end{itemize}
+\end{minipage}%
+	\begin{minipage}[t]{0.25\linewidth}
+	用户定义：
+	\begin{itemize}
+		\item 变量
+		\item 自定义函数
+		\item 自定义类
+	\end{itemize}
+\end{minipage}
+\end{frame}
+
+\begin{frame}{关键字}
+	\scriptsize
+	\begin{multicols}{3}
+		\textbf{and}	逻辑运算符。
+		
+		\textbf{as}	创建别名。
+		
+		\textbf{assert}	用于调试。
+		
+	\textbf{break}	跳出循环。
+		
+		\textbf{class}	定义类。
+		
+		\textbf{continue}	继续循环的下一个迭代。
+		
+		\textbf{def}	定义函数。
+		
+		\textbf{del}	删除对象。
+		
+		\textbf{elif}	在条件语句中使用，等同于 else if。
+		
+		\textbf{else}	用于条件语句。
+		
+		\textbf{except}	处理异常，发生异常时如何执行。
+		
+		\textbf{False}	布尔值，比较运算的结果。
+		
+		\textbf{finally}	处理异常异常，都将执行一段代码。
+		
+		\textbf{for}	创建 for 循环。
+		
+		\textbf{from}	导入模块的特定部分。
+		
+		\textbf{global}	声明全局变量。
+		
+		\textbf{if}	写一个条件语句。
+		
+		\textbf{import}	导入模块。
+		
+		\textbf{in}	检查列表、元组等集合中是否存在某个值。
+		
+		\textbf{is}	测试两个变量是否相等。
+		
+		\textbf{lambda}	创建匿名函数。
+		
+		\textbf{None}	表示 null 值。
+		
+		\textbf{nonlocal}	声明非局部变量。
+		
+		\textbf{not}	逻辑运算符。
+		
+		\textbf{or}	逻辑运算符。
+		
+		\textbf{pass}	null 语句，一条什么都不做的语句。
+		
+		\textbf{raise}	产生异常。
+		
+		\textbf{return}	退出函数并返回值。
+		
+		\textbf{True}	布尔值，比较运算的结果。
+		
+		\textbf{try}	编写 try...except 语句。
+		
+		\textbf{while}	创建 while 循环。
+		
+		\textbf{with}	用于简化异常处理。
+		
+		\textbf{yield}	结束函数，返回生成器。
+\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{判断语句}
+	\begin{minipage}[t]{0.5\linewidth}
+		\begin{itemize}
+			\item	条件语句：
+			\begin{itemize}
+				\item if else判断
+			\end{itemize}
+			\item 循环语句：
+			\begin{itemize}
+				\item while循环
+				\item for循环
+				\item 中断循环标志：break,continue,pass
+			\end{itemize}
+		\end{itemize}
+	\end{minipage}%
+	% 此行用于空格
+	\begin{minipage}[t]{0.05\linewidth}
+		\quad
+	\end{minipage}%
+	\begin{minipage}[t]{0.4\linewidth}
+		\begin{figure}
+			\lstinputlisting[language=Python,basicstyle=\scriptsize ,title=python定义人类]{./figures/classhuman.py}	
+		\end{figure}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{运算符}
+	\begin{minipage}[t]{0.33\linewidth}
+		算数运算符：
+		
+	\begin{tabular}{|c|c|}
+		\hline 
+	+	&  简单赋值\\ 
+		\hline 
+	-	&加法赋值  \\ 
+		\hline 
+	*	& 减法赋值 \\ 
+		\hline 
+	/	& 乘法赋值 \\ 
+		\hline 
+	\%	&  除法赋值\\ 
+		\hline 
+	**=	&取模赋值  \\ 
+		\hline 
+	//	&  幂赋值\\ 
+		\hline 
+	\end{tabular} 
+	\end{minipage}%
+	\begin{minipage}[t]{0.33\linewidth}
+	赋值运算符：
+	
+	\begin{tabular}{|c|c|}
+		\hline 
+		=	&  简单赋值\\ 
+		\hline 
+		+=	&加法赋值  \\ 
+		\hline 
+		-=	& 减法赋值 \\ 
+		\hline 
+		*=	& 乘法赋值 \\ 
+		\hline 
+		/=	&  除法赋值\\ 
+		\hline 
+		\%=	&取模赋值  \\ 
+		\hline 
+		**=	&  幂赋值\\ 
+		\hline 
+		//=	& 取整除赋值 \\ 
+		\hline 
+	\end{tabular} 
+\end{minipage}%
+	\begin{minipage}[t]{0.33\linewidth}
+		比较运算符：
+		
+	\begin{tabular}{|c|c|}
+	\hline 
+	==	&  等于\\ 
+	\hline 
+	!=	&不等于  \\ 
+	\hline 
+	>	& 大于 \\ 
+	\hline 
+	<	&小于  \\ 
+	\hline 
+	>=	&  大于等于\\ 
+	\hline 
+	<=	&  小于等于\\ 
+	\hline 
+\end{tabular} 
+	\end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{复杂数据结构}
+	\begin{minipage}[t]{0.5\linewidth}
+		\begin{itemize}
+			\item	dosomething
+		\end{itemize}
+	\end{minipage}%
+	% 此行用于空格
+	\begin{minipage}[t]{0.05\linewidth}
+		\quad
+	\end{minipage}%
+	\begin{minipage}[t]{0.4\linewidth}
+		\begin{figure}
+			\lstinputlisting[language=Python,basicstyle=\scriptsize ,title=python定义人类]{./figures/classhuman.py}	
+		\end{figure}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{title}
+	\begin{minipage}[t]{0.5\linewidth}
+		\begin{itemize}
+		\item	dosomething
+		\end{itemize}
+	\end{minipage}%
+	% 此行用于空格
+	\begin{minipage}[t]{0.05\linewidth}
+		\quad
+	\end{minipage}%
+	\begin{minipage}[t]{0.4\linewidth}
+		\begin{figure}
+			\lstinputlisting[language=Python,basicstyle=\scriptsize ,title=python定义人类]{./figures/classhuman.py}	
+		\end{figure}
+	\end{minipage}
+\end{frame}
+\subsection{更多Python资料}
+\begin{frame}[fragile]
+	\frametitle{更多Python资料}
+	
+\begin{itemize}
+		\item 	视频教程：
+		\begin{itemize}
+			\item \href{http://www.icourse163.org/course/BIT-268001}{\underline{北理工Python程序设计系列}}
+		\end{itemize}
+
+		\item 	书籍：
+		\begin{itemize}
+			\item \href{https://item.jd.com/12279949.html}{\underline{Python基础教程（第三版）}}
+		\end{itemize}
+
+		\item 	开发工具：
+		\begin{itemize}
+			\item \href{https://www.jetbrains.com/pycharm/}{\underline{PyCharm}}:一个智能化的Python 开发环境
+			\item \href{https://www.anaconda.com/products/individual}{\underline{conda}} ：集成了很多Python数据分析工具的Python解决方案
+		\end{itemize}
+
+		\item 	Python项目：
+		\begin{itemize}
+			\item \href{https://github.com/vinta/awesome-python}{\underline{awesome-python}}：包含众多优秀Python项目
+		\end{itemize}
+\end{itemize}
+
+{\small 点击可以\textbf{资料名称}可以直达下载地址}。
+\end{frame}
+
+\section{简单区块链的定义和实现}
+\subsection{区块的定义和实现}
+
+\subsection{链的定义和实现}
+
+\subsection{消息的定义和实现}
+
+\subsection{业务逻辑的定义和实现}
+
+\subsection{运行}
+
+\section{小结}
+
+\section{附录}
+\begin{frame}[allowframebreaks]{附录1:简单区块链源代码}
+	\lstinputlisting[language=Python,basicstyle=\tiny,title="简单区块链源代码\cite{simplechaingithub}"]{./figures/simple_chain.py}
+\end{frame}
+
+\section{参考文献}
+\begin{frame}{参考资料}
+%	\printbibliography
+\bibliographystyle{plain}
+\bibliography{reference}
+\end{frame}
+
+\section*{谢谢聆听}
+
+\begin{frame}
+	\begin{minipage}[t]{0.5\linewidth}
+		\begin{center}
+			\begin{figure}
+				\vspace{10pt}
+				
+				{\Huge 谢谢聆听}
+				
+				\vspace{30pt}
+				郭泰彪
+				
+				\vspace{10pt}
+				{\tiny 湖南工商大学大数据与互联网创新研究院}
+			\end{figure}
+			\begin{figure}
+				
+			\end{figure}
+		\end{center}
+	\end{minipage}%
+	\begin{minipage}[t]{0.4\linewidth}
+		\begin{figure}
+			\centering
+			\texttt{blockchain101}
+			
+			\includegraphics[width=0.6\linewidth]{figures/blockchain101qrcode}
+			
+			{\footnotesize \texttt{Star| Fork| Issue}}
+		\end{figure}
+	\end{minipage}%
+\end{frame}
+
+\end{document}

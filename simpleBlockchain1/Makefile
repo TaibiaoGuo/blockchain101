@@ -21,5 +21,9 @@ bash:
 
 .PHONY: clean
 clean:
-	@echo 'stop container $(CONTAINER_NAME) and delete image $(IMAGE_NAME):$(VERSION)'
-	docker stop $(CONTAINER_NAME) || true && docker rm -f $(CONTAINER_NAME) || true && docker rmi $(IMAGE_NAME):$(VERSION) || true
+	@echo 'stop container $(CONTAINER_NAME) and delete image registry.cn-shenzhen.aliyuncs.com/blockchain101/$(IMAGE_NAME):$(VERSION)'
+	docker run --rm --name $(CONTAINER_NAME) -it registry.cn-shenzhen.aliyuncs.com/blockchain101/$(IMAGE_NAME):$(VERSION)
+
+.PHONY: aliyun
+aliyun:
+	@echo 'pull image from  aliyun  and run image $(IMAGE_NAME):$(VERSION)'

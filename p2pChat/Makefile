@@ -13,11 +13,21 @@ build:
 .PHONY: run
 run:
 	@echo 'start run image $(IMAGE_NAME):$(VERSION)'
-	docker run --rm --name $(CONTAINER_NAME) -it $(IMAGE_NAME):$(VERSION)
+	docker run --rm --name $(CONTAINER_NAME) -it \
+	 -p 12476:12476 \
+	 -p 12476:12476/udp \
+	 -p 12478:12478 \
+	 -p 12478:12478/udp \
+	$(IMAGE_NAME):$(VERSION)
 
 .PHONY: bash
 bash:
-	docker run --rm --name $(CONTAINER_NAME) -it $(IMAGE_NAME):$(VERSION) bash
+	docker run --rm --name $(CONTAINER_NAME) -it \
+	 -p 12476:12476 \
+	 -p 12476:12476/udp \
+	 -p 12478:12478 \
+	 -p 12478:12478/udp \
+	$(IMAGE_NAME):$(VERSION) bash
 
 .PHONY: clean
 clean:
@@ -27,4 +37,9 @@ clean:
 .PHONY: aliyun
 aliyun:
 	@echo 'pull image from  aliyun  and run image $(IMAGE_NAME):$(VERSION)'
-	docker run --rm --name $(CONTAINER_NAME) -it registry.cn-shenzhen.aliyuncs.com/blockchain101/$(IMAGE_NAME):$(VERSION)
+	docker run --rm --name $(CONTAINER_NAME) -it \
+	 -p 12476:12476 \
+	 -p 12476:12476/udp \
+	 -p 12478:12478 \
+	 -p 12478:12478/udp \
+	registry.cn-shenzhen.aliyuncs.com/blockchain101/$(IMAGE_NAME):$(VERSION)

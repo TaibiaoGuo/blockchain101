@@ -8,51 +8,81 @@
  @Describe :
 '''
 
+import socket
+import sys
+import time
+import threading
+import socketserver
 
-class Server:
+
+class ServerFactory:
     """
     服务端的高层次抽象模型,定义了Server的基本接口模型
+    抽象工厂模式，定义了服务器实现必须要实现的接口
     """
 
-    def __init__(self):
-        pass
+    def new_server(self, server_ip, server_port):
+        raise NotImplementedError()
 
-    def new_server(self, ip, port):
-        pass
+    def run(self):
+        raise NotImplementedError()
 
     def pong(self):
-        pass
-
-    def handler_register(self,func,args,*,callback):
-        return callback(func(*args))
+        raise NotImplementedError()
 
 
-class Client:
+
+
+class ClientFactory:
     """
     客户端的高层次抽象模型，定义了客户端的基本接口模型
+    抽象工厂模式，定义了客户端实现必须要实现的接口
     """
 
-    def __init__(self):
-        pass
+    def new_client(self, server_ip, server_port):
+        raise NotImplementedError()
 
-    def new_client(self, ip, port):
+    def ping(self):
+        raise NotImplementedError()
+
+    def message_handle(self):
+        raise NotImplementedError()
+
+
+class CLIClient(ClientFactory):
+    """
+    CLIClient 实现了命令行交互的客户端抽象工厂
+    """
+    def new_client(self, server_ip, server_port):
         pass
 
     def ping(self):
         pass
 
-
-class CLI(Client):
-    """
-    CLI格式的Client
-    """
-
-    def __init__(self):
+    def message_handle(self):
         pass
 
-    def new_cli_client(self, ip, port):
-        gui_client = self.new_client(ip, port)
-        return gui_client
+
+class P2PServer(ServerFactory,socketserver.TCPServer):
+    """
+    P2PServer 实现了P2P网络的服务端抽象工厂
+    """
+    def __init__(self):
+        self.server_ip = None
+        self.server_port = None
+        self.sock = None
+        socketserver.TCPServer.__init__(self,(self.server_ip,self.server_port))
+
+    def new_server(self, server_ip='0.0.0.0', server_port=12467):
+        '''
+        创建一个TCP类型的socketserver
+        '''
+
+
+    def run(self):
+        pass
+
+
 
 
 class Peer:
@@ -89,7 +119,7 @@ class Message:
 
 class Exchange:
     """
-    实现一个简单的消息发布订阅模型用于GUI端和服务端间的交互
+    实现一个简单的消息发布订阅模型用于客户端和服务端间的交互
     """
 
     def __init__(self):
@@ -114,4 +144,4 @@ class TimeQueue:
 
 
 if __name__ == '__main__':
-    print("todo")
+    address = ('0.0.0.0', 12467)

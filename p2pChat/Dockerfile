@@ -20,8 +20,10 @@ COPY . .
 # Owner infomations:
 # github.com/TaibiaoGuo/blockchain101@experiment
 MAINTAINER Taibiao Guo
+# Server Side
 EXPOSE 12467/tcp
 EXPOSE 12467/udp
+# Client Side
 EXPOSE 12468/tcp
 EXPOSE 12468/udp
 CMD [ "python", "./p2pChat.py" ]

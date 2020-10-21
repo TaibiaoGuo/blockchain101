@@ -1,0 +1,151 @@
+INSTALLATION
+============
+
+Since version 3.5.0, pythondialog is packaged with Setuptools
+(previously, it was packaged with Distutils). With the current state of
+Python packaging and installation tools, there are several ways to
+install pythondialog from source.
+
+Probably, the easiest and cleanest method at this date (December 2019)
+is to use pip, possibly inside a virtual environment created with
+virtualenv or Python's venv module (venv.py/pyvenv). Typically, assuming
+you have a working pip setup (see below), you just have to run one of
+the following commands:
+
+  pip install pythondialog       (which normally installs from PyPI)
+
+or
+
+  pip install /path/to/pythondialog-X.Y.Z-py3-none-any.whl
+
+or
+
+  pip install /path/to/python3-pythondialog-X.Y.Z.tar.gz
+
+or
+
+  pip install https://url/to/python3-pythondialog-X.Y.Z.tar.gz
+
+etc.
+
+Notes:
+  - very old versions of pip don't support https---better upgrade pip if
+    you have such an old version;
+  - upgrades can be done by passing '--upgrade' or '-U' to the
+    'pip install' command; please refer to the pip documentation for
+    details.
+
+Uninstallation should be as easy as:
+
+  pip uninstall pythondialog
+
+For more information about pip, venv.py/pyvenv and virtualenv, you can
+visit the following pages:
+
+  <https://pip.pypa.io/>
+  <https://docs.python.org/3/library/venv.html>
+  <https://virtualenv.pypa.io/>
+
+
+So, what is a "working pip setup"?
+----------------------------------
+
+What I call a "working pip setup" here is a setup where a command that
+is typically something like 'pip', 'pip3' or 'pip3.4' (for a Python 3.4
+installation) can be run to safely install, upgrade and remove packages
+into or from a particular Python installation.
+
+Normally, a given 'pip' executable is tied to a particular Python
+installation that can be discovered by running 'pip --version' (or
+'pip3 --version', etc., depending on the particular 'pip' executable
+name; for sanity's sake, we'll assume 'pip' in the rest of this
+document). For instance, the following would indicate a Python 3.4
+installation based at /some/path:
+
+  % pip --version
+  pip 1.5.6 from /some/path/lib/python3.4/site-packages (python 3.4)
+
+In general, it is safe to run 'pip' from a Python interpreter you
+installed yourself without a Linux package manager or similar. It is
+also safe if the Python interpreter running 'pip' lives in a virtual
+environment created with virtualenv or venv.py/pyvenv. The one case
+where you should probably avoid using a given 'pip' executable is if it
+runs directly under a system Python (typically, /usr/bin/python or
+/usr/bin/pythonX.Y) installed with the package manager of your Linux
+distribution (or any other OS, for that matter): in such a situation,
+'pip' might, if run with superuser privileges, mess with files under the
+control of the OS package manager (i.e., 'dpkg' on Debian and its
+derivatives, 'rpm' on Redhat and Suse, etc.).
+
+Depending on how you installed Python, you may need superuser privileges
+to install, upgrade or remove Python packages inside that installation.
+For instance, this will be the case if you compiled Python yourself and
+performed the installation step ('make install') as root. However,
+running 'pip' with superuser privileges should not be necessary nor
+desirable inside a virtual environment created with virtualenv or
+venv.py/pyvenv.
+
+
+Older ways, without pip
+-----------------------
+
+The installation method based on pip is much preferred because for one,
+it makes uninstallation standard and easy. In case you really can't use
+pip, the following instructions should help you install pythondialog,
+nevertheless. Here are two ways:
+
+  1) Because pythondialog only needs dialog.py in the proper place to
+     work, you may simply copy this file to an appropriate directory for
+     your Python installation (probably something like
+     <base_dir>/lib/python3.7/site-packages). For uninstallation, simply
+     remove the file you copied (also byte-compiled files such as
+     dialog.pyc if such files have been created from dialog.py).
+
+  2) Another technique can be used if you have Setuptools installed. In
+     this case, you can run:
+
+       python3 ./setup.py build
+
+     from the root of the pythondialog distribution, followed by
+
+       python3 ./setup.py install
+
+     (the second command might need root privileges, depending on where
+     you are trying to install). This should create a file such as
+     <base_dir>/lib/python3.7/site-packages/pythondialog-3.5.1-py3.7.egg
+     and add an entry to
+     <base_dir>/lib/python3.7/site-packages/easy-install.pth that points
+     to the .egg file. Uninstallation would then be done with
+     '<base_dir>/bin/easy_install -m pythondialog' followed by manual
+     removal of the .egg file.
+
+I repeat: the supported method is with pip, as documented earlier in
+this file. The tips in this section are only given to help people with
+uncommon constraints such as "I can't use pip". Tip 1 (copying
+dialog.py) is rather straightforward, no real problem. Tip 2 has been
+quickly tested in a venv, appears to work fine but uses deprecated
+tools. You can use it, but will be on your own in case things don't go
+exactly as you expected.
+
+
+UNINSTALLATION
+==============
+
+If you installed pythondialog with pip, you can uninstall it with the
+following command:
+
+  pip uninstall pythondialog
+
+It should be run under the same account that was used to run the
+'pip install' command.
+
+On the other hand, if you installed pythondialog using techniques from
+the previous section ("Older ways, without pip"), uninstallation
+instructions were given there along with each of the mentioned
+techniques.
+
+
+# Local Variables:
+# coding: utf-8
+# fill-column: 72
+# End:

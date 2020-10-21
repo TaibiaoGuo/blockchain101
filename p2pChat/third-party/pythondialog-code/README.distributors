@@ -1,0 +1,67 @@
+-*- coding: utf-8 -*-
+
+Packaging from a release tarball
+================================
+
+Packaging from an official release tarball ("source distribution" in
+PyPA-speak[1]) should be fairly straightforward, as every source
+distribution should contain a ChangeLog file that is ready to use. The rest of
+this file mainly concerns developers and people wanting to package
+pythondialog from a clone of the Git repository.
+
+[1] https://packaging.python.org/glossary/#term-source-distribution-or-sdist
+
+
+Management of the ChangeLog file
+================================
+
+Starting from version 2.14.1, the ChangeLog file is not part of the Git
+repository anymore, because it is automatically generated from the Git log
+with the gitlog-to-changelog[2] program. But it must be present in every
+released tarball or package!
+
+  [2] https://git.savannah.gnu.org/gitweb/?p=gnulib.git;a=blob_plain;f=build-aux/gitlog-to-changelog
+
+To make this as easy as possible, setup.py does the following:
+  - create or refresh (overwriting) ChangeLog from ChangeLog.init and the Git
+    log if there is a .git subdirectory in the current directory. This is very
+    quick and done every time setup.py is run. For this to work,
+    gitlog-to-changelog must be in the PATH and executable.
+  - use the existing ChangeLog file if there is no .git subdirectory (this is
+    for people building from a release tarball as opposed to a clone of the
+    Git repository);
+  - include the ChangeLog file in every source distribution made with
+    "setup.py sdist".
+
+
+Packaging from a clone of the Git repository
+============================================
+
+If you want to prepare a package from a clone of the Git repository, you
+should:
+
+  - make sure the 'version_info' variable towards the top of dialog.py
+    indicates a Git snapshot, with something like:
+
+      version_info = VersionInfo(2, 14, 1, ".git20130930")
+
+  - install gitlog-to-changelog (single-file Perl script, see above for the
+    download location) and make sure setup.py can find it. Unless you modify
+    setup.py, this means you have to make it executable and put it somewhere
+    in your PATH. You may have to replace the first lines of shell+Perl crap
+    with a proper shebang line (such as "#! /usr/bin/perl"). You can run
+    'gitlog-to-changelog --help' to check that it is working.
+
+  - run 'setup.py sdist' to generate the ChangeLog and prepare a source
+    distribution. Alternatively, if you only want to generate the ChangeLog,
+    you can use a command such as the following, which writes its output in
+    the UTF-8 encoding:
+
+      python3 -c \
+   'import setup; setup.generate_changelog("ChangeLog", write_to_stdout=True)' \
+   >/path/to/generated/ChangeLog
+
+    If you want to do some testing of the command by piping the output into
+    a pager such as less, don't forget to type Ctrl-L to refresh the initial
+    screen, because it may be garbled due to the messages sent to stderr
+    (alternatively, you can redirect stderr).

@@ -1,0 +1,14 @@
+# Ignore Python byte-compiled files
+*.pyc
+*.pyo
+__pycache__/
+
+# Automatically generated from ChangeLog.init and the Git log
+/ChangeLog
+
+# Automatically populated by Setuptools
+/build/
+/pythondialog.egg-info/
+
+# Distribution tarballs
+/dist/

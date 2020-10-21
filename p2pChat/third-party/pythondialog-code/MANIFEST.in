@@ -1,0 +1,7 @@
+include README.rst README.distributors COPYING COPYING.Sphinx INSTALL AUTHORS
+include TODO ChangeLog MANIFEST.in
+recursive-include examples *.py
+recursive-include doc *.py *.txt *.rst *.png Makefile
+prune doc/screenshots/thumbs
+prune doc/screenshots/snapshots.debian.net
+prune doc/_build

@@ -1,0 +1,860 @@
+2013-09-17  Florent Rougon  <f.rougon@free.fr>
+
+	Prepare for the 2.14.0 release
+
+	* dialog.py: minor docstring fix
+
+	* dialog.py: bump the version number
+
+2013-09-17  Florent Rougon  <f.rougon@free.fr>
+
+	Add a sample program really intended for newcomers
+
+	* simple_example.py: new sample program, short, with absolutely no
+	magic, intended for first-timers.
+
+	* dialog.py: adapt the comments to point to this new file.
+
+2013-09-17  Florent Rougon  <f.rougon@free.fr>
+
+	Improve structure and ESC handling in the demo
+
+	* demo.py: new MyApp class that implements the core of the demo. This
+	class relies on a new MyDialog class that automatically wraps every
+	widget-producing method of dialog.Dialog in order to display the
+	"confirm quit" dialog if the user presses the Escape key or the Cancel
+	button. This class also provides a few dialog-related methods used in
+	the demo.
+
+	* demo.py: This new structure should completely fix handling of the
+	Escape key, which was not satisfactory in previous versions since it
+	required a while loop for every widget call that made the code redundant
+	and harder to read. The new wrapping mechanism is completely transparent
+	for most of the code in MyApp, which thus becomes shorter, more reliable
+	and easier to read. The "magic" is contained within the MyDialog class.
+
+	* A sample program for newcomers to pythondialog with absolutely no
+	magic will be added in the next commit (simple_example.py).
+
+2013-09-15  Florent Rougon  <f.rougon@free.fr>
+
+	Add an 'is_widget' attribute to Dialog widget-producing methods
+
+	* dialog.py (widget): new decorator to mark the Dialog methods that
+	provide a widget. As explained in the docstring, this allows code to
+	perform automatic operations on these specific methods. For instance,
+	one can define a class that behaves similarly to Dialog, except that
+	after every widget-producing call, it spawns a "confirm quit" dialog if
+	the widget returned DIALOG_ESC, and loops in case the user doesn't
+	actually want to quit.
+
+2013-09-14  Florent Rougon  <f.rougon@free.fr>
+
+	Check for too old versions of the backend
+
+	* dialog.py: new exception InadequateBackendVersion
+
+	* dialog.py: use it to abort when the user tries to use a programbox,
+	rangebox or treeview widget with a dialog version that does not
+	implement the widget in question.
+
+	* demo.py: for the latest widgets added to dialog, check the version of
+	the backend if it's dialog and display an explanation instead of the
+	widget demo when it is too old.
+
+2013-09-14  Florent Rougon  <f.rougon@free.fr>
+
+	Backend version caching and comparing
+
+	* dialog.py (Dialog.backend_version): slight modification to the API:
+	when the dialog-like backend does not return DIALOG_OK, raise
+	UnableToRetrieveBackendVersion (new exception) instead of returning
+	None. This way, the method either returns a string or raises an
+	exception.
+
+	* dialog.py: new DialogBackendVersion class (and BackendVersion abstract
+	base class) for parsing the version string of the dialog backend,
+	storing it in a structured format, and providing easy and reliable
+	comparisons between versions using the standard comparison operators (<,
+	<=, ==, !=, >=, >).
+
+	* dialog.py (Dialog.__init__): retrieve the backend version and store
+	the corresponding (Dialog)BackendVersion instance into a public
+	'cached_backend_version' attribute. This should avoid having to run
+	'<backend> --print-version' every time someone needs the version.
+
+	* demo.py: use Dialog.cached_backend_version.
+
+2013-09-11  Florent Rougon  <f.rougon@free.fr>
+
+	Minor fixes
+
+	* dialog.py: prefix OSErrorHandling with an underscore.
+
+	* dialog.py: rename *_rec private attributes to the corresponding *_cre
+	(Compiled Regular Expression).
+
+	* dialog.py: add treeview to the list of widgets in the Dialog class
+	docstring (forgotten when the widget support was added).
+
+2013-09-11  Florent Rougon  <f.rougon@free.fr>
+
+	Misc demo improvements
+
+	* demo.py: move a bunch of widget demos from additional_widgets() to the
+	main demo() function to give them more visibility. The remaining widgets
+	in additional_widgets() either have little warts (like programbox which
+	is waiting for a fix in the dialog backend), are cumbersome to use in
+	the demo (this is the case of progressbox_demo_with_filepath), or are
+	almost identical to widgets already presented in the main part of the
+	demo.
+
+	* demo.py: use the current local time to initialize the timebox widget.
+
+	* demo.py: minor improvements.
+
+2013-09-11  Florent Rougon  <f.rougon@free.fr>
+
+	Add support for 'treeview'
+
+2013-09-10  Florent Rougon  <f.rougon@free.fr>
+
+	Add support for 'rangebox'
+
+	Add support for 'programbox'
+
+2013-09-07  Florent Rougon  <f.rougon@free.fr>
+
+	Factor out OSError and IOError handling
+
+	* dialog.py: use a context manager to factor out OSError and IOError
+	handling throughout the module.
+
+2013-09-06  Florent Rougon  <f.rougon@free.fr>
+
+	Add support for new dialog common options
+
+	* dialog.py: add support for --default-button and --no-tags.
+
+2013-09-06  Florent Rougon  <f.rougon@free.fr>
+
+	Add version_info to dialog.py
+
+	* dialog.py: new 'version_info' module-level attribute, similar to what
+	the 'sys' module provides. This avoids the need to parse __version__
+	when one wants to extract for instance the major and/or minor version
+	number of pythondialog.
+
+2013-09-06  Florent Rougon  <f.rougon@free.fr>
+
+	Minor improvements
+
+2013-08-22  Florent Rougon  <f.rougon@free.fr>
+
+	Remove the installation prefix from setup.cfg and release 2.13.1
+
+	* From now on, pythondialog releases will follow a major.minor.micro
+	versioning scheme.
+
+	* setup.cfg: remove the /usr/local installation prefix that breaks
+	installations with pip in a virtualenv, at least.
+
+	* INSTALL: update the installation and uninstallation instructions to
+	document and favor the method based on pip.
+
+2013-08-20  Florent Rougon  <f.rougon@free.fr>
+
+	Demo improvement with Dialog.maxsize()
+
+	* demo.py: pass the available (terminal-dependent) width and height to
+	demo() and additional_widgets(); use this information to display a
+	tailbox widget that almost fills the screen (whatever the terminal
+	size).
+
+2013-08-19  Florent Rougon  <f.rougon@free.fr>
+
+	Release 2.13
+
+	* setup.cfg: don't build zip files anymore, as I don't think anyone
+	using pythondialog could be unable to uncompress a tar.gz or tar.bz2
+	file.
+
+	* demo.py: "Mayonnaise" is spelt with two n's, dammit!
+
+2013-08-19  Florent Rougon  <f.rougon@free.fr>
+
+	New method Dialog.set_background_title(), better Dialog doc
+
+	* dialog.py (Dialog.set_background_title): new method. Now that we deal
+	with dash escaping, such a method does become useful since it avoids
+	users having to use the low-level Dialog.add_persistent_args() and
+	bother with dash escaping.
+
+	* dialog.py (Dialog.setBackgroundTitle): this old method from
+	pythondialog 1.0 is still deprecated because its case style is
+	inconsistent with the rest of pythondialog; it simply calls
+	Dialog.set_background_title() after printing a DeprecationWarning.
+
+	* dialog.py (Dialog): add set_background_title, maxsize and
+	backend_version to the docstring and reorganize a bit the list of public
+	methods.
+
+	* demo.py: use the new method.
+
+2013-08-19  Florent Rougon  <f.rougon@free.fr>
+
+	Add demo code for the timebox widget
+
+2013-08-16  Florent Rougon  <f.rougon@free.fr>
+
+	Prepare for the 2.12 release
+
+	* dialog.py: add a copyright notice for Peter Åstrand because of commit
+	v2.09-2-ga3429a4.
+
+	* setup.py: put python3 in the shebang line; change 'url' and
+	'download_url' to point to SourceForge.
+
+	* Minor documentation updates and editorial changes for the release.
+
+2013-08-16  Florent Rougon  <f.rougon@free.fr>
+
+	Provide an implementation of textwrap.indent() in demo.py
+
+	This is for Python versions < 3.3, where this function is not in the
+	standard library.
+
+2013-08-16  Florent Rougon  <f.rougon@free.fr>
+
+	Make debugging easier
+
+	* dialog.py: there is no need to copy/paste Python code from the
+	DEBUGGING file into dialog.py anymore in order to see the command lines
+	corresponding to the dialog calls. Just call
+	d.setup_debug(True, file=<file object>) to turn debugging on and
+	d.setup_debug(False) to turn it off, where d is obviously a Dialog
+	instance.
+
+	* demo.py: new options --debug and --debug-file to activate debugging
+	and specify where the debug log is written to.
+
+	* DEBUGGING: not useful anymore.
+	* MANIFEST.in: don't ship DEBUGGING anymore.
+
+	* README.rst: mention this in a new "Troubleshooting" section.
+
+2013-08-15  Florent Rougon  <f.rougon@free.fr>
+
+	New dialog.__version__ attribute
+
+	* dialog.py: new dialog.__version__ attribute
+
+	* demo.py: use it to print the pythondialog version in the first screen
+
+	* setup.py: use dialog.__version__
+
+2013-08-15  Florent Rougon  <f.rougon@free.fr>
+
+	Add support for --print-version and --print-maxsize
+
+	* dialog.py (Dialog.backend_version, Dialog.maxsize): new methods that
+	respectively extract the relevant info from dialog --print-version and
+	--print-maxsize.
+
+	* demo.py: use them to display the backend version and terminal size in
+	the first screen (+ Python version as a bonus); also warn if the
+	terminal is too small, which might be the cause of Ubuntu#694824.
+
+2013-08-15  Florent Rougon  <f.rougon@free.fr>
+
+	New arg 'use_persistent_args' for _call_program() and _perform()
+
+	* dialog.py (Dialog._call_program, Dialog._perform): new argument
+	'use_persistent_args' that allows to skip the insertion of
+	dialog_persistent_arglist. This is necessary to use for instance
+	--print-version without emptying dialog_persistent_arglist first.
+
+	* dialog.py (Dialog._call_program, Dialog._perform): to enhance
+	readability and maintainability, make all keyword arguments of these
+	methods keyword-only.
+
+2013-08-13  Florent Rougon  <f.rougon@free.fr>
+
+	Add support for common options from dialog 1.1-20120215
+
+	* dialog.py: add support for dialog common options --ascii-lines,
+	--colors, --column-separator, --date-format, --exit-label,
+	--extra-button, --extra-label, --hfile, --hline, --keep-tite,
+	--keep-window, --no-collapse, --no-lines, --no-mouse, --no-nl-expand,
+	--no-ok, --scrollbar, --time-format, --trace and --visit-items
+	(closes: Ubuntu#739873).
+
+2013-08-12  Florent Rougon  <f.rougon@free.fr>
+
+	Improve exception handling
+
+	* dialog.py: don't assume that exceptions are strings; thus, use str()
+	to obtain the message when translating from a "foreign" exception to a
+	subclass of dialog.error.
+
+	* dialog.py: use str(e) instead of e.strerror when e is an OSError
+	instance, because e.strerror does not contain the file name (even when
+	there is one available in e.filename), contrary to str(e).
+
+	* dialog.py: prepare the transition from PythonDialogIOError to
+	PythonDialogOSError. PythonDialogIOError is now a subclass of
+	PythonDialogOSError so that users can safely replace "except
+	PythonDialogIOError" clauses with "except PythonDialogOSError" even if
+	running under Python < 3.3. pythondialog will raise PythonDialogOSError
+	instead of PythonDialogIOError when Python stops distinguishing between
+	IOError and OSError, i.e. when running under Python 3.3 or later.
+
+	* dialog.py: use "raise ... from ..." (available in Python >= 3.0) where
+	appropriate.
+
+2013-08-11  Florent Rougon  <f.rougon@free.fr>
+
+	Conform to the gauge protocol described in dialog(1)
+
+	* dialog.py (Dialog.gauge_update): actually conform to the gauge
+	protocol described in dialog(1); this fixes a slight synchronization bug
+	when 'update_text' is True (closes: SF#3; thanks to MapK for spotting
+	this and providing a patch).
+
+	* dialog.py (Dialog.gauge_update): raise BadPythonDialogUsage if the
+	'percent' argument is not an integer, since this is the only type
+	accepted by the gauge protocol as described in dialog(1).
+
+2013-08-10  Florent Rougon  <f.rougon@free.fr>
+
+	Escape non-option arguments to dialog that start with --
+
+	* dialog.py (_dash_escape): new function that inserts a '--' element
+	before every element in a list that starts with '--' (returns a new
+	list).
+
+	* dialog.py (_dash_escape_nf): same as _dash_escape, but ignores the
+	first element.
+
+	* dialog.py (Dialog.dash_escape, Dialog.dash_escape_nf): new class
+	methods for public use, for those using Dialog.add_persistent_args().
+
+	* dialog.py (Dialog._call_program): new keyword argument 'dash_escape'
+	to control the dash-escaping of the argument list; by default, the
+	appropriate part is filtered through _dash_escape_nf().
+
+	* dialog.py (Dialog._perform): new keyword argument 'dash_escape' that
+	is passed as is to Dialog._call_program() (closes: SF#5; thanks to
+	Denilson Figueiredo de Sá for the report).
+
+	* dialog.py: use _dash_escape_nf() where appropriate in
+	_common_args_syntax for options that are passed as keyword arguments
+	(e.g., title="...").
+
+	* dialog.py (Dialog.setBackgroundTitle): use self.dash_escape_nf() in
+	this long-deprecated method.
+
+2013-07-28  Florent Rougon  <f.rougon@free.fr>
+
+	Standard-behaving __str__ and __repr__ for our exceptions
+
+	* dialog.py:error.__str__(): return the exception message instead of
+	something enclosed in angle brackets.
+
+	* Compatibility is not affected unless one had the ill-advised idea to
+	parse the return value of __str__. The complete_message() method of
+	exceptions behaves exactly as before.
+
+	* demo.py: use the new, more standard method, to retrieve the error
+	  message.
+
+2013-07-28  Florent Rougon  <f.rougon@free.fr>
+
+	Use os.path.abspath(__file__) to refer to the demo source file
+
+	* This avoids problems when running the demo from a directory that is
+	not the one containing demo.py (closes: SF#4).
+
+2013-07-27  Florent Rougon  <f.rougon@free.fr>
+
+	* README: rename to README.rst, convert to reStructuredText and
+	update for Python 3
+	* INSTALL: update for Python 3
+	* MANIFEST.in: include README.rst
+	* setup.py: update for Python 3 and the README -> README.rst
+	change, email address update
+
+2013-06-19  Florent Rougon  <f.rougon@free.fr>
+
+	Replace the question for the calendar demo with a non-perishable one
+
+	* demo.py: the question about an estimate of Debian *** release is
+	bound to become out-of-date. Replace it with a question that will
+	not need a change every couple of years.
+
+2013-06-19  Florent Rougon  <f.rougon@free.fr>
+
+	Minor improvements
+
+	* demo.py: use locale.setlocale(locale.LC_ALL, '') to properly
+	initialize the locales
+
+	* dialog.py: code readability improvement
+
+2013-06-19  Florent Rougon  <f.rougon@free.fr>
+
+	Minor bug fixes
+
+	* dialog.py(_to_onoff): regexp match against "on$"/"off$" instead
+	of "on"/"off".
+
+	* dialog.py: more rigorous handling of "title" and "help_button"
+	keyword arguments. For instance, passing 'title=None' to a
+	function that gets this argument through its **kwargs results in a
+	kwargs dictionary that does contain a "title" key (with None as
+	the corresponding value); therefore '"title" not in kwargs' is not
+	a great test to determine if the title should be set to a default
+	value.
+
+2013-06-19  Florent Rougon  <f.rougon@free.fr>
+
+	* Favor usage of True/False over 1/0 and on/off in dialog.py and
+	demo.py, docstrings included.
+
+2013-06-19  Florent Rougon  <f.rougon@free.fr>
+
+	Improve error handling
+
+	* dialog.py(_to_onoff): actually raise an exception when the given
+	parameter is a string that doesn't represent a boolean according
+	to the regexps.
+
+	* demo.py: when handling exceptions at top level, start by
+	printing a traceback, which is always very practical to find the
+	origin of problems.
+
+2013-06-18  Florent Rougon  <f.rougon@free.fr>
+
+	* Replace assert statements with PythonDialogBug exceptions.
+
+	This is less practical for coding in dialog.py but makes it easier
+	for dialog.py users to catch all (most) exceptions that come from
+	pythondialog.
+
+2013-06-18  Florent Rougon  <f.rougon@free.fr>
+
+	Cosmetic changes
+
+	* Change deprecated %u into %d.
+
+	* Remove trailing whitespace.
+
+	* Coding-style update for the generic exception.
+
+2013-06-18  Florent Rougon  <f.rougon@free.fr>
+
+	Improve error reporting between fork() and execve()
+
+	* Print a traceback if an error happens between fork() and
+	execve() when calling dialog.
+
+2013-06-18  Florent Rougon  <f.rougon@free.fr>
+
+	* Basic porting to Python 3.
+
+2010-03-17  Florent Rougon  <f.rougon@free.fr>
+
+	* dialog.py: Move the definition of _simple_option() before its uses
+	which, according to
+	<https://sourceforge.net/p/pythondialog/patches/2/>,
+	"makes pydev happy when browsing the code".
+
+	* dialog.py: Remove the "True = 0 == 0" and "False = 0 == 1"
+	compatibility measures that were still in place for Python
+	versions < 2.3. Such old versions are not supported anymore; besides,
+	True and False are becoming reserved words in Python 3.
+
+2010-03-16  Florent Rougon  <f.rougon@free.fr>
+
+	* Release 2.11.
+
+	* README: I thought I was adding a valuable precision in version 2.09
+	when I changed "LGPL" to "LGPL version 2.1" in the README file (after
+	looking at COPYING), but actually, the terms at the beginning of
+	dialog.py are "either version 2.1 of the License, or (at your option)
+	any later version". Sorry about that, fixed.
+
+	* demo.py: use "if <test> <expr1> else <expr2>" expressions more
+	often, since they are allowed in Python >= 2.5...
+
+2010-03-16  Florent Rougon  <flo@via.ecp.fr>
+
+	* Release 2.10.
+
+	* dialog.py: add Peter Åstrand's modifications to deal with
+	Xdialog's incompatibilities with respect to dialog:
+	  - new "use_stdout" keyword argument for Dialog.__init__()
+	  - factoring of final newline removals with the addition of
+	    Dialog._strip_xdialog_newline().
+
+	* dialog.py: add support for dialog options --no-label,
+	--yes-label and --insecure (the last one not being so dangerous as
+	the name seems to imply: "Makes the password widget friendlier but
+	less secure, by echoing asterisks for each character"; BTW, kdm
+	has a very nice way of handling this issue IMO: an option that
+	echoes each character with x asterisks, where x = 3 IIRC).
+
+2010-03-14  Florent Rougon  <flo@via.ecp.fr>
+
+	* Release 2.09.
+
+	* dialog.py: new supported widgets: editbox, inputmenu, mixedform,
+	mixedgauge, pause, passwordform, progressbox.
+
+	* demo.py: general improvements, such as:
+	    - hopefully more helpful dialog when the user fails to select
+	      a file in fselect;
+	    - since actually selecting a file with this widget is already
+	      boring after the second time, the widget can be exited by
+	      pressing Esc or the Cancel button (in which case the parts
+	      of the demo that need the file path will be skipped).
+	    - replace a few calls to Dialog.scrollbox() by calls to
+	      Dialog.msgbox(), since the latter provides nice automatic
+	      line wrapping.
+
+	* demo.py: support GNU-style option passing with getopt.py; you
+	can use --help to get a list of available options
+	* demo.py: no need to change a global variable anymore to switch
+	the demo to "fast mode", just use --fast
+	* demo.py: add --test-suite mode, mainly for developers: it
+	tests *all* widgets, not only those included in the "default
+	mode", and automatically enables "fast mode".
+
+	* dialog.py(__call_program): make the function more generic. stdin
+	redirection doesn't involve automatic pipe(2) creation in
+	__call_program() anymore; instead, __call_program expects a file
+	descriptor when it is asked to redirect dialog's stdin (parameter
+	'redir_child_stdin_from_fd').
+
+	The caller may still decide to create a pipe and pass its file
+	descriptor for reading as the 'redir_child_stdin_from_fd'
+	parameter, but the new possibility of redirecting dialog's stdin
+	from an arbitrary file descriptor allows for instance to redirect
+	it from an existing file, network socket... This is used to
+	implement --progressbox cleanly.
+
+	This change has the additional benefit of simplifying the API,
+	since __call_program()'s return value is always a 2-element tuple
+	now.
+
+	* dialog.py(__call_program): new close_fds option causing the
+	child process to close the specified file descriptors before the
+	execve(2) system call. This is useful for instance to have the
+	child close an end of a pipe he isn't going to use. Without that,
+	deadlocks could happen because of the child never seeing EOF from
+	the pipe.
+
+	* dialog.py: use warnings.warn(..., DeprecationWarning) for
+	obsolete functions.
+
+	* dialog.py: remove convoluted syntax *(<list>,) that was used at
+	several places. I don't see any use for this syntax anymore, and
+	changing it to simply <list> didn't make the universe collapse (so
+	far).
+
+	* dialog.py: prefix attributes for internal use (such as
+	Dialog._call_program) with a single underscore instead of a double
+	one: we don't need the name mangling here. These underscores in
+	dialog.py are just an indication that the attribute is "internal"
+	and thus subject to API changes, etc. Thanks to Peter Åstrand for
+	pointing this out.
+
+	* setup.py:
+	  - improve the long description, use ReStructuredText
+	  - add Trove classifiers
+	  - add download_url
+
+	* Review and update README, TODO...
+
+2010-02-19  Florent Rougon  <flo@via.ecp.fr>
+
+	* dialog.py: add support for --dselect
+	* dialog.py: add support for DIALOG_ITEM_HELP
+	* demo.py: small fixes
+
+2009-10-31  Florent Rougon  <flo@via.ecp.fr>
+
+	* Released 2.08, skipping version 2.07 to avoid creating confusion
+	with the 2.7 version released by Peter Åstrand in 2004.
+
+2009-02-04  Florent Rougon  <flo@via.ecp.fr>
+
+	* Add support for --form.
+
+	* dialog.py(__call_program): compute the argument list before
+	forking, otherwise things get difficult to understand if this
+	computation raises an exception.
+
+2004-03-29  Florent Rougon  <flo@via.ecp.fr>
+
+	* Released 2.06.
+
+2004-03-19  Florent Rougon  <flo@via.ecp.fr>
+
+	* dialog.py: fixed a bug with the default_item "common argument"
+	(corresponding to dialog's --default-item option) thanks to Peter
+	Mathiasson.
+
+2004-03-16  Florent Rougon  <flo@via.ecp.fr>
+
+	* demo.py: make sure the directory passed to --fselect ends with
+	os.sep so that its contents can be seen right away in the file
+	selection box displayed by dialog.
+
+2004-03-15  Florent Rougon  <flo@via.ecp.fr>
+
+	* dialog.py: fix a bug (the standard output of the process running
+	dialog used to be connected to a pipe) that rendered pythondialog
+	unusable with recent versions of dialog (thanks, Peter Åstrand!).
+
+	* dialog.py: the generic exception is now 'error' ('dialog.error',
+	if you understand this better). The old name is still there for
+	backward-compatibility.
+	* Several new exceptions have appeared: PythonDialogSystemError,
+	PythonDialogIOError, PythonDialogOSError,
+	PythonDialogErrorBeforeExecInChildProcess,
+	PythonDialogReModuleError, UnableToCreateTemporaryDirectory,
+	PythonDialogBug, ProbablyPythonBug.
+	* dialog.py: the ExecutableNotFound exception was not mentioned in
+	the docstring module. Fixed.
+	* dialog.py: the complete_message() of 'error' instances does not
+	write a dot at the end of the message anymore.
+	* dialog.py: rename the ExceptionPrettyIdentifier attribute of
+	'error' subclasses to ExceptionShortDescription.
+	* dialog.py: the constructor of 'error' instances can now be
+	called with no argument if no useful message can be added to the
+	ExceptionShortDescription.
+
+	* dialog.py: added the new DIALOG_EXTRA and DIALOG_HELP return
+	codes that appeared somewhere between versions 0.9a-20020309a and
+	0.9b-20040301 of dialog.
+
+	* dialog.py: Remove the possibility to choose (from Dialog's
+	constructor) the values of the DIALOG_{OK,CANCEL,ERROR,...}
+	environment variables passed to dialog because this is absolutely
+	useless as far as I can see and clutters the API.
+
+	* dialog.py: Dialog's constructor has a new 'compat' parameter
+	that can be used to enable a compatibility mode with dialog-like
+	programs whose interface is only slightly different from that of
+	dialog. The demo runs fine with Xdialog 2.0.6 in the "Xdialog"
+	compatibility mode. However, I don't want the special cases to
+	expand too much, so it would be really better for you to report
+	bugs if your dialog-like program is not dialog-compatible!
+
+	* dialog.py: don't try any PATH components (nor any components
+	from ":/bin:/usr/bin" if PATH is undefined) if the 'dialog'
+	parameter of Dialog's constructor contains a '/'.
+
+	* dialog.py: somewhere between versions 0.9a-20020309a and
+	0.9b-20040301, dialog started not to quote tags in the output of
+	--checklist if they didn't contain any space. Adapt the dialog
+	invocation (now using --separate-output) and the output parsing
+	accordingly (still works with 0.9a-20020309a).
+
+	* dialog.py: the data fed to dialog in Dialog.gauge_update()
+	happened to work with dialog 0.9a-20020309a but did not conform to
+	the manual page and presumably broke Xdialog. This is fixed,
+	thanks to Peter Åstrand.
+
+	* dialog.py: modifications in Dialog.scrollbox():
+	    - don't use the old insecure tempfile.mktemp() anymore
+	      (tempfile.mkstemp() didn't exist before Python 2.3)
+	    - don't display a title for the box if no title was in kwargs
+	    - the return value is now that of the dialog-like program
+	    - UnableToCreateTemporaryDirectory is now raised if for some
+	      strange reason, we cannot create a temporary directory
+
+	* dialog.py: review every function to catch possible exceptions
+	such as IOError and OSError, in order to turn them into subclasses
+	of 'error' (such as PythonDialogIOError and PythonDialogOSError).
+	Rare beasts such as MemoryError are still not caught. Such an
+	enterprise would be unreasonable, if not simply impossible.
+	* dialog.py: updated the various docstrings to show which
+	exceptions every function can raise. To make this manageable, many
+	functions refer to the docstrings of internal, heavily-used
+	functions such as Dialog.__perform whose docstrings are,
+	unfortunately but rightfully, not included in the HTML
+	documentation generated by pydoc. Some sort of automated
+	documentation generation system would be needed to solve this
+	problem in a satisfactory way.
+
+	* demo.py: minor update with respect to Debian sarge's release
+	date forecasts...
+
+2003-09-16  Florent Rougon  <flo@via.ecp.fr>
+
+	* Released 2.05.
+
+	* Changed the "private" class names to start with two underscores
+	instead of one.
+
+2003-09-01  Florent Rougon  <flo@via.ecp.fr>
+
+	* Released 2.04.
+
+	* dialog.py: Replaced the apply() calls with calls using the
+	"extended call syntax" since apply() is deprecated since the
+	release of Python 2.3.
+
+2002-09-05  Florent Rougon  <flo@via.ecp.fr>
+
+	* Released 2.03.
+
+	* dialog.py: Reorganized the documentation between the module's
+	docstring and that of the Dialog class.
+
+	* README: Added the "history" section and other improvements.
+
+2002-09-04  Florent Rougon  <flo@via.ecp.fr>
+
+	* dialog.py: Prefixed global variables with an underscore and
+	made some cosmetic fixes.
+
+	* dialog.py: Removed the set_background_title alias to
+	setBackgroundTitle since nobody uses it yet and setBackgroundTitle
+	is obsolete. Even though I prefer set_background_title to
+	setBackgroundTitle for consistency with other methods, there is no
+	point in adding an obsolete method.
+
+2002-09-03  Florent Rougon  <flo@via.ecp.fr>
+
+	* Packaged pythondialog with Distutils.
+
+	* Improved the README.
+
+2002-09-02  Florent Rougon  <flo@via.ecp.fr>
+
+	* dialog.py: Improved the common_args_syntax initialization so
+	that simple dialog Common Options can be passed as foo=1 keyword
+	arguments with 1 having a real boolean meaning (was not the case
+	before).
+
+	* Handled the licensing stuff : GNU LGPL license for dialog.py and
+	public domain for demo.py. Added the COPYING file.
+
+	* dialog.py: Wrote a proper module docstring.
+
+	* demo.py: Added the last widgets to the demo.
+
+2002-08-30  Florent Rougon  <flo@via.ecp.fr>
+
+	* dialog.py: Added the calendar, fselect, passwordbox, tailbox and
+	timebox widgets.
+
+2002-08-29  Florent Rougon  <flo@via.ecp.fr>
+
+	* dialog.py (_wait_for_program_termination): Raises a DialogError
+	exception when dialog returns self.DIALOG_ERROR. Exceptions are so
+	handy.
+
+	* demo.py: Cleaned up the demo code making it easier (I hope) to
+	focus on a given widget, added error handling.
+	* dialog.py: Took the demo to put it in a new, separate file:
+	demo.py.
+
+
+2002-08-21  Florent Rougon  <flo@via.ecp.fr>
+
+	* dialog.py: Documented the widgets properly.
+	* dialog.py: Generalized the widgets that didn't offer all the
+	capabilities available from dialog.
+	* dialog.py: Went through the various widgets so that the
+	associated methods return the dialog exit status (with additional
+	information, if relevant).
+
+	* dialog.py: Finally cleaned up the method used to collect the
+	arguments given to dialog. They are now stored as elements of a
+	list and properly quoted to protect them from shell expansion just
+	before the call to popen3. Now, you should be safe with any
+	character in the strings passed to dialog (labels, texts, etc.).
+
+2002-08-09  Florent Rougon  <flo@via.ecp.fr>
+
+	* dialog.py: All boxes should now support the common arguments
+	scheme (well, I still have to look at the gauge closer).
+
+	* dialog.py: Added support for "common arguments"; now, you can
+	use any combination of the _common options_ for the dialog program
+	when creating a box. Example:
+
+	   d.checklist(<usual args for a checklist box>,
+	               title="...", backtitle="...", <other common args>)
+
+	One thing is still broken: we must shell-escape the strings so
+	that apostrophes (') used to delimit shell arguments don't clash
+	with apostrophes used these arguments themselves.
+
+	* dialog.py: Added support for "persistent arguments" arguments
+	(--backtitle is a good candidate for this).
+
+	* dialog.py: Removed a leftover debugging print in _perform.
+
+	* dialog.py: Simplified the DIALOG* arguments handling.
+
+2002-08-08  Florent Rougon  <flo@via.ecp.fr>
+
+	* dialog.py: Added a short docstring for the module.
+
+	* dialog.py: Rewrote checklist to get all the features from the
+	corresponding option in dialog.
+
+	* dialog.py: Rewrote _perform; now, we can use the DIALOG*
+	environment variables set in the constructor, which allows us
+	distinguish between ESC pressed and a dialog error, among others;
+	also, we use no temporary file anymore to store dialog's stderr.
+
+	* dialog.py: Added some exceptions.
+
+	* dialog.py: Rewrote __init__; now, we can set choose in the
+	constructor the DIALOG* environment variables to pass the dialog
+	program as well as this program (could be whiptail for instance)
+	from the constructor (and the environment variables can be
+	different for two Dialog instances used in the same python
+	process...).
+
+	* dialog.py: Renamed __foo methods to _foo.
+
+2002-08-07  Florent Rougon  <flo@via.ecp.fr>
+
+	* dialog.py: Cosmetic fixes.
+
+	* dialog.py: Added a proper GPL header (dialog.py only had a short
+	mention about its license being the GNU GPL).
+
+	* Split dialog.py, creating a Changelog file in the format
+	described in the GNU Coding Standards, as well as README, AUTHORS,
+	COPYING and TODO.
+
+2000-07-30  Sultanbek Tezadov (http://sultan.da.ru/)
+
+	* dialog.py: Added the gauge widget.
+
+	* dialog.py: Added a 'title' option to some widgets.
+
+	* dialog.py: Added a 'checked' option to the checklist dialog;
+	clicking "Cancel" is now recognizable.
+
+	* dialog.py: Added a 'selected' option to the radiolist dialog;
+	clicking "Cancel" is now recognizable.
+
+	* dialog.py: Some other cosmetic changes and improvements.
+
+2000-??-??  Robb Shecter <robb@acm.org>
+
+	* Initial release.
+
+
+# Local Variables:
+# coding: utf-8
+# End:

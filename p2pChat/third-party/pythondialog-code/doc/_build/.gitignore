@@ -1,0 +1,6 @@
+# This file makes sure the containing directory will be part of Git checkouts.
+
+# Ignore all contents, except for this file
+*
+.*
+!/.gitignore

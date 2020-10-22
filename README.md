@@ -2,6 +2,9 @@
 
 所有实验使用docker进行打包，可以直接下载打包好的docker镜像进行学习。
 
+## 使用katacoda云平台运行实验源代码
+如果你可以正常访问katacoda网站的[在线docker环境](https://www.katacoda.com/courses/docker/playground)，可以在云端直接开展实验。
+
 ## 在自己计算机上构建实验环境
 上课使用的所有软件都已经打包成docker镜像，拉取下来后可以直接启动实验环境。不过在这之间你先需要在你的计算机上安装Docker和Chrome。
 

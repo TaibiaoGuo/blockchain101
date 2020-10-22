@@ -8,10 +8,6 @@
  @Describe :
 '''
 
-import socket
-import sys
-import time
-import threading
 import socketserver
 
 
@@ -31,8 +27,6 @@ class ServerFactory:
         raise NotImplementedError()
 
 
-
-
 class ClientFactory:
     """
     客户端的高层次抽象模型，定义了客户端的基本接口模型
@@ -49,40 +43,24 @@ class ClientFactory:
         raise NotImplementedError()
 
 
-class CLIClient(ClientFactory):
-    """
-    CLIClient 实现了命令行交互的客户端抽象工厂
-    """
-    def new_client(self, server_ip, server_port):
-        pass
-
-    def ping(self):
-        pass
-
-    def message_handle(self):
-        pass
-
-
-class P2PServer(ServerFactory,socketserver.TCPServer):
+class P2PServer(ServerFactory, socketserver.TCPServer):
     """
     P2PServer 实现了P2P网络的服务端抽象工厂
     """
+
     def __init__(self):
         self.server_ip = None
         self.server_port = None
         self.sock = None
-        socketserver.TCPServer.__init__(self,(self.server_ip,self.server_port))
+        socketserver.TCPServer.__init__(self, (self.server_ip, self.server_port))
 
     def new_server(self, server_ip='0.0.0.0', server_port=12467):
         '''
         创建一个TCP类型的socketserver
         '''
 
-
     def run(self):
         pass
-
-
 
 
 class Peer:
@@ -144,4 +122,7 @@ class TimeQueue:
 
 
 if __name__ == '__main__':
-    address = ('0.0.0.0', 12467)
+    # 设置服务端的地址
+    address_server = ('0.0.0.0', 12467)
+    # 设置客户端的地址，客户端只能在本机访问。
+    address_client = ('127.0.0.1', 12468)

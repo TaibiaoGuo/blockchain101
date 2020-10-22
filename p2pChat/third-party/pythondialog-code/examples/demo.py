@@ -70,9 +70,16 @@ simple_example.py.
 
 """
 
+import getopt
+import locale
+import os
+import stat
+import subprocess
+import sys
+import textwrap
+import time
+import traceback
 
-import sys, os, locale, stat, time, getopt, subprocess, traceback, textwrap
-import pprint
 import dialog
 from dialog import DialogBackendVersion
 
@@ -121,12 +128,13 @@ try:
     from textwrap import indent
 except ImportError:
     try:
-        callable                # Normally, should be __builtins__.callable
+        callable  # Normally, should be __builtins__.callable
     except NameError:
         # Python 3.1 doesn't have the 'callable' builtin function. Let's
         # provide ours.
         def callable(f):
             return hasattr(f, '__call__')
+
 
     def indent(text, prefix, predicate=None):
         l = []
@@ -160,6 +168,7 @@ class MyDialog:
     methods for more details.
 
     """
+
     def __init__(self, Dialog_instance):
         self.dlg = Dialog_instance
 
@@ -170,17 +179,17 @@ class MyDialog:
             return True
 
         if code in (self.CANCEL, self.ESC):
-            button_name = { self.CANCEL: "Cancel",
-                            self.ESC: "Escape" }
+            button_name = {self.CANCEL: "Cancel",
+                           self.ESC: "Escape"}
             msg = "You pressed {0} in the last dialog box. Do you want " \
-                "to exit this demo?".format(button_name[code])
+                  "to exit this demo?".format(button_name[code])
             # 'self.dlg' instead of 'self' here, because we want to use the
             # original yesno() method from the Dialog class instead of the
             # decorated method returned by self.__getattr__().
             if self.dlg.yesno(msg) == self.OK:
                 sys.exit(0)
-            else:               # "No" button chosen, or ESC pressed
-                return False    # in the "confirm quit" dialog
+            else:  # "No" button chosen, or ESC pressed
+                return False  # in the "confirm quit" dialog
         else:
             return True
 
@@ -209,6 +218,7 @@ class MyDialog:
         True.
 
         """
+
         # One might want to use @functools.wraps here, but since the wrapper
         # function is very likely to be used only once and then
         # garbage-collected, this would uselessly add a little overhead inside
@@ -249,8 +259,8 @@ class MyDialog:
             retcode = p.wait()
         except os.error as e:
             self.msgbox("Unable to execute program '%s': %s." % (program,
-                                                              e.strerror),
-                     title="Error")
+                                                                 e.strerror),
+                        title="Error")
             return False
 
         if retcode > 0:
@@ -306,10 +316,10 @@ class MyDialog:
         """
         kwargs["help_button"] = True
         code = self._Yesno(*args, **kwargs)
-        d = { self.dlg.OK:     "yes",
-              self.dlg.CANCEL: "no",
-              self.dlg.EXTRA:  "extra",
-              self.dlg.HELP:   "help" }
+        d = {self.dlg.OK: "yes",
+             self.dlg.CANCEL: "no",
+             self.dlg.EXTRA: "extra",
+             self.dlg.HELP: "help"}
 
         return d[code]
 
@@ -364,8 +374,8 @@ class MyApp:
         backend_version = d.cached_backend_version
         if not backend_version:
             print(tw.fill(
-                  "Unable to retrieve the version of the dialog-like backend. "
-                  "Not running cdialog?") + "\nPress Enter to continue.",
+                "Unable to retrieve the version of the dialog-like backend. "
+                "Not running cdialog?") + "\nPress Enter to continue.",
                   file=sys.stderr)
             input()
 
@@ -406,13 +416,13 @@ This script is being run by a Python interpreter identified as follows:
 
 The dialog-like program displaying this message box reports version \
 {backend_version} and a terminal size of {rows} rows by {cols} columns."""
-                 .format(
-                pydlg_version=dialog.__version__,
-                backend_version=self.backend_version,
-                py_version=indent(sys.version, "  "),
-                rows=self.term_rows, cols=self.term_cols,
-                min_rows=self.min_rows, min_cols=self.min_cols),
-                 width=60, height=17)
+            .format(
+            pydlg_version=dialog.__version__,
+            backend_version=self.backend_version,
+            py_version=indent(sys.version, "  "),
+            rows=self.term_rows, cols=self.term_cols,
+            min_rows=self.min_rows, min_cols=self.min_cols),
+            width=60, height=17)
 
         self.progressbox_demo_with_file_descriptor()
         # First dialog version where the programbox widget works fine
@@ -425,7 +435,7 @@ The dialog-like program displaying this message box reports version \
         self.textbox_demo()
         name = self.inputbox_demo_with_help()
         size, weight, city, state, country, last_will1, last_will2, \
-            last_will3, last_will4, secret_code = self.mixedform_demo()
+        last_will3, last_will4, secret_code = self.mixedform_demo()
         self.form_demo_with_help()
         favorite_day = self.menu_demo(name, city, state, country, size, weight,
                                       secret_code, last_will1, last_will2,
@@ -485,7 +495,7 @@ Now, please select a file you would like to see growing (or not...).""",
 
         # Looks nicer if the screen is not completely filled by the widget,
         # hence the -1.
-        self.tailbox_demo(height=self.max_lines-1,
+        self.tailbox_demo(height=self.max_lines - 1,
                           width=self.max_cols)
 
         directory = self.dselect_demo()
@@ -559,7 +569,7 @@ Now, please select a file you would like to see growing (or not...).""",
         d.msgbox(self.FIFO_HELP(widget), width=72, height=20)
         path = self.fselect_demo(widget, allow_FIFOs=True,
                                  title="Please choose a file to be shown as "
-                                 "with 'tail -f'")
+                                       "with 'tail -f'")
         if path is None:
             # User chose to abort
             return
@@ -680,7 +690,7 @@ Rougon, who was looking for
 something like that in 2002,
 found the idea rather cool and
 improved the module during the
-following years...""" + 15*'\n'
+following years...""" + 15 * '\n'
 
         return self.progressboxoid("progressbox", func_name, text)
 
@@ -708,7 +718,7 @@ and the output to be displayed, via a pipe, in a 'programbox' widget."""
         if d.Yesno("Do you want to run 'find /usr/bin' in a programbox widget?"):
             try:
                 devnull = subprocess.DEVNULL
-            except AttributeError: # Python < 3.3
+            except AttributeError:  # Python < 3.3
                 devnull_context = devnull = open(os.devnull, "wb")
             else:
                 devnull_context = DummyContextManager()
@@ -721,7 +731,7 @@ and the output to be displayed, via a pipe, in a 'programbox' widget."""
                 # in the title bar.
                 d.programbox(fd=p.stdout.fileno(),
                              text="Example showing the output of a command "
-                             "with programbox")
+                                  "with programbox")
                 retcode = p.wait()
 
             # Context manager support for subprocess.Popen objects requires
@@ -748,7 +758,7 @@ and the output to be displayed, via a pipe, in a 'programbox' widget."""
                                update_text=True)
             elif i == 80:
                 d.gauge_update(i, "Yeah, this boring crap will be over Really "
-                               "Soon Now.", update_text=True)
+                                  "Soon Now.", update_text=True)
             else:
                 d.gauge_update(i)
 
@@ -761,7 +771,7 @@ and the output to be displayed, via a pipe, in a 'programbox' widget."""
             d.mixedgauge("This is the 'text' part of the mixedgauge\n"
                          "and this is a forced new line.",
                          title="'mixedgauge' demo",
-                         percent=int(round(72+28*i/100)),
+                         percent=int(round(72 + 28 * i / 100)),
                          elements=[("Task 1", "Foobar"),
                                    ("Task 2", 0),
                                    ("Task 3", 1),
@@ -776,7 +786,7 @@ and the output to be displayed, via a pipe, in a 'programbox' widget."""
                                    # "Succeeded", so these must not be equal to
                                    # zero! That is why I made the range() above
                                    # start at 1.
-                                   ("Task 9", -max(1, 100-i)),
+                                   ("Task 9", -max(1, 100 - i)),
                                    ("Task 10", -i)])
             time.sleep(0.5 if params["fast_mode"] else 2)
 
@@ -810,15 +820,15 @@ You have all my support, be brave!""",
                          title="From Your Faithful Servant")
             else:
                 assert False, "Unexpected reply from MyDialog.Yesnohelp(): " \
-                    + repr(reply)
+                              + repr(reply)
 
     def msgbox_demo(self, answer):
         if answer:
             msg = "Excellent! Press OK to see its source code (or another " \
-            "file if not in the correct directory)."
+                  "file if not in the correct directory)."
         else:
             msg = "Well, feel free to send your complaints to /dev/null!\n\n" \
-                "Sincerely yours, etc."
+                  "Sincerely yours, etc."
 
         d.msgbox(msg, width=50)
 
@@ -862,13 +872,13 @@ You have all my support, be brave!""",
             ("State", 4, 1, "Some Lost Place", 4, 20, 15, 25),
             ("Country", 5, 1, "Nowhereland", 5, 20, 15, 20),
             ("My", 6, 1, "I hereby declare that, upon leaving this "
-             "world, all", 6, 20, 0, 0),
+                         "world, all", 6, 20, 0, 0),
             ("Very", 7, 1, "my fortune shall be transferred to Florent "
-             "Rougon's", 7, 20, 0, 0),
+                           "Rougon's", 7, 20, 0, 0),
             ("Last", 8, 1, "bank account number 000 4237 4587 32454/78 at "
-             "Banque", 8, 20, 0, 0),
+                           "Banque", 8, 20, 0, 0),
             ("Will", 9, 1, "Cantonale Vaudoise, Lausanne, Switzerland.",
-             9, 20, 0, 0) ]
+             9, 20, 0, 0)]
 
         code, fields = d.form("Please fill in some personal information:",
                               elements, width=77)
@@ -907,18 +917,18 @@ This demo uses 'help_button=True' to provide a Help button \
 and 'help_status=True' to allow redisplaying the widget in the same state \
 when leaving the help dialog. {complement}""".format(complement=complement)
 
-        elements = [ ("Fruit",  1, 8, "mirabelle plum",  1, 20, 18, 30),
-                     ("Color",  2, 8, "yellowish",       2, 20, 18, 30),
-                     ("Flavor", 3, 8, "sweet when ripe", 3, 20, 18, 30),
-                     ("Origin", 4, 8, "Lorraine",        4, 20, 18, 30) ]
+        elements = [("Fruit", 1, 8, "mirabelle plum", 1, 20, 18, 30),
+                    ("Color", 2, 8, "yellowish", 2, 20, 18, 30),
+                    ("Flavor", 3, 8, "sweet when ripe", 3, 20, 18, 30),
+                    ("Origin", 4, 8, "Lorraine", 4, 20, 18, 30)]
 
         more_kwargs = {}
 
         if item_help:
-            more_kwargs.update({ "item_help": True,
-                                 "help_tags": True })
-            elements = [ list(l) + [ "Help text for item {0}".format(i+1) ]
-                         for i, l in enumerate(elements) ]
+            more_kwargs.update({"item_help": True,
+                                "help_tags": True})
+            elements = [list(l) + ["Help text for item {0}".format(i + 1)]
+                        for i, l in enumerate(elements)]
 
         while True:
             code, t = d.form(text, elements, height=20, width=65,
@@ -940,7 +950,7 @@ when leaving the help dialog. {complement}""".format(complement=complement)
         return t
 
     def mixedform_demo(self):
-        HIDDEN    = 0x1
+        HIDDEN = 0x1
         READ_ONLY = 0x2
 
         elements = [
@@ -950,16 +960,16 @@ when leaving the help dialog. {complement}""".format(complement=complement)
             ("State", 4, 1, "Some Lost Place", 4, 20, 15, 25, 0x0),
             ("Country", 5, 1, "Nowhereland", 5, 20, 15, 20, 0x0),
             ("My", 6, 1, "I hereby declare that, upon leaving this "
-             "world, all", 6, 20, 54, 0, READ_ONLY),
+                         "world, all", 6, 20, 54, 0, READ_ONLY),
             ("Very", 7, 1, "my fortune shall be transferred to Florent "
-             "Rougon's", 7, 20, 54, 0, READ_ONLY),
+                           "Rougon's", 7, 20, 54, 0, READ_ONLY),
             ("Last", 8, 1, "bank account number 000 4237 4587 32454/78 at "
-             "Banque", 8, 20, 54, 0, READ_ONLY),
+                           "Banque", 8, 20, 54, 0, READ_ONLY),
             ("Will", 9, 1, "Cantonale Vaudoise, Lausanne, Switzerland.",
              9, 20, 54, 0, READ_ONLY),
             ("Read-only field...", 10, 1, "... that doesn't go into the "
-             "output list", 10, 20, 0, 0, 0x0),
-            (r"\/3r`/ 53kri7 (0d3", 11, 1, "", 11, 20, 15, 20, HIDDEN) ]
+                                          "output list", 10, 20, 0, 0, 0x0),
+            (r"\/3r`/ 53kri7 (0d3", 11, 1, "", 11, 20, 15, 20, HIDDEN)]
 
         code, fields = d.mixedform(
             "Please fill in some personal information:", elements, width=77)
@@ -971,7 +981,7 @@ when leaving the help dialog. {complement}""".format(complement=complement)
             ("Secret field 1", 1, 1, "", 1, 20, 12, 0),
             ("Secret field 2", 2, 1, "", 2, 20, 12, 0),
             ("Secret field 3", 3, 1, "Providing a non-empty initial content "
-             "(like this) for an invisible field can be very confusing!",
+                                     "(like this) for an invisible field can be very confusing!",
              3, 20, 30, 160)]
 
         code, fields = d.passwordform(
@@ -1000,17 +1010,17 @@ All that was very interesting, thank you. However, in order to know you \
 better and provide you with the best possible customer service, we would \
 still need to know your favorite day of the week. Please indicate your \
 preference below.""" \
-            % (name, city, state, country, size, weight, secret_code,
-               ' '.join([last_will1, last_will2, last_will3, last_will4]))
+               % (name, city, state, country, size, weight, secret_code,
+                  ' '.join([last_will1, last_will2, last_will3, last_will4]))
 
         code, tag = d.menu(text, height=23, width=76,
-            choices=[("Monday", "Being the first day of the week..."),
-                     ("Tuesday", "Comes after Monday"),
-                     ("Wednesday", "Before Thursday day"),
-                     ("Thursday", "Itself after Wednesday"),
-                     ("Friday", "The best day of all"),
-                     ("Saturday", "Well, I've had enough, thanks"),
-                     ("Sunday", "Let's rest a little bit")])
+                           choices=[("Monday", "Being the first day of the week..."),
+                                    ("Tuesday", "Comes after Monday"),
+                                    ("Wednesday", "Before Thursday day"),
+                                    ("Thursday", "Itself after Wednesday"),
+                                    ("Friday", "The best day of all"),
+                                    ("Saturday", "Well, I've had enough, thanks"),
+                                    ("Sunday", "Let's rest a little bit")])
 
         return tag
 
@@ -1020,14 +1030,14 @@ item_help=True."""
 
         while True:
             code, tag = d.menu(text, height=16, width=60,
-                choices=[("Tag 1", "Item 1", "Help text for item 1"),
-                         ("Tag 2", "Item 2", "Help text for item 2"),
-                         ("Tag 3", "Item 3", "Help text for item 3"),
-                         ("Tag 4", "Item 4", "Help text for item 4"),
-                         ("Tag 5", "Item 5", "Help text for item 5"),
-                         ("Tag 6", "Item 6", "Help text for item 6"),
-                         ("Tag 7", "Item 7", "Help text for item 7"),
-                         ("Tag 8", "Item 8", "Help text for item 8")],
+                               choices=[("Tag 1", "Item 1", "Help text for item 1"),
+                                        ("Tag 2", "Item 2", "Help text for item 2"),
+                                        ("Tag 3", "Item 3", "Help text for item 3"),
+                                        ("Tag 4", "Item 4", "Help text for item 4"),
+                                        ("Tag 5", "Item 5", "Help text for item 5"),
+                                        ("Tag 6", "Item 6", "Help text for item 6"),
+                                        ("Tag 7", "Item 7", "Help text for item 7"),
+                                        ("Tag 8", "Item 8", "Help text for item 8")],
                                title="A menu with help facilities",
                                help_button=True, item_help=True, help_tags=True)
 
@@ -1044,26 +1054,26 @@ item_help=True."""
         # We could put non-empty items here (not only the tag for each entry)
         code, tags = d.checklist(text="What sandwich toppings do you like?",
                                  height=15, width=54, list_height=7,
-                                 choices=[("Catsup", "",             False),
-                                          ("Mustard", "",            False),
-                                          ("Pesto", "",              False),
-                                          ("Mayonnaise", "",          True),
-                                          ("Horse radish","",        True),
+                                 choices=[("Catsup", "", False),
+                                          ("Mustard", "", False),
+                                          ("Pesto", "", False),
+                                          ("Mayonnaise", "", True),
+                                          ("Horse radish", "", True),
                                           ("Sun-dried tomatoes", "", True)],
                                  title="Do you prefer ham or spam?",
                                  backtitle="And now, for something "
-                                 "completely different...")
+                                           "completely different...")
         return tags
 
     SAMPLE_DATA_FOR_BUILDLIST_AND_CHECKLIST = [
-        ("Tag 1", "Item 1", True,  "Help text for item 1"),
+        ("Tag 1", "Item 1", True, "Help text for item 1"),
         ("Tag 2", "Item 2", False, "Help text for item 2"),
         ("Tag 3", "Item 3", False, "Help text for item 3"),
-        ("Tag 4", "Item 4", True,  "Help text for item 4"),
-        ("Tag 5", "Item 5", True,  "Help text for item 5"),
+        ("Tag 4", "Item 4", True, "Help text for item 4"),
+        ("Tag 5", "Item 5", True, "Help text for item 5"),
         ("Tag 6", "Item 6", False, "Help text for item 6"),
-        ("Tag 7", "Item 7", True,  "Help text for item 7"),
-        ("Tag 8", "Item 8", False, "Help text for item 8") ]
+        ("Tag 7", "Item 7", True, "Help text for item 7"),
+        ("Tag 8", "Item 8", False, "Help text for item 8")]
 
     def checklist_demo_with_help(self):
         text = """Sample 'checklist' dialog box with help_button=True, \
@@ -1092,18 +1102,18 @@ item_help=True and help_status=True."""
 
     def radiolist_demo(self):
         choices = [
-            ("Hamburger",       "2 slices of bread, a steak...", False),
-            ("Hotdog",          "doesn't bite any more",         False),
-            ("Burrito",         "no se lo que es",               False),
-            ("Doener",          "Huh?",                          False),
-            ("Falafel",         "Erm...",                        False),
-            ("Bagel",           "Of course!",                    False),
-            ("Big Mac",         "Ah, that's easy!",              True),
-            ("Whopper",         "Erm, sorry",                    False),
+            ("Hamburger", "2 slices of bread, a steak...", False),
+            ("Hotdog", "doesn't bite any more", False),
+            ("Burrito", "no se lo que es", False),
+            ("Doener", "Huh?", False),
+            ("Falafel", "Erm...", False),
+            ("Bagel", "Of course!", False),
+            ("Big Mac", "Ah, that's easy!", True),
+            ("Whopper", "Erm, sorry", False),
             ("Quarter Pounder", 'called "le Big Mac" in France', False),
             ("Peanut Butter and Jelly", "Well, that's your own business...",
-                                                                 False),
-            ("Grilled cheese",  "And nothing more?",             False) ]
+             False),
+            ("Grilled cheese", "And nothing more?", False)]
 
         while True:
             code, t = d.radiolist(
@@ -1124,7 +1134,7 @@ item_help=True and help_status=True."""
         return t
 
     def rangebox_demo(self):
-        nb = 10                 # initial value
+        nb = 10  # initial value
 
         while True:
             code, nb = d.rangebox("""\
@@ -1146,33 +1156,33 @@ and any of the 0-9 keys to change a digit of the value.""",
         return nb
 
     def buildlist_demo(self):
-        items0 = [("A Monty Python DVD",                             False),
-                  ("A Monty Python script",                          False),
-                  ('A DVD of "Barry Lyndon" by Stanley Kubrick',     False),
+        items0 = [("A Monty Python DVD", False),
+                  ("A Monty Python script", False),
+                  ('A DVD of "Barry Lyndon" by Stanley Kubrick', False),
                   ('A DVD of "The Good, the Bad and the Ugly" by Sergio Leone',
-                                                                     False),
-                  ('A DVD of "The Trial" by Orson Welles',           False),
-                  ('The Trial, by Franz Kafka',                      False),
-                  ('Animal Farm, by George Orwell',                  False),
-                  ('Notre-Dame de Paris, by Victor Hugo',            False),
-                  ('Les Misérables, by Victor Hugo',                 False),
-                  ('Le Lys dans la Vallée, by Honoré de Balzac',     False),
-                  ('Les Rois Maudits, by Maurice Druon',             False),
-                  ('A Georges Brassens CD',                          False),
-                  ("A book of Georges Brassens' songs",              False),
-                  ('A Nina Simone CD',                               False),
-                  ('Javier Vazquez y su Salsa - La Verdad',          False),
-                  ('The last Justin Bieber album',                   False),
+                   False),
+                  ('A DVD of "The Trial" by Orson Welles', False),
+                  ('The Trial, by Franz Kafka', False),
+                  ('Animal Farm, by George Orwell', False),
+                  ('Notre-Dame de Paris, by Victor Hugo', False),
+                  ('Les Misérables, by Victor Hugo', False),
+                  ('Le Lys dans la Vallée, by Honoré de Balzac', False),
+                  ('Les Rois Maudits, by Maurice Druon', False),
+                  ('A Georges Brassens CD', False),
+                  ("A book of Georges Brassens' songs", False),
+                  ('A Nina Simone CD', False),
+                  ('Javier Vazquez y su Salsa - La Verdad', False),
+                  ('The last Justin Bieber album', False),
                   ('A printed copy of the Linux kernel source code', False),
-                  ('A CD player',                                    False),
-                  ('A DVD player',                                   False),
-                  ('An MP3 player',                                  False)]
+                  ('A CD player', False),
+                  ('A DVD player', False),
+                  ('An MP3 player', False)]
 
         # Use the name as tag, item string and item-help string; the item-help
         # will be useful for long names because it is displayed in a place
         # that is large enough to avoid truncation. If not using
         # item_help=True, then the last element of eash tuple must be omitted.
-        items = [ (tag, tag, status, tag) for (tag, status) in items0 ]
+        items = [(tag, tag, status, tag) for (tag, status) in items0]
 
         text = """If you were stranded on a desert island, what would you \
 take?
@@ -1237,7 +1247,7 @@ Keys: SPACE   select or deselect the highlighted item, i.e.,
             if code == "help":
                 day, month, year = date
                 d.msgbox("Help dialog for date {0:04d}-{1:02d}-{2:02d}.".format(
-                        year, month, day), title="'calendar' demo")
+                    year, month, day), title="'calendar' demo")
             else:
                 break
 
@@ -1255,7 +1265,7 @@ and was the first person to give a rigorous definition of real numbers."""
             return "Spot-on! I'm impressed."
         elif year == 1845:
             return "You guessed the year right. {0}".format(complement)
-        elif abs(year-1845) < 30:
+        elif abs(year - 1845) < 30:
             return "Not too far. {0}".format(complement)
         else:
             return "Well, not quite. {0}".format(complement)
@@ -1289,7 +1299,7 @@ and was the first person to give a rigorous definition of real numbers."""
 
         if nb_engineers is not None:
             sandwich_comment = " (the preparation of which requires, " \
-                "according to you, {nb_engineers} MS {engineers})".format(
+                               "according to you, {nb_engineers} MS {engineers})".format(
                 nb_engineers=nb_engineers,
                 engineers="engineers" if nb_engineers != 1 else "engineer")
         else:
@@ -1309,7 +1319,7 @@ and was the first person to give a rigorous definition of real numbers."""
 
             desert_island_string = \
                 "\nOn a desert island, you would take:{0}\n".format(
-                desert_things)
+                    desert_things)
 
         day, month, year = date
         hour, minute, second = time_
@@ -1335,7 +1345,7 @@ Your root password is: ************************** (looks good!)""".format(
             year=year, month=month, day=day,
             hour=hour, min=minute, sec=second,
             comment=tw71.fill(
-              self.comment_on_Cantor_date_of_birth(day, month, year)))
+                self.comment_on_Cantor_date_of_birth(day, month, year)))
         d.scrollbox(msg, height=20, width=75, title="Great Report of the Year")
 
     TREEVIEW_BASE_TEXT = """\
@@ -1348,15 +1358,15 @@ You should now select a node with the space bar."""
 
     def treeview_demo(self):
         code, tag = d.treeview(self.TREEVIEW_BASE_TEXT.format(options=""),
-                               nodes=[ ("0", "node 0", False, 0),
-                                       ("0.1", "node 0.1", False, 1),
-                                       ("0.2", "node 0.2", False, 1),
-                                       ("0.2.1", "node 0.2.1", False, 2),
-                                       ("0.2.1.1", "node 0.2.1.1", True, 3),
-                                       ("0.2.2", "node 0.2.2", False, 2),
-                                       ("0.3", "node 0.3", False, 1),
-                                       ("0.3.1", "node 0.3.1", False, 2),
-                                       ("0.3.2", "node 0.3.2", False, 2) ],
+                               nodes=[("0", "node 0", False, 0),
+                                      ("0.1", "node 0.1", False, 1),
+                                      ("0.2", "node 0.2", False, 1),
+                                      ("0.2.1", "node 0.2.1", False, 2),
+                                      ("0.2.1.1", "node 0.2.1.1", True, 3),
+                                      ("0.2.2", "node 0.2.2", False, 2),
+                                      ("0.3", "node 0.3", False, 1),
+                                      ("0.3.1", "node 0.3.1", False, 2),
+                                      ("0.3.2", "node 0.3.2", False, 2)],
                                title="'treeview' demo")
 
         d.msgbox("You selected the node tagged {0!r}.".format(tag),
@@ -1366,17 +1376,17 @@ You should now select a node with the space bar."""
     def treeview_demo_with_help(self):
         text = self.TREEVIEW_BASE_TEXT.format(
             options=" with help_button=True, item_help=True and "
-            "help_status=True")
+                    "help_status=True")
 
-        nodes = [ ("0",       "node 0",       False, 0, "Help text 1"),
-                  ("0.1",     "node 0.1",     False, 1, "Help text 2"),
-                  ("0.2",     "node 0.2",     False, 1, "Help text 3"),
-                  ("0.2.1",   "node 0.2.1",   False, 2, "Help text 4"),
-                  ("0.2.1.1", "node 0.2.1.1", True,  3, "Help text 5"),
-                  ("0.2.2",   "node 0.2.2",   False, 2, "Help text 6"),
-                  ("0.3",     "node 0.3",     False, 1, "Help text 7"),
-                  ("0.3.1",   "node 0.3.1",   False, 2, "Help text 8"),
-                  ("0.3.2",   "node 0.3.2",   False, 2, "Help text 9") ]
+        nodes = [("0", "node 0", False, 0, "Help text 1"),
+                 ("0.1", "node 0.1", False, 1, "Help text 2"),
+                 ("0.2", "node 0.2", False, 1, "Help text 3"),
+                 ("0.2.1", "node 0.2.1", False, 2, "Help text 4"),
+                 ("0.2.1.1", "node 0.2.1.1", True, 3, "Help text 5"),
+                 ("0.2.2", "node 0.2.2", False, 2, "Help text 6"),
+                 ("0.3", "node 0.3", False, 1, "Help text 7"),
+                 ("0.3.1", "node 0.3.1", False, 2, "Help text 8"),
+                 ("0.3.2", "node 0.3.2", False, 2, "Help text 9")]
 
         while True:
             code, t = d.treeview(text, nodes=nodes,
@@ -1413,16 +1423,16 @@ You should now select a node with the space bar."""
              "you can provide it as a string and pythondialog will",
              "automatically create and delete a temporary file for you",
              "holding this text for dialog.\n"] + \
-             [ "This is line {0} of a boring sample text.".format(i+1)
-               for i in range(100) ]
+            ["This is line {0} of a boring sample text.".format(i + 1)
+             for i in range(100)]
         code, text = d.editbox_str('\n'.join(l), 0, 0,
                                    title="A Cheap Text Editor")
         d.scrollbox(text, title="Resulting text")
 
     def inputmenu_demo(self):
-        choices = [ ("1st_tag", "Item 1 text"),
-                    ("2nd_tag", "Item 2 text"),
-                    ("3rd_tag", "Item 3 text") ]
+        choices = [("1st_tag", "Item 1 text"),
+                   ("2nd_tag", "Item 2 text"),
+                   ("3rd_tag", "Item 3 text")]
 
         for i in range(4, 21):
             choices.append(("%dth_tag" % i, "Item %d text" % i))
@@ -1440,13 +1450,13 @@ You should now select a node with the space bar."""
                 continue
             elif code == "accepted":
                 text = "The item corresponding to tag {0!r} was " \
-                    "accepted.".format(tag)
+                       "accepted.".format(tag)
             elif code == "renamed":
                 text = "The item corresponding to tag {0!r} was renamed to " \
-                    "{1!r}.".format(tag, new_item_text)
+                       "{1!r}.".format(tag, new_item_text)
             else:
                 text = "Unexpected exit code from 'inputmenu': {0!r}.\n\n" \
-                    "It may be a bug. Please report.".format(code)
+                       "It may be a bug. Please report.".format(code)
 
             break
 
@@ -1514,7 +1524,7 @@ line.""".format(widget=widget)
                 break
             elif code == "help":
                 d.msgbox("Help about {0!r} from the 'fselect' dialog.".format(
-                        path), title="'fselect' demo")
+                    path), title="'fselect' demo")
                 init_path = path
             elif code == d.OK:
                 # Of course, one can use os.path.isfile(path) here, but we want
@@ -1537,7 +1547,7 @@ You are expected to select a *file* here (possibly a FIFO), or press the \
 Cancel button.\n\n%s
 
 For your convenience, I will reproduce the FIFO help text here:\n\n%s""" \
-                            % (self.FSELECT_HELP, self.FIFO_HELP(widget))
+                                    % (self.FSELECT_HELP, self.FIFO_HELP(widget))
                     else:
                         help_text = """\
 You are expected to select a regular *file* here, or press the \
@@ -1562,14 +1572,14 @@ Cancel button.\n\n%s""" % (self.FSELECT_HELP,)
                                    help_button=True)
             if code == "help":
                 d.msgbox("Help about {0!r} from the 'dselect' dialog.".format(
-                        path), title="'dselect' demo")
+                    path), title="'dselect' demo")
                 init_dir = path
             # When Python 3.2 is old enough, we'll be able to check if
             # path.endswith(os.sep) and remove the trailing os.sep if this
             # does not change the path according to os.path.samefile().
             elif not os.path.isdir(path):
                 d.msgbox("Hmm. It seems that {0!r} is not a directory".format(
-                        path), title="'dselect' demo")
+                    path), title="'dselect' demo")
             else:
                 break
 
@@ -1585,7 +1595,7 @@ Cancel button.\n\n%s""" % (self.FSELECT_HELP,)
         # and DIALOG_ERROR exit status.
         path = self.fselect_demo(widget, allow_FIFOs=False,
                                  title="Please choose a file to be shown as "
-                                 "with 'tail -f'")
+                                       "with 'tail -f'")
         # Now, the tailbox
         if path is None:
             # User chose to abort
@@ -1636,14 +1646,14 @@ def process_command_line():
         return ("exit", 1)
 
     # Default values for parameters
-    params = { "fast_mode": False,
-               "testsuite_mode": False,
-               "debug": False,
-               "debug_filename": default_debug_filename,
-               "debug_expand_file_opt": False }
+    params = {"fast_mode": False,
+              "testsuite_mode": False,
+              "debug": False,
+              "debug_filename": default_debug_filename,
+              "debug_expand_file_opt": False}
 
     # Get the home directory, if any, and store it in params (often useful).
-    root_dir = os.sep           # This is OK for Unix-like systems
+    root_dir = os.sep  # This is OK for Unix-like systems
     params["home_dir"] = os.getenv("HOME", root_dir)
 
     # General option processing
@@ -1666,7 +1676,7 @@ def process_command_line():
             # Therefore, if we are here, it can't be due to any of these
             # options.
             assert False, "Unexpected option received from the " \
-                "getopt module: '%s'" % option
+                          "getopt module: '%s'" % option
 
     return ("continue", None)
 
@@ -1693,7 +1703,7 @@ def main():
             print(traceback.format_exc(), file=sys.stderr)
 
         print("Error (see above for a traceback):\n\n{0}".format(
-                exc_instance), file=sys.stderr)
+            exc_instance), file=sys.stderr)
         sys.exit(1)
 
     sys.exit(0)

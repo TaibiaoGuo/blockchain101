@@ -6,4 +6,4 @@ COPY ["motd", "/etc/motd"]
 COPY . /app
 WORKDIR /app
 RUN rm motd .bashrc Dockerfile Makefile
-CMD /root/helloworld
+CMD bash

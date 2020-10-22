@@ -2,11 +2,9 @@
 openssl 实验
 ##  运行方法
 
-> 首先需要安装docker
->
-> 如果拉取失败尝试注册并登陆一下阿里云的容器镜像服务（free）
+> 首先需要在本机安装docker，可以试试在线docker环境[kdtakoda](https://www.katacoda.com/courses/docker/playground)
 
-docker run --rm -it registry.cn-shenzhen.aliyuncs.com/blockchain101/openssl
+docker run --rm -it registry.cn-shenzhen.aliyuncs.com/blockchain101/openssl:latest
 
 # 本地构建
 

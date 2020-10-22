@@ -26,5 +26,5 @@ clean:
 
 .PHONY: aliyun
 aliyun:
-	@echo 'pull image from  aliyun  and run image $(IMAGE_NAME):$(VERSION)'
+	@echo 'pull image from  aliyun  and run image registry.cn-shenzhen.aliyuncs.com/blockchain101/$(IMAGE_NAME):$(VERSION)'
 	docker run --rm --name $(CONTAINER_NAME) -it registry.cn-shenzhen.aliyuncs.com/blockchain101/$(IMAGE_NAME):$(VERSION)

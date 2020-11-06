@@ -13,7 +13,7 @@
 ```bash
 git clone --branch experiment https://github.com/TaibiaoGuo/blockchain101.git
 
-cd ethereum
+cd blockchain101/ethereum/
 ```
 
 以太坊实验代码目录结构如下:

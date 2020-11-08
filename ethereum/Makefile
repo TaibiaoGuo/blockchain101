@@ -11,6 +11,22 @@ help:  ## 显示帮助信息
 
 ##@ 运行
 .PHONY: run
-run: ## 使用docker-compose运行实验环境
+run: ## 启动实验环境
 	docker-compose up -d
 
+.PHONY: stop
+stop: ## 停止实验环境
+	docker-compose stop
+
+##@ 监控
+.PHONY: log
+log: ## 查看运行日志
+	docker-compose logs
+
+.PHONY: ps
+ps: ## 列出运行的容器
+	docker-compose ps
+
+.PHONY: top
+top: ## 显示运行的进程
+	docker-compose top

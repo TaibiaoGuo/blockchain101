@@ -19,22 +19,29 @@ help:  ## 显示帮助信息
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_0-9-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 	@echo "\n\n2020 ©️ \033[32mTaibiaoGuo/Blockchain101\033[0m 版权所有"
 
-##@ 编译
-.PHONY: all-docker
-all-docker: ## 测试、编译成镜像、运行镜像
+##@ 运行
+.PHONY: all
+all: build-docker run-docker ## 在容器中完成测试、编译、运行
 
-.PHONY: build
-build: ## 本地编译
+.PHONY: all-local
+all-local: ## 在本地完成测试、编译、运行
+
+.PHONY: build-local
+build:
 	go build -o bin/$(APPName) ./cmd
 
 .PHONY: install
-install: ## 本地安装
+install:
 	make build
 	cp ./bin/$(APPName) $(shell go env GOPATH)/bin/$(APPName)
 
 .PHONY: build-docker
-build-docker: ## 编译成docker镜像
+build-docker:
 	docker build -t $(APPName):latest .
+
+.PHONY: run-docker
+run-docker:
+	docker run --rm  --name="$(APPName)" -d $(APPName):latest
 
 ##@ 开发
 

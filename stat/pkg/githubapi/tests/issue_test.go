@@ -1,6 +1,9 @@
-package githubapi
+package tests
 
-import "testing"
+import (
+	"stat/pkg/githubapi"
+	"testing"
+)
 
 func TestMustCompile(t *testing.T) {
 	type args struct {
@@ -27,7 +30,7 @@ func TestMustCompile(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := MustCompile(tt.args.s, tt.args.shortName); got != tt.want {
+			if got := githubapi.MustCompile(tt.args.s, tt.args.shortName); got != tt.want {
 				t.Errorf("MustCompile() = %v, want %v", got, tt.want)
 			}
 		})

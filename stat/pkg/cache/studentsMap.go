@@ -8,16 +8,16 @@ import (
 )
 
 var studentShortNameList []string
-var instance *studentsMap
+var instance *StudentsMap
 var once sync.Once
 
-type studentsMap map[string]StudentIssues
+type StudentsMap map[string]StudentIssues
 
 // 单例模式的studentsMap
 // 只在程序启动时执行一次，从excel文件`NameAndId.xlsx`中读取学生的姓名和学号生成短标识符号，如`仪001`，建立内存数据库
-func GetStudentsMap() *studentsMap {
+func GetStudentsMap() *StudentsMap {
 	once.Do(func() {
-		instance = &studentsMap{}
+		instance = &StudentsMap{}
 		studentShortNameList = readStudentShortNameListFromExcel("NameAndId.xlsx", "Sheet1")
 		for _, ssn := range GetStudentShortNameList() {
 			(*instance)[ssn] = StudentIssues{}
@@ -55,5 +55,5 @@ func readStudentShortNameListFromExcel(fileName string, sheetName string) []stri
 }
 
 func generateShortName(name string, id string) string {
-	return string([]rune(name)[:1]) + string([]rune(id)[:3])
+	return string([]rune(name)[len([]rune(name))-1]) + string([]rune(id)[len([]rune(id))-3:])
 }

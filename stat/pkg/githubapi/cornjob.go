@@ -12,7 +12,7 @@ import (
 
 var ISSUESURL = `https://api.github.com/repos/TaibiaoGuo/blockchain101/issues`
 
-func getIssuesList(ctx context.Context ,page int) string {
+func getIssuesList(ctx context.Context ,cancelSig chan<- struct{},page int) string {
 	url := ISSUESURL + `?per_page=20&page=` + strconv.Itoa(page)
 	method := "GET"
 
@@ -38,7 +38,8 @@ func getIssuesList(ctx context.Context ,page int) string {
 	}
 	// 只包含[<空白符号>]，表示已经全部遍历
 	if ok,_ := regexp.MatchString(`\[[\s]*\]`,string(body));ok{
-		ctx.Done()
+		fmt.Println("只包含[<空白符号>]，表示已经全部遍历")
+		cancelSig <- struct{}{}
 	}
 	// 包含"API rate limit"，表示已经超过API使用限制 v3
 	// {"message":"API rate limit exceeded for
@@ -46,12 +47,13 @@ func getIssuesList(ctx context.Context ,page int) string {
 	//Check out the documentation for more details.)",
 	//"documentation_url":"https://developer.github.com/v3/#rate-limiting"}
 	if ok,_ := regexp.MatchString(`API rate limit`,string(body));ok{
-		ctx.Done()
+		fmt.Println("API rate limit")
+		cancelSig <- struct{}{}
 	}
 	return string(body)
 }
 
-func GetAllIssues() {
+func GetAllIssues(cancelSig chan struct{}) {
 	ctx, cancel := context.WithCancel(context.Background())
 	pageNumber := 1
 	go func(ctx context.Context) {
@@ -59,15 +61,22 @@ func GetAllIssues() {
 			select {
 			// 遍历完全部请求，发出Done的指令,不再继续发起新的协程
 			case <-ctx.Done():
+				fmt.Println("ctx.Done")
 				return
 			default:
-				go getIssuesList(ctx,pageNumber)
+				go getIssuesList(ctx,cancelSig,pageNumber)
 				pageNumber++
 				time.Sleep(1 * time.Second)
 			}
 		}
 	}(ctx)
-	time.Sleep(30 * time.Second)
-	cancel()
-	time.Sleep(5 * time.Second)
+	for  {
+		select {
+		case <-cancelSig:
+			cancel()
+			return
+		default:
+			time.Sleep(1 * time.Second)
+		}
+	}
 }

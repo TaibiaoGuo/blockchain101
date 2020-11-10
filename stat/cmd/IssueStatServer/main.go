@@ -15,6 +15,6 @@ func main() {
 	}else {
 		fmt.Println("no")
 	}
-
-	githubapi.GetAllIssues()
+	c := make(chan struct{})
+	githubapi.GetAllIssues(c)
 }

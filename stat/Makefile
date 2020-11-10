@@ -9,7 +9,7 @@ else
 GOBIN=$(shell go env GOBIN)
 endif
 
-APPName ?= blockchain101-IssueStatServer
+APPName ?= blockchain101-issuestatserver
 
 ##@ General
 
@@ -20,8 +20,8 @@ help:  ## 显示帮助信息
 	@echo "\n\n2020 ©️ \033[32mTaibiaoGuo/Blockchain101\033[0m 版权所有"
 
 ##@ 编译
-.PHONY: all
-all: ## 测试、编译成镜像、运行镜像
+.PHONY: all-docker
+all-docker: ## 测试、编译成镜像、运行镜像
 
 .PHONY: build
 build: ## 本地编译
@@ -31,6 +31,10 @@ build: ## 本地编译
 install: ## 本地安装
 	make build
 	cp ./bin/$(APPName) $(shell go env GOPATH)/bin/$(APPName)
+
+.PHONY: build-docker
+build-docker: ## 编译成docker镜像
+	docker build -t $(APPName):latest .
 
 ##@ 开发
 

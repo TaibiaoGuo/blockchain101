@@ -17,6 +17,7 @@ type StudentIssues struct {
 
 type Issue struct {
 	IssueId int
+	state   string
 	Title   string
 	Body    string
 }

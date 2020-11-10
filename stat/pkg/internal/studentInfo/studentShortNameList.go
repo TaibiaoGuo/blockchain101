@@ -8,7 +8,7 @@ import (
 var studentShortNameList []string
 
 func GetStudentShortNameList(semester int) []string {
-		return studentShortNameList
+	return studentShortNameList
 }
 
 func readStudentShortNameListFromExcel(fileName string, sheetName string) ([]string, error) {

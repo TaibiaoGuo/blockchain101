@@ -11,7 +11,6 @@ var studentShortNameList []string
 var instance *studentsMap
 var once sync.Once
 
-
 type studentsMap map[string]StudentIssues
 
 // 单例模式的studentsMap
@@ -19,9 +18,9 @@ type studentsMap map[string]StudentIssues
 func GetStudentsMap() *studentsMap {
 	once.Do(func() {
 		instance = &studentsMap{}
-		studentShortNameList =  readStudentShortNameListFromExcel("NameAndId.xlsx","Sheet1")
-		for _, ssn := range GetStudentShortNameList(){
-			(*instance)[ssn] =  StudentIssues{}
+		studentShortNameList = readStudentShortNameListFromExcel("NameAndId.xlsx", "Sheet1")
+		for _, ssn := range GetStudentShortNameList() {
+			(*instance)[ssn] = StudentIssues{}
 		}
 	})
 	return instance
@@ -31,7 +30,7 @@ func GetStudentShortNameList() []string {
 	return studentShortNameList
 }
 
-func readStudentShortNameListFromExcel(fileName string, sheetName string) []string{
+func readStudentShortNameListFromExcel(fileName string, sheetName string) []string {
 	var localList []string
 	f, err := excelize.OpenFile(fileName)
 	if err != nil {
@@ -39,22 +38,22 @@ func readStudentShortNameListFromExcel(fileName string, sheetName string) []stri
 		os.Exit(1)
 	}
 	rows, err := f.Rows(sheetName)
-	if err != nil{
+	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	for rows.Next(){
-		row ,err := rows.Columns()
-		if err !=nil {
+	for rows.Next() {
+		row, err := rows.Columns()
+		if err != nil {
 			fmt.Println(err)
 			os.Exit(1)
 		}
 		// row[0] is name, row[1] is id
-		localList = append(localList, generateShortName(row[0],row[1]))
-		}
+		localList = append(localList, generateShortName(row[0], row[1]))
+	}
 	return localList
 }
 
-func generateShortName(name string,id string) string{
-	return string([]rune(name)[:1])+string([]rune(id)[:3])
+func generateShortName(name string, id string) string {
+	return string([]rune(name)[:1]) + string([]rune(id)[:3])
 }

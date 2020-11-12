@@ -58,6 +58,11 @@
 
 \section{区块链助力知识产权步入新纪元}
 
+\begin{frame}
+	\frametitle{}
+	{\Large 	区块链助力知识产权步入新纪元}
+\end{frame}
+
 
 \begin{frame}{知识产权行业概况}
 	知识产权，也称其为“知识所属权”，指“权利人对其智力劳动所创作的成果和经营活动中的标记、信誉所依法享有的专有权利”。知识产权是关于人类在社会实践中创造的智力劳动成果的专有权利。随着科技的发展，为了更好保护产权人的利益，知识产权制度应运而生并不断完善。
@@ -152,6 +157,11 @@
 \end{frame}
 
 \section{区块链助力中国智慧政务发展驶入快车道}
+
+\begin{frame}
+	\frametitle{}
+	{\Large 	区块链助力中国智慧政务发展驶入快车道}
+\end{frame}
 
 \subsection{政务信息化概述}
 \begin{frame}{什么是政务信息化}
@@ -398,11 +408,22 @@
 	\end{enumerate}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[allowframebreaks]
 	\frametitle{红普可信多方计算和管理系统}
+	\includegraphics[page=1,width=\textwidth]{figures/gov/hmb.pdf}
+	
+	\includegraphics[page=2,width=\textwidth]{figures/gov/hmb.pdf}
 \end{frame}
 
+
+
 \section{区块链数字身份：数字经济时代基础设施}
+
+\begin{frame}
+	\frametitle{}
+{\Large 	区块链数字身份：数字经济时代基础设施}
+\end{frame}
+
 \subsection{传统数字身份的运行逻辑}
 \begin{frame}
 	\frametitle{数字身份的含义}
@@ -459,27 +480,217 @@
 	保险(BFSI)、医疗、政府和国防垂直领域。
 \end{frame}
 
-\begin{frame}
+\begin{frame}[allowframebreaks]
 	\frametitle{现有数字身份的痛点}
 	\begin{enumerate}
 		\item 身份数据分散和重复认证
+		\begin{example}
+			对金融 KYC 来说，
+			同一个公民去不同的银行需要做不同的 KYC。 这些身份数据中很多相互重叠
+			\begin{enumerate}
+				\item 一方面造成了资源存储的浪费
+				\item 另一方面也给用户使用身份带来了不便与低效
+				\item 往往需要重复注册和认证
+				\item 不同身份系统中的用户身份数据由各系统单独存储，
+				无法共享和流通，也无法综合利用
+			\end{enumerate}
+		\end{example}
+	
+		现有解决方案：OAuth 2.0
 		\item 中心化认证效率和容错性低
+		\begin{example}
+			现有PKI体系CA机构为树型结构
+			\begin{enumerate}
+				\item 一方面，这种中心结构可能存在性能问题，其涉及证书的所有
+				操作，任务繁重，可能成为性能短板拖累效率。
+				\item 另一方面则是安全问题，这种单中心的结构容易使其成为攻击的目标，
+				一旦中心失效，则左右与之关联的下级 CA 均会收到牵连
+			\end{enumerate}
+		\end{example}
 		\item 身份数据隐私与安全
+		
+		{\scriptsize 现有数字身份信息散落在各个身份认证者手中，服务方可能在未获用户授权的情况下对这些数据进行处置，几乎毫无顾忌地收集、存储、传输、买卖用户，这实际上是对于用户隐私信息的严重侵
+		犯。}
+	
+		2018 年 5 月，欧盟正式推出通用数据保护条例（GDPR），其目的在于遏制
+		个人信息被滥用，保护个人隐私。
+		
 		\item 传统身份证明无法覆盖所有人
+		
+		\begin{example}
+			球大约有 11 亿人没有
+			官方身份证明，包括大量的难民、儿童和一部分妇女，他们可能无法获得应有的
+			权利，比如教育、医疗、保险、金融等。 他们虽然可以拥有一些非官方提供的身
+			份，但却缺乏足够的信任，支撑他们获得应有的权利。
+		\end{example}
 	\end{enumerate}
 \end{frame}
 
 \begin{frame}
 	\frametitle{数字身份的演变与主权身份的崛起}
+	基于对统一认证、数据隐私等等的需求，数字身份也出现了多种的转变与探
+	讨，逐渐向着自我主权身份的要求转变
 	\begin{enumerate}
-		\item 身份数据分散和重复认证
-		\item 中心化认证效率和容错性低
-		\item 身份数据隐私与安全
-		\item 传统身份证明无法覆盖所有人
+		\item 集中式身份：目前最主流身份认证方式
+		\item 联盟身份：最终形成了身份信息垄断的格局
+		\item 以用户为中心的身份：存在隐私泄露风险，用户并没有取得身份的自主权
+		\item 自我主权身份：基于区块链实现分散信任的环境，提供可信身份
 	\end{enumerate}
 \end{frame}
 
 \subsection{区块链与数字身份的结合形式}
+
+\subsubsection{区块链实现数字身份的可信互认}
+\begin{frame}[allowframebreaks]
+	\frametitle{1、区块链实现数字身份的可信互认}
+	{\scriptsize 当前在自我主权身份发展早期的阶段，前三个阶段的数字身份形式仍然是最
+	主流的。本节主要探讨如何运用区块链技术改善传统数字身份认证方式，提高安
+	全性和数据共享。}
+\begin{enumerate}
+	\item 分布式身份认证:针对 CA 的中心化签发所引发如中心失效、网络安全等问题
+	\begin{enumerate}
+		\item 区块链的分布式的数字证书签发，集中式 CA 认证中心签发数字证书-->区块链的分布式账本实现
+		\item 所有证书持有者共同维护。 基于区块链的 PKI 可以实现传
+		统 PKI 系统的证书申请、签发、验证和管理
+		\begin{enumerate}
+			\item 证书签发：用户自己生成公私钥对，私钥自己保存，并将公钥和用于
+			验证个人身份信息的数据发动给验证节点进行证书的申请。
+			\item 证书签发： 会根据新用户提交的信息验证其身份的真实性；验证通过
+			后生成数字证书并上链。
+			\item 证书撤销：证书用户提出证书撤销请求，其中包括用户的证书以及可
+			以证实用户身份的信息； 验证节点根据用户提交的信息验证用户身份，审核证书
+			撤销请求通过后， 将未纳入区块的合法证书信息以及证书状态上链。
+			\item 证书更新：用户需要产生一份新的数字证书，与原有证书有相同的 DN
+			（Distinguished Name）项。证书用户向区块链网络发起证书更新请求，提交待更
+			新的证书，新产生的证书以及证实身份的信息。其后再由验证节点进行验证上链
+		\end{enumerate}
+	\end{enumerate}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{2、跨机构安全身份授权}
+	{\scriptsize 目前数字身份数据分散， 难以共享， 传统的身份授权方式不够安全。 在统一
+		身份标识无法快速实现和成熟的背景下，可以利用区块链的分布式账本让身份共
+		享和授权更加安全}
+	\begin{minipage}[t]{0.5\linewidth}
+	\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{figures/eid/1}
+	\caption{跨机构区块链身份授权流程}
+\end{figure}
+\end{minipage}%
+\begin{minipage}[t]{0.5\linewidth}
+{\scriptsize 	\begin{enumerate}
+		\item 拥有用户数据的服务商将用户信息加密生成私钥和公钥,
+		\item 
+		其中公钥生成该
+		运营商的数字签名,将公钥和数字签名上链,私钥则保存在用户本地,如 SIM 卡。
+		\item  用户登录联盟链中某一应用(依赖方)时,该应用会向有用户身份信息的
+		服务商(身份提供方)发起请求,接收到请求后,服务商向用户发送授权申请,
+		等待用户同意。
+		\item  应用获得用户授权后,在链上对用户身份进行匹配,匹配成功后即说明对用户身份认可,可以登录。
+\end{enumerate}}
+\end{minipage}%
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+	\frametitle{3、区块链数字身份提供可信基础设施}
+\begin{enumerate}
+	\item 区块链技术可以和生物识别技术相结合,创建真实唯一,难以伪造的
+	数字身份。
+	\begin{example}
+		如指纹、面部、虹
+		膜等,提取其二进制特征向量, 经过 Hash 处理后以数字摘要的形式存储在区块
+		链上,形成不可篡改的数字身份,代替传统所需的 ID 号
+	\end{example}
+	\item 可以利用区块链形成用户不可篡改的行为记录,与其身份绑定,增强
+	其身份特性和可信行为特性
+	
+	{\tiny 2017 年世界上仍有 17 亿人没有银行账户。这是一个十分惊人的数字,
+	这意味着世界上有 17 亿人无法利用银行进行基本的储蓄、汇款等业务。而更重
+	要的是,银行绝大部分现有金融服务又依赖于客户的 KYC 情况、过往金融记录
+	等银行数据,而很难将金融服务延伸给这些真正需要融资的贫困人群等。通过区
+	块链数字身份,可以对很多以往无法统计的金融行为进行记录,由于信息的不可
+	篡改性,用户的金融信用会加强,更有助于其获得金融机构的认可,能够实现应
+	用的金融权利}
+\end{enumerate}
+\end{frame}
+
+\subsection{区块链实现自我主权身份与数据管理}
+\begin{frame}[allowframebreaks]
+	\frametitle{实现用户数据自治:分布式身份标识}
+	基于区块链的自我主权身份的核心思想是创造一个全局唯一的身份标识
+	DID(分布式身份标识),具有高可用性、可解析性和加密可验证性。
+
+	\begin{minipage}[t]{0.5\linewidth}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\linewidth]{figures/eid/2}
+		\caption{DID 系统运行流程}
+	\end{figure}
+\end{minipage}%
+\begin{minipage}[t]{0.5\linewidth}
+{\footnotesize 	\begin{enumerate}
+	\item DID 标识符:是全局唯一的身份标识,类似一个人的身份证、账号等。
+	\item DID 文档:描述如何使用该 DID 的简单文档。
+	\item 可验证声明(VC): DID 文档本身无法和用户的真实身份信息相关联,
+	需要 VC 来实现,是整个系统的价值所在。
+\end{enumerate}}
+\end{minipage}%
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+	\frametitle{数据隐私保护的解决思路}
+\begin{enumerate}
+	\item 零知识证明(Zero-Knowledge Proof):{\tiny 指的是可以在不泄露任何其他
+		信息的前提下证明一个命题的正确性。这里的“零知识”并不是什么都不知道,而
+		是什么都不泄露。身份认证是零知识证明的典型应用,例如匿名认证(通过认证
+		并获得相应的权限,却不泄露身份),保护用户的隐私。零知识证明可以结合可
+		验证声明为身份依赖者提供身份验证,比如证明你已经成年,却不会暴露你的真
+		实年龄。对于身份依赖方来说,其实就是匿名形式的认证。}
+	\item 分布式密钥管理:{\tiny 指的是将密钥进行分片,多个密钥碎片分布式存储,
+		必须要大于一定比例的密钥碎片才能够合成完整的密钥。密钥碎片可以由区块链
+		网络节点进行管理,相比如公钥直接上链具有更强的安全性和隐私性,加强了数
+		字证书的不可篡改性。}
+	\item 可信执行环境(TEE,Trusted Execution Environment):{\tiny 基于芯片硬
+		件形成的可信环境,能够对敏感数据进行有效保护。TEE 隔离于 REE(移动设备
+		运行 OS 的环境)、只能通过特定的入口与 TEE 通信;TEE 可以访问 REE 的内
+		存、 REE 无法访问受硬件保护的 TEE 内存; TEE 还可抵御某些基于硬件的攻击。
+		因此 TEE 常用于数据内容版权保护、金融支付、身份认证等场景。在身份认证中,TEE 可用于保护本地的用户隐私数据以及用户的密钥。}
+	\item 安全多方计算(Secure Multi-Party Computation):{\tiny 该方案主要针对无
+	可信第三方的情况下,如何安全地计算一个约定函数的问题。参与计算的各方可
+	以在不泄露自己的数据的前提下,共同完成某个计算过程,并且最终的计算结果
+	还能证明是正确的。安全多方计算可以解决大数据时代,有价值的数据或是隐私
+	数据难以分享的痛点,例如身份数据,金融数据等。在安全多方计算的协助下,
+	多个数据持有方才能更放心的开展合作,在不损害自身利益的情况下,创造更大
+	的价值。}
+\end{enumerate}
+\end{frame}
+
+\subsection{应用案例}
+
+\begin{frame}
+	\frametitle{实现用户数据自治:分布式身份标识}
+	eID 数字身份链是以国家 863 重大专项公民数字身份为基础的国家数字基础
+	设施。通过对接联合国家各部委和有关部门,建立链接个人各维度数据的个人隐
+	私保护体系和数据流转平台。
+	
+	\begin{minipage}[t]{0.5\linewidth}
+		\begin{figure}
+			\centering
+			\includegraphics[width=\linewidth]{figures/eid/3}
+			\caption{eID 数字身份链技术框架图}
+		\end{figure}
+	\end{minipage}%
+	\begin{minipage}[t]{0.5\linewidth}
+		\begin{figure}
+	\centering
+	\includegraphics[height=0.5\linewidth]{figures/eid/4}
+	\caption{案例：eID 数字身份的区块链电子证照}
+\end{figure}
+	\end{minipage}
+\end{frame}
 
 \subsection{区块链数字身份的难点}
 \begin{frame}
@@ -511,9 +722,10 @@
 	\end{enumerate}
 \end{frame}
 
-\section{区块链构建智慧城市运转新内核}
-
-\section{区块链下的“普惠”供应链金融}
-
-\section{区块链开启医疗健康新篇章}
+%
+%\section{区块链构建智慧城市运转新内核}
+%
+%\section{区块链下的“普惠”供应链金融}
+%
+%\section{区块链开启医疗健康新篇章}
 \end{document}

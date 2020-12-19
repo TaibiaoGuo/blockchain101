@@ -42,3 +42,8 @@ func isCreatedInDuration(thisTime string) bool {
         return true
     }
 }
+
+func rfc3339NanoTimeParse(thisTime string) (time.Time ,error){
+t1, err := time.Parse(time.RFC3339, timeBegin) // example:"2020-09-01T00:00:00+08:00"
+return t1,err
+}

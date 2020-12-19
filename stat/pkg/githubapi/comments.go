@@ -9,6 +9,7 @@ import (
     "regexp"
     "stat/pkg/cache"
     "strconv"
+    "time"
 )
 
 // 获取某个issue的commnets
@@ -41,9 +42,13 @@ func GetIssueComments(number int) []cache.Comment {
     for _, v := range jsonSlice {
         commentId, _ := strconv.Atoi(fmt.Sprintf("%v", v["id"]))
         commentBody := fmt.Sprintf("%v", v["body"])
+        createdTime, _ := time.Parse(time.RFC3339Nano, fmt.Sprintf("%v", v["created_at"]))
+        updatedTime, _ := time.Parse(time.RFC3339Nano, fmt.Sprintf("%v", v["updated_at"]))
         comments = append(comments, cache.Comment{
             CommentId: commentId,
             Body:      commentBody,
+            CreatedTime: createdTime,
+            UpdatedTime: updatedTime,
         })
     }
     return comments

@@ -1,11 +1,17 @@
 package main
 
 import (
-    "log"
+    "stat/pkg/cache"
     "stat/pkg/githubapi"
+    "time"
 )
 
 func main() {
-    n := githubapi.GetMaxIssuesNumber()
-    log.Println("total issues:", n)
+    go githubapi.Run()
+    cache.GetStudentsMap()
+    // 通知StudentsMap初始化成功
+    githubapi.StudentsMapCreatedSignal <- true
+    for {
+        time.Sleep(time.Second*60)
+    }
 }

@@ -1,5 +1,7 @@
 package cache
 
+import "time"
+
 type StudentIssues struct {
     StudentNickName      string  `json:"student_nick_name"`
     StudentShortId       string  `json:"student_short_id"`
@@ -13,6 +15,7 @@ type StudentIssues struct {
     OpeningCommentsList  []Issue `json:"opening_comments_list"`
     ClosedCommentsCount  int     `json:"closed_comments_count"`
     ClosedCommentsList   []Issue `json:"closed_comments_list"`
+    UpdatedTime string // StudentIssues更新时间
 }
 
 // 一个原始issue例子
@@ -91,8 +94,8 @@ type Issue struct {
     Title           string `json:"title"`
     Body            string `json:"body"`
     State           string // issue状态，open为正常状态
-    CreatedTime     string
-    UpdatedTime     string    // issue内容最后更新时间
+    CreatedTime     time.Time
+    UpdatedTime     time.Time    // issue内容最后更新时间
     Comments        int       // 评论条数
     CommentsDetails []Comment // 评论内容
 }
@@ -135,6 +138,6 @@ type Issue struct {
 type Comment struct {
     CommentId   int    `json:"comment_id"`
     Body        string `json:"body"`
-    CreatedTime string
-    UpdatedTime string
+    CreatedTime time.Time
+    UpdatedTime time.Time
 }

@@ -7,7 +7,7 @@ import (
 
 var issueCommentIdList []IssueCommentId
 var allCommentsMapInstance *AllCommentsMap
-var allCommentIssueMapInstance *map[IssueCommentId]*IssueId
+var allCommentIssueMapInstance *map[IssueCommentId]IssueId
 var allCommentsMapMu sync.RWMutex
 
 type IssueCommentId *int64
@@ -37,7 +37,7 @@ func ReplaceCommentsList(newList []IssueCommentId) {
 }
 
 // 用dirtyMap 替换 allCommentIssueMapInstance
-func ReplaceAllCommentIssueMap(newMap *map[IssueCommentId]*IssueId) {
+func ReplaceAllCommentIssueMap(newMap *map[IssueCommentId]IssueId) {
     cacheOnce.Do(func() { lazyInitCache() })
     allCommentsMapMu.Lock()
     allIssuesMapMu.Lock()
@@ -69,10 +69,12 @@ func GetCommentById(id IssueCommentId) *github.IssueComment {
 func IsIssueOpenByCommentId(id IssueCommentId) bool  {
     cacheOnce.Do(func() { lazyInitCache() })
     allCommentsMapMu.RLock()
+    // 根据commentId获取issuesId
     issueId := (*allCommentIssueMapInstance)[id]
     allCommentsMapMu.RUnlock()
     allIssuesMapMu.RLock()
-    issue := GetIssueById(*issueId)
+    // 根据issuesId获取issue
+    issue := GetIssueById(issueId)
     allIssuesMapMu.RUnlock()
     if *issue.State == "open" {
         return true

@@ -58,10 +58,13 @@ func (c *CornJob) run(ctx context.Context) error {
     cache.ReplaceCommentsMap(newCommentsMap)
     cache.ReplaceCommentsList(*newCommentsIdList)
     // 建立comment-issues 索引
-    newCommentsIssueMap := GetCommentsIssueMap(ctx)
+    newCommentsIssueMap := GetCommentsIssueMap(ctx2)
     cache.ReplaceAllCommentIssueMap(newCommentsIssueMap)
     // 根据cache进行统计，生成studentsMap
-    stat.UpdateStudentsMap(ctx2)
+    err := stat.UpdateStudentsMap(ctx2)
+    if err != nil{
+        return err
+    }
     // 日志打印，显示每个学生的信息
     for _, ssn := range cache.GetStudentShortNameList(){
         log.Println(cache.GetStudentIssueBySSN(ssn))

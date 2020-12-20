@@ -12,7 +12,7 @@ func lazyInitCache() {
     studentsMapInstance = &StudentsMap{}
     allIssuesMapInstance = &AllIssuesMap{}
     allCommentsMapInstance = &AllCommentsMap{}
-    allCommentIssueMapInstance = &map[IssueCommentId]*IssueId{}
+    allCommentIssueMapInstance = &map[IssueCommentId]IssueId{}
     studentShortNameList = readStudentShortNameListFromExcel("NameAndId.xlsx", "Sheet1")
     for _, ssn := range GetStudentShortNameList() {
         (*studentsMapInstance)[ssn] = &StudentIssues{StudentShortName: ssn}

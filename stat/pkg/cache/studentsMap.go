@@ -10,8 +10,13 @@ import (
     "time"
 )
 
+const EffectiveIssue = 1
+const InvalidIssue = 2
+const EffectiveComment = 3
+const InvalidComment = 4
+
 var studentShortNameList []string
-var studentsMapinstance *StudentsMap
+var studentsMapInstance *StudentsMap
 var studentsMapMu sync.RWMutex
 
 // 键：短标识符号 值：对应学生issues信息
@@ -21,17 +26,17 @@ type StudentIssues struct {
     UserId                 int
     StudentShortName       string
     TotalIssuesCount       int
-    AllIssuesList          []github.Issue
+    AllIssuesList          []*github.Issue
     EffectiveIssuesCount   int
-    EffectiveIssuesList    []github.Issue
+    EffectiveIssuesList    []*github.Issue
     InvalidIssuesCount     int
-    InvalidIssuesList      []github.Issue
+    InvalidIssuesList      []*github.Issue
     TotalCommentsCount     int
-    TotalCommentsList      []github.IssueComment
+    TotalCommentsList      []*github.IssueComment
     EffectiveCommentsCount int
-    EffectiveCommentsList  []github.IssueComment
+    EffectiveCommentsList  []*github.IssueComment
     InvalidCommentsCount   int
-    InvalidCommentsList    []github.IssueComment
+    InvalidCommentsList    []*github.IssueComment
     UpdatedTime            time.Time // StudentIssues更新时间
 }
 
@@ -40,11 +45,17 @@ type StudentIssues struct {
 func GetStudentsMap() *StudentsMap {
     cacheOnce.Do(func() { lazyInitCache() })
     log.Printf("studentsMap created")
-    return studentsMapinstance
+    return studentsMapInstance
 }
 
 func GetStudentShortNameList() []string {
     return studentShortNameList
+}
+
+func ReplacestudentShortNameList(newList []string) {
+    studentsMapMu.Lock()
+    studentShortNameList = newList
+    studentsMapMu.Unlock()
 }
 
 func readStudentShortNameListFromExcel(fileName string, sheetName string) []string {
@@ -76,12 +87,64 @@ func generateShortName(name string, id string) string {
 }
 
 // 使用StudentShortId做索引更新学生issues信息
-func UpdateStudentsMapByStudentShortId(ssn string, issues *StudentIssues) {
+// message是引用类型，否则视为错误
+func UpdateStudentsMapByStudentShortId(ssn string, updatePlace int, message interface{}) error {
     cacheOnce.Do(func() { lazyInitCache() })
     // 该ssn不在成绩册中，跳过
-    if _, ok := (*studentsMapinstance)[ssn]; !ok {
-        return
+    if _, ok := (*studentsMapInstance)[ssn]; !ok {
+        return nil
     }
-    (*studentsMapinstance)[ssn] = issues
-    return
+    if updatePlace == EffectiveIssue {
+        if val, ok := message.(*github.Issue); ok {
+            studentsMapMu.Lock()
+            (*studentsMapInstance)[ssn].TotalIssuesCount++
+            (*studentsMapInstance)[ssn].EffectiveIssuesCount++
+            (*studentsMapInstance)[ssn].EffectiveIssuesList = append((*studentsMapInstance)[ssn].EffectiveIssuesList, val)
+            studentsMapMu.Unlock()
+        } else {
+            log.Println("update failed")
+            return fmt.Errorf("update failed")
+        }
+    } else if updatePlace == InvalidIssue {
+        if val, ok := message.(*github.Issue); ok {
+            studentsMapMu.Lock()
+            (*studentsMapInstance)[ssn].TotalIssuesCount++
+            (*studentsMapInstance)[ssn].InvalidIssuesCount++
+            (*studentsMapInstance)[ssn].InvalidIssuesList = append((*studentsMapInstance)[ssn].InvalidIssuesList, val)
+            studentsMapMu.Unlock()
+        } else {
+            log.Println("update failed")
+            return fmt.Errorf("update failed")
+        }
+    } else if updatePlace == EffectiveComment {
+        if val, ok := message.(*github.IssueComment); ok {
+            studentsMapMu.Lock()
+            (*studentsMapInstance)[ssn].TotalCommentsCount++
+            (*studentsMapInstance)[ssn].EffectiveCommentsCount++
+            (*studentsMapInstance)[ssn].EffectiveCommentsList = append((*studentsMapInstance)[ssn].EffectiveCommentsList, val)
+            studentsMapMu.Unlock()
+        } else {
+            log.Println("update failed")
+            return fmt.Errorf("update failed")
+        }
+    } else if updatePlace == InvalidComment {
+        if val, ok := message.(*github.IssueComment); ok {
+            studentsMapMu.Lock()
+            (*studentsMapInstance)[ssn].TotalCommentsCount++
+            (*studentsMapInstance)[ssn].InvalidCommentsCount++
+            (*studentsMapInstance)[ssn].InvalidCommentsList = append((*studentsMapInstance)[ssn].InvalidCommentsList, val)
+            studentsMapMu.Unlock()
+        } else {
+            log.Println("update failed")
+            return fmt.Errorf("update failed")
+        }
+    } else {
+        return fmt.Errorf("unknown format")
+    }
+
+    return nil
+}
+
+func GetStudentIssueBySSN(ssn string) *StudentIssues  {
+    return (*GetStudentsMap())[ssn]
 }

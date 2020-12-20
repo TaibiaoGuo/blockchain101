@@ -1,17 +1,30 @@
 package main
 
 import (
-    "stat/pkg/cache"
-    "stat/pkg/githubapi"
-    "time"
+    "context"
+    "fmt"
+    "github.com/google/go-github/v33/github"
+    "golang.org/x/oauth2"
+    "log"
+    "os"
 )
 
 func main() {
-    go githubapi.Run()
-    cache.GetStudentsMap()
-    // 通知StudentsMap初始化成功
-    githubapi.StudentsMapCreatedSignal <- true
-    for {
-        time.Sleep(time.Second*60)
+    ctx := context.Background()
+    var client *github.Client
+
+    if os.Getenv("BLOCKCHAIN101ACCESSTOEKN") != "" {
+        ts := oauth2.StaticTokenSource(
+            &oauth2.Token{AccessToken: os.Getenv("BLOCKCHAIN101ACCESSTOEKN")},
+        )
+        log.Println("auth client")
+        tc := oauth2.NewClient(ctx, ts)
+        client = github.NewClient(tc)
+    } else {
+        log.Println("not auth client")
+        client = github.NewClient(nil)
     }
+    // repos, _, _ := client.Repositories.List(ctx, "taibiaoguo", nil)
+    issues, _, _ := client.Issues.ListByRepo(ctx, "taibiaoguo", "blockchain101", nil)
+    fmt.Println(issues)
 }

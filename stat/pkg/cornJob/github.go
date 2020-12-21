@@ -98,7 +98,7 @@ func GetCommentsIssueMap(ctx context.Context) *map[cache.IssueCommentId]cache.Is
     // 遍历所有issues
     // 协程组
     var wg sync.WaitGroup
-    // 限制，每秒10个令牌
+    // 限制，每秒令牌
     rl := ratelimit.New(10)
     for number := 1; number <= maxNumber; number++ {
         // todo： 1、添加速率限制检查，降低执行时长；

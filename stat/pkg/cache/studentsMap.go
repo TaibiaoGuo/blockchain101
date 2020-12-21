@@ -44,7 +44,6 @@ type StudentIssues struct {
 // 只在程序启动时执行一次，从excel文件`NameAndId.xlsx`中读取学生的姓名和学号生成短标识符号，如`仪001`，建立内存数据库
 func GetStudentsMap() *StudentsMap {
     cacheOnce.Do(func() { lazyInitCache() })
-    log.Printf("studentsMap created")
     return studentsMapInstance
 }
 

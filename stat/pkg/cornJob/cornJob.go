@@ -67,7 +67,7 @@ func (c *CornJob) run(ctx context.Context) error {
     }
     // 日志打印，显示每个学生的信息
     for _, ssn := range cache.GetStudentShortNameList(){
-        log.Println(cache.GetStudentIssueBySSN(ssn))
+        fmt.Println(cache.GetStudentIssueBySSN(ssn).StudentShortName,cache.GetStudentIssueBySSN(ssn).TotalIssuesCount,cache.GetStudentIssueBySSN(ssn).TotalCommentsCount)
     }
 
     //

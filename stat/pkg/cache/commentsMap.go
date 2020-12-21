@@ -72,10 +72,12 @@ func IsIssueOpenByCommentId(id IssueCommentId) bool  {
     // 根据commentId获取issuesId
     issueId := (*allCommentIssueMapInstance)[id]
     allCommentsMapMu.RUnlock()
-    allIssuesMapMu.RLock()
     // 根据issuesId获取issue
     issue := GetIssueById(issueId)
-    allIssuesMapMu.RUnlock()
+    // todo : 找到issue为nil的原因
+    if issue == nil {
+        return false
+    }
     if *issue.State == "open" {
         return true
     } else {

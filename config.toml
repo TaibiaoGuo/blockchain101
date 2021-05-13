@@ -65,7 +65,7 @@ google_analitycs_id = "UA-158584793-2" # your id
 # contact form action
 contact_form_action = "#" # contact form works with : https://formspree.io
 # copyright
-copyright = "&copy; 2020 [TaibiaoGuo](https://github.com/TaibiaoGuo) All Rights Reserved"
+copyright = "&copy; 2020 [TaibiaoGuo](https://www.taibiaoguo.com/about/) All Rights Reserved"
 
 # preloader
 [params.preloader]
